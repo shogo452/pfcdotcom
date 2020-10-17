@@ -1,1 +1,10 @@
-aaaaaaaaaaaa
+<% @products.each do |product| %>
+  <%= product.name %>
+  <%= product.protein %>
+  <%= product.fat %>
+  <%= product.carbo %>
+  <%= product.price %>
+  <%= link_to "編集", "products/#{product.id}/edit", method: :get %>
+  <%= link_to "削除", "products/#{product.id}", method: :delete, data: {confirm: "商品を削除します。よろしいですか？"} %>
+<% end %>
+
