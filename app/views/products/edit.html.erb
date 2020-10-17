@@ -1,0 +1,14 @@
+<%= form_for(@product) do |f| %>
+  <%= f.label "名前" %>
+  <%= f.text_field :name %><br/>
+  <%= f.label "タンパク質[g]" %>
+  <%= f.text_field :protein %><br/>  
+  <%= f.label "脂質[g]" %>
+  <%= f.text_field :fat %><br/>  
+  <%= f.label "炭水化物[g]" %>
+  <%= f.text_field :carbo %><br/>
+  <%= f.label "価格[円]" %>
+  <%= f.text_field :price %><br/>
+  <%= f.submit "保存する" %><br/>
+  <%= link_to "キャンセル", root_path %>
+<% end %>
