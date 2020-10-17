@@ -4,6 +4,34 @@
   <%= render "devise/shared/error_messages", resource: resource %>
 
   <div class="field">
+    <%= f.label :nickname %><br />
+    <%= f.text_field :nickname, placeholder: 'ニックネームを入力(必須)'%>
+  </div>
+
+  <div class="field">
+    <%= f.label :gender %><br />
+    <%= f.text_field :gender, placeholder: '性別を入力(必須)'%>
+  </div>
+
+  <div class="field">
+    <%= f.label :birth_year %><br />
+    <%= f.text_field :birth_year, placeholder: '年(必須)'%>
+  </div>
+  <div class="field">
+    <%= f.label :birth_month %><br />
+    <%= f.text_field :birth_month, placeholder: '月(必須)'%>
+  </div>
+  <div class="field">
+    <%= f.label :birth_day %><br />
+    <%= f.text_field :birth_day, placeholder: '日(必須)'%>
+  </div>
+
+  <div class="field">
+    <%= f.label :area %><br />
+    <%= f.text_field :area, placeholder: '都道府県(必須)'%>
+  </div>
+
+  <div class="field">
     <%= f.label :email %><br />
     <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
   </div>
