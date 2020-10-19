@@ -23,7 +23,7 @@ module Pfcdotcom
     config.load_defaults 5.2
     config.i18n.default_locale = :ja
     config.time_zone = 'Asia/Tokyo'
-    condig.generators do |g|
+    config.generators do |g|
       g.assets false
     end
 
