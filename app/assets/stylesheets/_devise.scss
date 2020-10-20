@@ -42,7 +42,15 @@
   }
 }
 
-.signup {
+.edit_image {
+  background-image: image-url("user_edit.jpg");
+  background-size: cover;
+}
+
+.signup,
+.image,
+.login,
+.user-edit {
   min-height: 100vh;
 }
 
