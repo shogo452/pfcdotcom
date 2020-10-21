@@ -50,9 +50,11 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.0'
 end
 
+gem 'carrierwave'
 gem 'devise'
 gem 'devise-i18n'
 gem 'devise-bootstrap-views', '~> 1.0'
+gem "mini_magick"
 gem 'pry-rails'
 gem 'rails-i18n', '~> 5.1'
 

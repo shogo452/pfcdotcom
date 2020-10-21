@@ -44,6 +44,8 @@
       </div>
 
       <div class="col-6">
+        <%= f.label :image %>
+        <%= f.file_field :image %>
         <%= f.submit "投稿する", class: "btn btn-primary my-3" %><br/>
         <%= link_to "キャンセル", root_path %>
       </div>
