@@ -4,6 +4,16 @@
   <%= product.fat %>
   <%= product.carbo %>
   <%= product.price %>
+  <% if product.image %>
+    <%= link_to product_path(product), method: :get do %>
+      <%= image_tag product.image_url, class: "card-img mx-auto d-block product__photo", alt: "aaa", height: "200", width: "200" %>
+    <% end %>
+  <% else %>
+    <%= link_to product_path(product), method: :get do %>
+      <%= image_tag "noimage.jpg", class: "card-img mx-auto d-block product__photo", alt: "aaa" %>
+    <% end %>
+  <% end %>
+  
   <%= link_to "編集", "products/#{product.id}/edit", method: :get %>
   <%= link_to "削除", "products/#{product.id}", method: :delete, data: {confirm: "商品を削除します。よろしいですか？"} %>
 <% end %>
