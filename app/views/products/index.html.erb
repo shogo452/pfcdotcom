@@ -6,7 +6,7 @@
   <%= product.price %>
   <% if product.image %>
     <%= link_to product_path(product), method: :get do %>
-      <%= image_tag product.image_url, class: "card-img mx-auto d-block product__photo", alt: "aaa", height: "200", width: "200" %>
+      <%= image_tag product.image_url, class: "card-img mx-auto d-block product__photo", alt: "aaa" %>
     <% end %>
   <% else %>
     <%= link_to product_path(product), method: :get do %>
