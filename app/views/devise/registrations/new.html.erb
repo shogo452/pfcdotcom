@@ -41,31 +41,6 @@
                   <%= f.label :nickname %>
                 </div>
 
-
-                <div class="form-label-group">
-                  <%= f.text_field :gender, placeholder: '性別を入力(必須)', class: "form-control"%>
-                  <%= f.label :gender %>
-                </div>
-
-                <div class="form-label-group">
-                  <%= f.label :birth_year %>
-                  <%= f.text_field :birth_year, placeholder: '年(必須)'%>
-                </div>
-
-                <div class="form-label-group">
-                  <%= f.label :birth_month %><br />
-                  <%= f.text_field :birth_month, placeholder: '月(必須)'%>
-                </div>
-                <div class="form-label-group">
-                  <%= f.label :birth_day %><br />
-                  <%= f.text_field :birth_day, placeholder: '日(必須)'%>
-                </div>
-
-                <div class="form-label-group">
-                  <%= f.label :area %><br />
-                  <%= f.text_field :area, placeholder: '都道府県(必須)'%>
-                </div>
-
                 <%= f.submit "Sign up", class: 'btn btn-primary btn-signup btn-block mb-2'%>
 
               <% end %>

@@ -50,6 +50,7 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.0'
 end
 
+gem 'active_hash'
 gem 'carrierwave'
 gem 'devise'
 gem 'devise-i18n'
