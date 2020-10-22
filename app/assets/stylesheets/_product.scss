@@ -3,3 +3,68 @@
   height: 30px;
   width: 165px;
 }
+
+.welcome-header {
+  background-image: image-url("header_image.jpg");
+  background-size: cover;
+  position: relative;
+
+  &__logo {
+    text-align: center;
+  }
+
+  &__title {
+    color: white;
+    text-shadow: 0.5px 0.5px 0.5px lightgrey;
+    font-weight: bold;
+  }
+
+  &__message {
+    color: white;
+    text-shadow: 0.5px 0.5px 0.5px lightgrey;
+  }
+
+}
+
+.reference-link {
+  position: absolute;
+  right: 5px;
+  bottom: 5px;
+  color: white;
+}
+
+.test-user-login {
+  display: inline-block;
+}
+
+
+.product {
+  &__photo {
+    padding: 10px;
+  }
+
+  &__date {
+    display: inline-block;
+    text-align: center;
+    width: 100%;
+  }
+
+  &__icon {
+    display: inline-block;
+  }
+
+  &__response-list {
+    text-align: center;
+    width: 100%;
+
+    &__item {
+      display: inline-block;
+    }
+  }
+}
+
+.ranking {
+  &__title {
+    display: inline;
+  }
+}

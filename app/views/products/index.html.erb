@@ -1,20 +1,158 @@
-<% @products.each do |product| %>
-  <%= product.name %>
-  <%= product.protein %>
-  <%= product.fat %>
-  <%= product.carbo %>
-  <%= product.price %>
-  <% if product.image %>
-    <%= link_to product_path(product), method: :get do %>
-      <%= image_tag product.image_url, class: "card-img mx-auto d-block product__photo", alt: "aaa" %>
-    <% end %>
-  <% else %>
-    <%= link_to product_path(product), method: :get do %>
-      <%= image_tag "noimage.jpg", class: "card-img mx-auto d-block product__photo", alt: "aaa" %>
-    <% end %>
-  <% end %>
-  
-  <%= link_to "編集", "products/#{product.id}/edit", method: :get %>
-  <%= link_to "削除", "products/#{product.id}", method: :delete, data: {confirm: "商品を削除します。よろしいですか？"} %>
+<%= render "layouts/header" %>
+
+<% unless user_signed_in? %>
+  <div class="jumbotron jumbotron-fluid welcome-header">
+    <div class="row">
+      <div class="col col-4">
+        <div class="welcome-header__logo">
+          <%= image_tag "logo_transparent.png", size: "300x300" %>
+        </div>
+      </div>
+      <div class="col col-8">
+        <h1 class="display-4 welcome-header__title">Welcome to PFC.com !!</h1>
+        <p class="lead welcome-header__message">
+          PFC.comは筋トレやダイエットに取り組むユーザーに向けた<br/>高タンパク質、低糖質の商品情報をシェアできるサービスです。<br/>
+          タンパク質（Protein）、脂質（Fat）、炭水化物（Carbo）、糖質（Sugar）の<br/>4つの栄養素量をシェアしましょう！
+        </p>
+        <p class="text-light">すぐに全機能をお試しになりたい場合は、ゲストユーザーとしてログインできます。</p>
+        <%= form_for User.new, url: user_session_path, html: {class: "test-user-login"} do |f| %>
+          <%= f.hidden_field :email, value: "test@example.com" %>
+          <%= f.hidden_field :password, value: "testtest" %>
+          <%= f.submit "ゲストユーザーでログイン", class: "btn btn-primary btn-sm mr-2" %>
+        <% end %>
+      </div>
+      <small class="reference-link">Designed by <a href="https://jp.freepik.com/free-photos-vectors/background">Freepik</a></small>
+    </div>
+  </div>
 <% end %>
 
+<div class="row pt-3 px-4">
+<div class="col col-lg-8 col-sm-12">
+
+    <div class="container">
+      <div class="d-flex flex-wrap">
+
+        <% @products.each do |product| %>
+
+        <div class="card mb-3 border-1" style="width: 500px;">
+          <div class="row no-gutters">
+            <div class="col-md-4">
+              <% if product.image_url %>
+                <%= link_to product_path(product), method: :get do %>
+                  <%= image_tag product.image_url(:thumb), class: "card-img mx-auto d-block product__photo", alt: "aaa" %>
+                <% end %>
+              <% else %>
+                <%= link_to product_path(product), method: :get do %>
+                  <%= image_tag "noimage.jpg", class: "card-img mx-auto d-block product__photo", alt: "aaa" %>
+                <% end %>
+              <% end %>
+              <div class="product__response-list">
+                <div class="product__response-list__item">
+                  <%= fa_icon "thumbs-up" %>
+                </div>
+                <div class="product__response-list__item">
+                  <%= fa_icon "comment" %>
+                </div>
+                <div class="product__response-list__item">
+                  <%= fa_icon "heart" %>
+                </div>
+
+              </div>
+
+            </div>
+            <div class="col-md-8">
+              <div class="card-body">
+                <h5 class="card-title">
+                <%= product.name %>
+                </h5>
+                <% if product.new_arrival? %>
+                  <span class="badge badge-secondary ml-1">New</span><br/>
+                <% end %%>
+                <% if product.protein? %>
+                  <span class="card-text">たんぱく質: <strong class="h4"><%= product.protein.to_f %></strong>g</span><br/>
+                <% end %>
+                <% if product.fat? %>
+                  <span class="card-text">脂質: <strong class="h4"><%= product.fat.to_f %></strong>g</span><br/>
+                <% end %>
+                <% if product.carbo? %>
+                  <span class="card-text">炭水化物: <strong class="h4"><%= product.carbo.to_f %></strong>g</span><br/>
+                <% end %>
+                <% if product.sugar? %>
+                  <span class="card-text">糖質: <strong class="h4"><%= product.sugar.to_f %></strong>g</span><br/>
+                <% end %>
+
+            
+                <% if user_signed_in? && product.user.id == current_user.id %>
+                  <li class="product__icon">
+                    <%= link_to "/products/#{product.id}/edit", method: :get do %>
+                      <%= fa_icon "edit", style: "color:black" %>
+                    <% end %>
+                  </li>
+                  <li class="product__icon">
+                    <%= link_to "/products/#{product.id}", method: :delete, data: { confirm: "商品を削除します。よろしいですか?"} do %>
+                      <%= fa_icon "trash" , style: "color:black" %>
+                    <% end %>
+                  </li>
+                <% end %>
+
+              </div>
+            </div>
+          </div>
+        </div>
+        <% end %>
+
+      </div>
+    </div>
+</div>
+</div>
+<div class="row">
+<div class="col-5 mx-2 my-2">
+    <%= fa_icon "crown" %>
+    <h5 class="ranking__title">いいねランキング</h5>
+      <table class="table">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">順位</th>
+            <th scope="col">名前</th>
+            <th scope="col">いいね数</th>
+          </tr>
+        </thead>
+        <tbody>
+            <tr>
+              <th scope="row"></th>
+              <td>
+              </td>
+              <td></td>
+            </tr>
+          </tr>
+        </tbody>
+      </table>
+</div>
+<div class="col-5 mx-2 my-2">
+    <%= fa_icon "heart" %>
+    <h5 class="ranking__title">お気に入りランキング</h5>
+
+      <table class="table">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">順位</th>
+            <th scope="col">名前</th>
+            <th scope="col">お気に入り数</th>
+          </tr>
+        </thead>
+        <tbody>
+
+            <tr>
+              <th scope="row"></th>
+              <td>
+              </td>
+              <td></td>
+            </tr>
+          </tr>
+        </tbody>
+      </table>
+  </div>
+</div>
+
+
+<%= render "layouts/footer" %>

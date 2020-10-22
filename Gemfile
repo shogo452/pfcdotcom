@@ -55,6 +55,7 @@ gem 'carrierwave'
 gem 'devise'
 gem 'devise-i18n'
 gem 'devise-bootstrap-views', '~> 1.0'
+gem 'font-awesome-rails'
 gem "mini_magick"
 gem 'pry-rails'
 gem 'rails-i18n', '~> 5.1'
