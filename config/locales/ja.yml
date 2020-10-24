@@ -1,0 +1,20 @@
+ja:
+  enums:
+    balance:
+      gender:
+        noselect: --未選択--
+        male: 男性
+        female: 女性
+      activity:
+        noselect: --未選択--
+        low: 低い(運動量:小)
+        normal: まあまあ高い(運動量:中)
+        high: 高い(運動量:大)
+      fitness_type:
+        noselect: --未選択--
+        diet: ダイエット(減量)
+        keep: 現状維持
+        bulkup: バルクアップ(増量)
+  views:
+    pagination:
+      truncate: "..."

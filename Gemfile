@@ -52,6 +52,7 @@ end
 
 gem 'active_hash'
 gem 'carrierwave'
+gem 'chartkick'
 gem 'devise'
 gem 'devise-i18n'
 gem 'devise-bootstrap-views', '~> 1.0'

@@ -1,0 +1,117 @@
+<%= render "layouts/header" %>
+<div class="container">
+  <div class="row product-detail">
+        <div class="col col-4 product-detail__left">
+          <div class="product-detail__left__image">
+            <% if @product.image_url %>
+              <%= image_tag @product.image_url(:thumb), alt: "aaa" %>
+            <% else %>
+              <%= image_tag "noimage.jpg", alt: "aaa", size: "200x200" %>
+            <% end %>
+          </div>
+          <div class="product-detail__left__button">
+            <%= button_tag type: "submit", class: "btn btn-primary btn-sm" do %>
+              <i class="fas fa-heart mr-2"></i>お気に入り
+            <% end %>
+          </div>
+          <div class="product-detail__left__button">
+            <%= button_tag type: "submit", class: "btn btn-primary btn-sm" do %>
+              <i class="fas fa-thumbs-up mr-2"></i>いいね
+            <% end %>
+          </div>
+          <div class="product-detail__left__response-list">
+            <%= fa_icon "thumbs-up" %>
+            <small>14</small>
+            <%= fa_icon "heart" %>
+            <small>14</small>
+          </div>
+        </div>
+        <div class="col col-4 product-detail__right">
+          <h3 class="product-detail__name">
+            <%= @product.name %>
+            <% if @product.new_arrival? %>
+              <span class="badge badge-secondary ml-1">New</span><br/>
+            <% end %>
+          </h3>
+          <div class="product__date">
+            <span class="text-muted"><i class="far fa-clock pr-2"></i><%= @product.created_at.to_s(:datetime) %></span>
+          </div>
+          <ul class="product-detail__list">
+            <li class="product-detail__list__item">
+              タンパク質:  
+              <% if @product.protein? %>
+                <span class="product-detail__list__item__number"><%= @product.protein.to_f %></span>g
+              <% end %>
+            </li>
+            <li class="product-detail__list__item">
+              脂質:  
+              <% if @product.fat? %>
+                <span class="product-detail__list__item__number"><%= @product.fat.to_f %></span>g
+              <% end %>
+            </li>
+            <li class="product-detail__list__item">
+              炭水化物:  
+              <% if @product.carbo? %>
+                <span class="product-detail__list__item__number"><%= @product.carbo.to_f %></span>g
+              <% end %>
+            </li>
+            <li class="product-detail__list__item">
+              糖質:  
+              <% if @product.sugar %>
+                <span class="product-detail__list__item__number"><%= @product.sugar.to_f %></span>g
+              <% end %>
+            </li>
+            <li class="product-detail__list__item">
+              カロリー :  
+              <% if @product.calory? %>
+                <span class="product-detail__list__item__number"><%= @product.calory.to_f %></span>kcal
+              <% end %>
+            </li>
+            <li class="product-detail__list__item">
+              価格 :  
+              <% if @product.price? %>
+                <span class="product-detail__list__item__number"><%= @product.price %></span>円
+              <% end %>
+            </li>
+          </ul>
+          <div class="product-detail__footer__tag-list">
+            <span><%= fa_icon "tags" %>タグ</span><br/>
+            <span class="badge badge-info">
+              hashtag3
+            </span>
+          </div>
+          <div class="product-detail__footer__icon-list mt-3">
+            <% if user_signed_in? && @product.user.id == current_user.id %>
+              <li class="product__icon">
+                <%= link_to "/products/#{@product.id}/edit", method: :get, class: "btn btn-primary btn-sm" do %>
+                  <i class="fas fa-edit mr-2"></i>編集
+                <% end %>
+              </li>
+              <li class="product__icon">
+                <%= link_to "/products/#{@product.id}", method: :delete, class: "btn btn-primary btn-sm" do %>
+                  <i class="fas fa-trash mr-2"></i>削除
+                <% end %>
+              </li>
+              <% if @product.purchase_url?%>
+                <li class="product__icon">
+                  <%= link_to "#{@product.purchase_url}", class: "btn btn-primary btn-sm" do %>
+                    <i class="fas fa-shopping-cart mr-2"></i>購入
+                  <% end %>
+                </li>
+              <% end %>
+            <% end %>
+          </div>
+
+
+        </div>
+        <div class="col col-4">
+          <%= render partial: "chart", locals: { nutrition: @nutrition} %>
+        </div>
+  </div>
+            
+
+</div>
+<%= render "layouts/footer" %>
+
+
+

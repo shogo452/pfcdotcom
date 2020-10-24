@@ -19,6 +19,11 @@ class ProductsController < ApplicationController
     end
   end
 
+  def show
+    @product = Product.find(params[:id])
+    @nutrition = [@product.protein, @product.fat, @product.carbo]
+  end
+
   def update
     @product = Product.find(params[:id])
     if @product.update(product_params)
