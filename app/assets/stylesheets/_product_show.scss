@@ -1,0 +1,38 @@
+.product-detail {
+  &__left {
+    &__image {
+      text-align: center;
+    }
+
+    &__button {
+      text-align: center;
+      padding-top: 10px;
+    }
+
+    &__response-list {
+      text-align: center;
+      padding-top: 10px;
+    }
+  }
+
+
+  &__right {
+    float: right;
+  }
+
+  &__list {
+    list-style: none;
+
+
+    &__item {
+      font-size: 20px;
+      height: 60px;
+      line-height: 60px;
+
+      &__number {
+        font-size: 40px;
+        font-weight: bold;
+      }
+    }
+  }
+}

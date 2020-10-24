@@ -122,6 +122,9 @@
                   <%= image_tag "noimage.jpg", class: "card-img mx-auto d-block product__photo", alt: "aaa" %>
                 <% end %>
               <% end %>
+              <div class="product__date">
+                <p class="card-text"><i class="far fa-calendar pr-2"></i><small class="text-muted"><%= product.created_at.to_s(:date) %></small></p>
+              </div>
               <div class="product__response-list">
                 <div class="product__response-list__item">
                   <%= fa_icon "thumbs-up" %>
