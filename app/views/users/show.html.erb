@@ -69,28 +69,96 @@
         </div>
 
       </div>
-        <div class="card-deck border-0 my-2 macro-list">
-          <div class="card border-0 macro-list__item__protein">
-            <div class="macro-list__item__value">
-              <span class="macro-list__item__value__char"><%= current_user.balance.protein_intake %></span>[g]
-            </div>
-            <span>タンパク質</span>
+      <div class="card-deck border-0 my-2 macro-list">
+        <div class="card border-0 macro-list__item__protein">
+          <div class="macro-list__item__value">
+            <span class="macro-list__item__value__char"><%= current_user.balance.protein_intake %></span>[g]
           </div>
-          <div class="card border-0 macro-list__item__fat">
-            <div class="macro-list__item__value">
-              <span class="macro-list__item__value__char"><%= current_user.balance.fat_intake %></span>[g]
-            </div>
-            <span>脂質</span>
+          <span>タンパク質</span>
+        </div>
+        <div class="card border-0 macro-list__item__fat">
+          <div class="macro-list__item__value">
+            <span class="macro-list__item__value__char"><%= current_user.balance.fat_intake %></span>[g]
           </div>
-          <div class="card border-0 macro-list__item__carbo">
-            <div class="macro-list__item__value">
-              <span class="macro-list__item__value__char count"><%= current_user.balance.carbo_intake %></span>[g]
-            </div>
-            <span>炭水化物</span>
+          <span>脂質</span>
+        </div>
+        <div class="card border-0 macro-list__item__carbo">
+          <div class="macro-list__item__value">
+            <span class="macro-list__item__value__char count"><%= current_user.balance.carbo_intake %></span>[g]
           </div>
+          <span>炭水化物</span>
         </div>
       </div>
+    </div>
 
   </div>
+      <div class="row">
+        <div class="col-lg-4 col-sm-2">
+          <table class="table table-sm">
+            <thead>
+              <tr>
+                <th scope="col">年月日</th>
+                <th scope="col">体重[kg]</th>
+                <th scope="col">体脂肪率[%]</th>
+                <th scope="col">
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <%= form_for @record, url: records_path do |f| %>
+                  <td>
+                    <div class="input-group date" id="datetimepicker4" data-target-input="nearest">
+                      <%= f.text_field :date, class: "form-control form-control-sm datetimepicker-input", "data-target": "#datetimepicker4" %>
+                      <div class="input-group-append" data-target="#datetimepicker4" data-toggle="datetimepicker">
+                          <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                      </div>
+                    </div>
+                    <script type="text/javascript">
+                      $(function () {
+                          $('#datetimepicker4').datetimepicker({
+                              format: 'L'
+                          });
+                      });
+                    </script>
+                  </td>
+                  <td>
+                    <%= f.text_field :weight, class: "form-control form-control-sm weight-input" %>
+                  </td>
+                  <td>
+                    <%= f.text_field :body_fat_percentage, class: "form-control form-control-sm body_fat_percentage-input" %>
+                  </td>
+                  <td>
+                    <%= button_tag type: "submit", class: "btn btn-sm" do %>
+                      <%= fa_icon "plus-square" , style: "color:black" %>
+                    <% end %>
+
+
+                  </td>
+                <% end %>
+              </tr>
+              <% @records.each do |record| %>
+                <tr>
+                  <td><%= record.date.to_s(:date) if record.date? %></td>
+                  <td><%= record.weight %></td>
+                  <td><%= record.body_fat_percentage%></td>
+                  <td>
+                    <%= button_to "/records/#{record.id}", method: :delete, class: "btn btn-sm" do %>
+                      <%= fa_icon "minus-square" , style: "color:black" %>
+                    <% end %>
+                  </td>
+                </tr>
+              <% end %>
+              <tr>
+              </tr>
+            </tbody>
+          </table>
+          <%= paginate @records %>
+          <div id="record_error"></div>
+        </div>
+        <div class="col-lg-8 col-sm-2">
+          <%= render "record" %>
+        </div>
+      </div>
 </div>
 <%= render "layouts/footer" %>

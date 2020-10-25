@@ -51,6 +51,7 @@ group :development do
 end
 
 gem 'active_hash'
+gem 'bootstrap4-datetime-picker-rails'
 gem 'carrierwave'
 gem 'chartkick'
 gem 'devise'
@@ -58,7 +59,9 @@ gem 'devise-i18n'
 gem 'devise-bootstrap-views', '~> 1.0'
 gem 'enum_help'
 gem 'font-awesome-rails'
+gem 'kaminari'
 gem "mini_magick"
+gem "momentjs-rails"
 gem 'pry-rails'
 gem 'rails-i18n', '~> 5.1'
 
