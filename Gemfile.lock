@@ -87,6 +87,8 @@ GEM
     devise-bootstrap-views (1.1.0)
     devise-i18n (1.9.0)
       devise (>= 4.7.1)
+    enum_help (0.0.17)
+      activesupport (>= 3.0.0)
     erubi (1.9.0)
     execjs (2.7.0)
     ffi (1.13.1)
@@ -226,6 +228,7 @@ DEPENDENCIES
   devise
   devise-bootstrap-views (~> 1.0)
   devise-i18n
+  enum_help
   font-awesome-rails
   jbuilder (~> 2.5)
   listen (>= 3.0.5, < 3.2)

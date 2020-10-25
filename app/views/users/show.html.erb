@@ -1,0 +1,96 @@
+<%= render "layouts/header" %>
+<div class="container-fluid">
+  <div class="row my-2 mx-2 c1">
+    <div class="col col-8 c2">
+      <div class="user-information">
+        <% if current_user.avatar.attached? %>
+          <%= image_tag current_user.avatar, class: "user-information__image" %>
+        <% else %>
+          <%= image_tag "user_image.png", class: "user-information__image" %>
+        <% end %>
+        <span class="user-information__name"><%= current_user.nickname %></span>
+        <% unless @user.email == "test@example.com" %>
+          <li class="user-information__icon">
+              <%= link_to edit_user_registration_path, method: :get do %>
+                <%= fa_icon "user-edit", style: "color:black" %>
+              <% end %>
+          </li>
+        <% end %>
+      </div>
+      <div class="row c4">
+        <div class="col-8 calculation">
+          <%= form_for (@balance) do |f| %>
+            <div class="form-row">
+              <div class="form-group col-md-3">
+                <%= f.label "性別" %>
+                <%= f.select :gender, Balance.genders_i18n.invert, {}, class: "form-control" %>
+              </div>
+              <div class="form-group col-md-3">
+                <%= f.label "身長[cm]" %>
+                <%= f.text_field :height, placeholder: '身長を入力(必須)', class: 'form-control' %>
+              </div>
+              <div class="form-group col-md-3">
+                <%= f.label "体重[kg]" %>
+                <%= f.text_field :weight, placeholder: '体重を入力(必須)', class: 'form-control' %>
+              </div>
+              <div class="form-group col-md-3">
+                <%= f.label "年齢[才]" %>
+                <%= f.text_field :age, placeholder: '年齢を入力(必須)', class: 'form-control' %>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <%= f.label "アクティブ度" %>
+                <%= f.select :activity, Balance.activities_i18n.keys.map {|k| [I18n.t("enums.balance.activity.#{k}"), k ]}, {}, class: "form-control" %> 
+              </div>
+              <div class="form-group col-md-6">
+                <%= f.label "目的" %>
+                <%= f.select :fitness_type, Balance.fitness_types_i18n.keys.map {|k| [I18n.t("enums.balance.fitness_type.#{k}"), k ]}, {}, class: "form-control" %>
+              </div>
+            </div>
+            <%= f.submit "PFCバランス計算", class: 'btn btn-info' %>
+          <% end %>
+        </div>
+        <div class="col-4 calory-list">
+          <div class="calory-list__item__activity">
+            <div class="activity_metabolism">
+              <%= image_tag "activity_metabolism_image.png", alt: "aaa" %>
+              <span class="calory-list__item__value"><%= current_user.balance.activity_metabolism %></span>[kcal]
+            </div>
+            <span>1日の消費カロリー</span>
+          </div>
+          <div class="calory-list__item__intake">
+            <div class="calory_intake">
+              <%= image_tag "calory_image.png", alt: "aaa" %>
+              <span class="calory-list__item__value"><%= current_user.balance.calory_intake %></span>[kcal]
+            </div>
+            <span>1日の摂取カロリー</span>
+          </div>
+        </div>
+
+      </div>
+        <div class="card-deck border-0 my-2 macro-list">
+          <div class="card border-0 macro-list__item__protein">
+            <div class="macro-list__item__value">
+              <span class="macro-list__item__value__char"><%= current_user.balance.protein_intake %></span>[g]
+            </div>
+            <span>タンパク質</span>
+          </div>
+          <div class="card border-0 macro-list__item__fat">
+            <div class="macro-list__item__value">
+              <span class="macro-list__item__value__char"><%= current_user.balance.fat_intake %></span>[g]
+            </div>
+            <span>脂質</span>
+          </div>
+          <div class="card border-0 macro-list__item__carbo">
+            <div class="macro-list__item__value">
+              <span class="macro-list__item__value__char count"><%= current_user.balance.carbo_intake %></span>[g]
+            </div>
+            <span>炭水化物</span>
+          </div>
+        </div>
+      </div>
+
+  </div>
+</div>
+<%= render "layouts/footer" %>

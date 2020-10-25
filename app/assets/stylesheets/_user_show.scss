@@ -1,0 +1,58 @@
+.user-information {
+  &__image {
+    width: 60px;
+    height: 60px;
+    overflow: hidden;
+    margin-right: 10px;
+    border-radius: 50%;
+  }
+  &__name {
+    display: inline-block;
+  }
+  &__icon {
+    list-style: none;
+    display: inline-block;
+    margin-left: 10px;
+  }
+}
+
+.calory-list {
+  &__item {
+    &__activity {
+    background-color: white;
+    text-align: center;
+    }
+    &__intake {
+    background-color: white;
+    text-align: center;
+    }
+    &__value {
+      font-size: 30px;
+    }
+  }
+}
+
+
+.macro-list__item {
+  &__protein {
+    background-color: #ff7f7f !important;
+    text-align: center;
+  }
+  &__fat {
+    background-color: #7fffff !important;
+    text-align: center;
+  }
+
+  &__carbo {
+    background-color: #bfff7f !important;
+    text-align: center;
+  }
+  &__value {
+    &__char {
+      font-size: 30px;
+    }
+  }
+}
+
+
+
