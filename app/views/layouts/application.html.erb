@@ -9,13 +9,24 @@
     <%= stylesheet_link_tag    'application', media: 'all' %>
     <%= javascript_include_tag 'application' %>
     <%= favicon_link_tag('favicon.ico') %>
+    <script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.js"></script>
     <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
     <script src="https://kit.fontawesome.com/b8aaf38a50.js" crossorigin="anonymous"></script>
+
   </head>
 
   <body>
+    <%= render 'layouts/flash' %>
     <div id="wrapper">
       <%= yield %>
     </div>
+  <script>
+  bsCustomFileInput.init();
+  document.getElementById('inputFileReset').addEventListener('click', function() {
+    var elem = document.getElementById('inputFile');
+    elem.value = '';
+    elem.dispatchEvent(new Event('change'));
+  });
+  </script>
   </body>
 </html>

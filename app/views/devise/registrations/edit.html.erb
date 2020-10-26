@@ -21,10 +21,10 @@
 
                 <div class="form-label-group">
                   <%= f.password_field :password, autocomplete: "new-password", class: "form-control"%>
-                  <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
+                  <%= f.label :password %> <i>(変更しない場合は空欄にしてください。)</i><br />
                   <% if @minimum_password_length %>
                     <br />
-                    <em><%= @minimum_password_length %> characters minimum</em>
+                    <em><%= @minimum_password_length %>桁以上で入力してください。</em>
                   <% end %>
                 </div>
 
@@ -35,17 +35,30 @@
 
                 <div class="form-label-group">
                   <%= f.password_field :current_password, autocomplete: "current-password", class: "form-control" %>
-                  <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
+                  <%= f.label :current_password %> <i>(変更するには現在のパスワードを入力してください。)</i><br />
+                </div>
+
+                <div class="form-group">
+                  <label for="inputFile">アバター画像の変更</label>
+                  <div class="input-group">
+                    <div class="custom-file">
+                      <%= f.file_field :avatar, class:"custom-file-input", id:"inputFile" %>
+                      <label class="custom-file-label" for="inputFile" data-browse="参照">アバター画像のファイルを選択...</label>
+                    </div>
+                    <div class="input-group-append">
+                      <button type="button" class="btn btn-outline-secondary input-group-text" id="inputFileReset">取消</button>
+                    </div>
+                  </div>
                 </div>
 
                 <div class="actions">
-                  <%= f.submit "Update", class: "btn btn-primary btn-login btn-block mb-2" %>
+                  <%= f.submit "更新", class: "btn btn-primary btn-login btn-block mb-2" %>
                 </div>
               <% end %>
 
-              <%= link_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %>
+              <%= link_to "ユーザー削除", registration_path(resource_name), data: { confirm: "本当に削除しますか？" }, method: :delete %></br>
 
-              <%= link_to "Back", :back %>
+              <%= link_to '戻る', :back %>
             </div>
           </div>
         </div>
