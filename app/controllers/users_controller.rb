@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   def show
-    @user = User.find(params[:id])
+    @user = User.with_attached_avatar.find(params[:id])
     unless @balance = @user.balance
       @user.build_balance
       @user.balance.protein_intake = 0
@@ -16,4 +16,8 @@ class UsersController < ApplicationController
     @dates = @record_datas.map { |record_data| record_data.date.strftime("%Y/%m/%d") }
     @body_fat_percentages = @record_datas.map(&:body_fat_percentage)
   end
+
+  def destroy
+  end
+  
 end
