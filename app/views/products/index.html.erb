@@ -31,12 +31,13 @@
       <%= fa_icon "tags" %>
     <h5 class="tag_list__title">タグ一覧</h5>
     <div class="tag_list__content">
-      <span class="badge badge-info">
-        hashtag2
-      </span>
-      <span class="badge badge-info">
-        hashtag3
-      </span>
+      <% @tags.each do |tag| %>
+        <span class="badge badge-info">
+          <%= link_to tag.name, tag_index_products_path(tag_name: tag.name), class: "text-white" %> 
+          <%= "(#{tag.taggings_count})"%>
+        </span>
+      <% end %>
+    </div>
     </div>
   </div>
   <div class="col-4">
@@ -73,6 +74,21 @@
               <td>aaaaa</td>
               <td>20</td>
             </tr>
+            <tr>
+              <th scope="row">3</th>
+              <td>aaaaa</td>
+              <td>20</td>
+            </tr>
+            <tr>
+              <th scope="row">4</th>
+              <td>aaaaa</td>
+              <td>20</td>
+            </tr>
+            <tr>
+              <th scope="row">5</th>
+              <td>aaaaa</td>
+              <td>20</td>
+            </tr>
         </tbody>
       </table>
 </div>
@@ -99,6 +115,18 @@
               <td>aaaaa</td>
               <td>20</td>
             </tr>
+              <th scope="row">3</th>
+              <td>aaaaa</td>
+              <td>20</td>
+            </tr>
+              <th scope="row">4</th>
+              <td>aaaaa</td>
+              <td>20</td>
+            </tr>
+              <th scope="row">5</th>
+              <td>aaaaa</td>
+              <td>20</td>
+            </tr>
         </tbody>
       </table>
   </div>
@@ -108,8 +136,7 @@
     <div class="container">
       <div class="d-flex flex-wrap justify-content-around">
 
-        <% @products.each do |product| %>
-
+      <% @products.each do |product| %>
         <div class="card mb-3 border-1", style="width: 500px;" >
           <div class="row no-gutters">
             <div class="col-md-4">
@@ -174,23 +201,23 @@
                   <div class="col">
                     <span class="card-text">たんぱく質</span><br/>
                   <% if product.protein? %>
-                    <strong class="h4"><%= product.protein.to_f %></strong> g<br/>
+                    <strong class="h4 pl-2"><%= product.protein.to_f %></strong> g<br/>
                   <% end %>
                     <span class="card-text">脂質</span><br/>
                   <% if product.fat? %>
-                    <strong class="h4"><%= product.fat.to_f %></strong> g<br/>
+                    <strong class="h4 pl-2"><%= product.fat.to_f %></strong> g<br/>
                   <% end %>
                   </div>
                   <div class="col">
                     <span class="card-text">炭水化物</span><br/>
                   <% if product.carbo? %>
-                    <strong class="h4"><%= product.carbo.to_f %></strong> g<br/>
+                    <strong class="h4 pl-2"><%= product.carbo.to_f %></strong> g<br/>
                   <% end %>
                     <span class="card-text">糖質</span><br/>
                   <% if product.sugar? %>
-                    <strong class="h4"><%= product.sugar.to_f %></strong> g<br/>
+                    <strong class="h4 pl-2"><%= product.sugar.to_f %></strong> g<br/>
                   <% else %>
-                    <strong class="h4"> - </strong> g<br/>
+                    <strong class="h4 pl-2"> - </strong> g<br/>
                   <% end %>
                   </div>
                 </div>
@@ -198,25 +225,20 @@
                   <div class="col">
                     <span class="card-text">価格</span><br/>
                     <% if product.price? %>
-                      <strong class="h4"><%= product.price %></strong> 円<br/>
+                      <strong class="h4 pl-2"><%= product.price %></strong> 円<br/>
                     <% else %>
-                      <strong class="h4"> - </strong> 円<br/>
+                      <strong class="h4 pl-2"> - </strong> 円<br/>
                     <% end %>
                   </div>
                   <div class="col">
                   </div>
                 </div>
-                <span class="badge badge-info text-white">
-                  hashtag1
-                </span>
-                <span class="badge badge-info text-white">
-                  hashtag2
-                </span>
+                <%= render "tag_list", tag_list: product.tag_list %><br/>
               </div>
             </div>
           </div>
         </div>
-        <% end %>
+      <% end %>
 
       </div>
     </div>
