@@ -2,10 +2,12 @@ class ProductsController < ApplicationController
 
   def index
     @products = Product.includes(:user)
+    @tags = ActsAsTaggableOn::Tag.most_used
   end
 
   def new
     @product = Product.new
+    @all_tag_list = ActsAsTaggableOn::Tag.all.pluck(:name)
   end
 
   def edit
@@ -39,9 +41,14 @@ class ProductsController < ApplicationController
     redirect_to root_path
   end
 
+  def tag_index
+    @products = Product.tagged_with(params[:tag_name]).page(params[:page]).per(9)
+    @tag_name = params[:tag_name]
+  end
+
   private
   def product_params
-    params.require(:product).permit(:name, :carbo, :fat, :protein, :sugar, :calory, :price, :purchase_url, :image).merge(user_id: current_user.id)
+    params.require(:product).permit(:name, :carbo, :fat, :protein, :sugar, :calory, :price, :purchase_url, :image, :tag_list).merge(user_id: current_user.id)
   end
 
 end
