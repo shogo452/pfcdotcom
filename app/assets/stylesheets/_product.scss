@@ -40,7 +40,7 @@
 
 .product {
   &__photo {
-    padding: 10px;
+    padding: 5px;
   }
 
   &__date {
@@ -61,6 +61,11 @@
       display: inline-block;
     }
   }
+
+  // &__left-btn {
+  //   vertical-align: center;
+  // }
+
 }
 
 .ranking {
