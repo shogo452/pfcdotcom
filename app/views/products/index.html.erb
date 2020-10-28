@@ -1,15 +1,15 @@
 <%= render "layouts/header" %>
-
 <% unless user_signed_in? %>
   <div class="jumbotron jumbotron-fluid welcome-header">
+  <div class="container-fluid">
     <div class="row">
-      <div class="col col-4">
-        <div class="welcome-header__logo">
+      <div class="col d-none d-sm-block">
+        <div class="welcome-header__logo d-none d-sm-block">
           <%= image_tag "logo_transparent.png", size: "300x300" %>
         </div>
       </div>
-      <div class="col col-8">
-        <h1 class="display-4 welcome-header__title">Welcome to PFC.com !!</h1>
+      <div class="col">
+        <h1 class="display-4 welcome-header__title title">Welcome to PFC.com !!</h1>
         <p class="lead welcome-header__message">
           PFC.comは筋トレやダイエットに取り組むユーザーに向けた<br/>高タンパク質、低糖質の商品情報をシェアできるサービスです。<br/>
           タンパク質（Protein）、脂質（Fat）、炭水化物（Carbo）、糖質（Sugar）の<br/>4つの栄養素量をシェアしましょう！
@@ -24,11 +24,13 @@
       <small class="reference-link">Designed by <a href="https://jp.freepik.com/free-photos-vectors/background">Freepik</a></small>
     </div>
   </div>
+</div>
 <% end %>
-<div class="container">
+
+<div class="container pb-3">
 <div class="row">
   <div class="col-8">
-      <%= fa_icon "tags" %>
+    <%= fa_icon "tags" %>
     <h5 class="tag_list__title">タグ一覧</h5>
     <div class="tag_list__content">
       <% @tags.each do |tag| %>
@@ -38,21 +40,16 @@
         </span>
       <% end %>
     </div>
-    </div>
   </div>
   <div class="col-4">
-    <form class="form-inline ">
-      <input class="form-control form-control-sm mr-3 w-75" type="text" placeholder="検索する名前を入力…"
-        aria-label="Search">
-      <i class="fas fa-search" aria-hidden="true"></i>
-    </form>
+    検索欄
   </div>
 </div>
 </div>
 
-<div class="container">
+<div class="container pb-3">
 <div class="row justify-content-around">
-<div class="col-5 mx-2 my-2">
+<div class="col">
     <%= fa_icon "crown" %>
     <h5 class="ranking__title">いいねランキング</h5>
       <table class="table table-sm my-2">
@@ -92,7 +89,7 @@
         </tbody>
       </table>
 </div>
-<div class="col-5 mx-2 my-2">
+<div class="col">
     <%= fa_icon "heart" %>
     <h5 class="ranking__title">お気に入りランキング</h5>
 
@@ -137,12 +134,12 @@
       <div class="d-flex flex-wrap justify-content-around">
 
       <% @products.each do |product| %>
-        <div class="card mb-3 border-1", style="width: 500px;" >
+        <div class="card border-0 pb-1", style="width: 500px;" >
           <div class="row no-gutters">
-            <div class="col-md-4">
+            <div class="col">
               <% if product.image_url %>
                 <%= link_to product_path(product), method: :get do %>
-                  <%= image_tag product.image_url(:thumb), class: "card-img mx-auto d-block product__photo", alt: "aaa" %>
+                  <%= image_tag product.image_url, class: "card-img mx-auto d-block product__photo", alt: "aaa" %>
                 <% end %>
               <% else %>
                 <%= link_to product_path(product), method: :get do %>
@@ -160,15 +157,16 @@
                 <div class="product__response-list__item">
                   <%= fa_icon "heart" %>
                   <small class=>12</small>
-
                 </div>
               </div>
-              <button type="button" class="btn btn-primary btn-sm mb-1 border-0", style="background: #55ACEE;">
-                <%= fa_icon "twitter" %>
-                  Twitterでシェア
-              </button>
-              <div>
-                <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+              <div class="d-block text-center my-1">
+                <button type="button" class="btn btn-primary btn-sm mb-1 border-0 mx-auto", style="background: #55ACEE;">
+                  <%= fa_icon "twitter" %>
+                    Twitterでシェア
+                </button>
+              </div>
+              <div class="d-block text-center mb-1">
+                <div class="btn-group btn-group-sm mx-auto" role="group" aria-label="Basic example">
                   <button type="button" class="btn btn-secondary">
                     <%= fa_icon "shopping-cart" %>
                   </button>
@@ -182,15 +180,10 @@
                   <% end %>
                 </div>
               </div>
-
-
-
-        
-
             </div>
-            <div class="col-md-8">
+            <div class="col">
               <div class="card-body">
-                <h5 class="card-title">
+                <h5 class="card-title text-truncate">
                 <%= product.name %>
                 </h5></br>
                 <%= image_tag "star-on.png", size: "16x16" %>(2)

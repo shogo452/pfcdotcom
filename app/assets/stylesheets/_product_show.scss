@@ -13,6 +13,11 @@
       text-align: center;
       padding-top: 10px;
     }
+
+    &__date {
+      display: inline-block;
+      width: 100%;
+    }
   }
 
 
@@ -22,7 +27,7 @@
 
   &__list {
     list-style: none;
-
+    padding: 0;
 
     &__item {
       font-size: 20px;
