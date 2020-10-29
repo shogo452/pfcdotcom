@@ -186,7 +186,8 @@
                 <h5 class="card-title text-truncate">
                 <%= product.name %>
                 </h5></br>
-                <%= image_tag "star-on.png", size: "16x16" %>(2)
+                <div id="star-rate-#{product.review.id}"></div>
+                <div class="review-rating" data-score="<%= @rates[product.id] %>"></div>
                 <% if product.new_arrival? %>
                   <span class="badge badge-secondary ml-1">New</span><br/>
                 <% end %>
@@ -239,3 +240,13 @@
 
 
 <%= render "layouts/footer" %>
+
+<script>
+  $('.review-rating').raty({
+    readOnly: true,
+    score: function() {
+      return $(this).attr('data-score');
+    },
+    path: '/assets/'
+  });
+</script>

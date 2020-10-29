@@ -60,6 +60,10 @@
           <div>
             投稿者：tiphp452
           </div>
+          <div class="d-block">
+            <div class="average-review-rating d-inline", data-score=<%= @average_review %>></div>
+            <div class="d-inline text-muted">(<%= @product.reviews.count %>)</div>
+          </div>
           <ul class="product-detail__list">
             <li class="product-detail__list__item">
               タンパク質:  
@@ -113,9 +117,89 @@
           </div>
         </div>
   </div>
-            
-
+  <div class="container">
+    <div class="row">
+      <div class="col-6">
+        <div class="review__form">
+          <%= form_for [@product, @review] do |f| %>
+            <div class="form-group">
+              <div class="field" id="rating-form">
+                <%= f.label "星評価" %>
+                <%= f.hidden_field :rate, id: :review_rate %>
+              </div>
+              <%= f.label "コメント" %>
+              <%= f.text_area :text, class: "form-control" %><br/>
+            </div>
+              <%= f.submit "レビュー評価", class: 'btn btn-primary' %>
+          <% end %>
+        </div>
+        <div class="reviews__title">
+          <%= fa_icon "comments" %>
+          <h5 class="reviews__title">コメント一覧</h5>
+        </div>
+        <div class="reviews__list">
+          <% @reviews.each do |review| %>
+            <div class="review">
+              <div class="review__user-image">
+                <% if review.user.avatar.attached? %>
+                  <%= image_tag review.user.avatar, class: "user-information__image" %>
+                <% else  %>
+                  <%= image_tag "user_image.png", alt: "aaa", class: "user-information__image" %>
+                <% end %>
+              </div>
+              <strong><%= review.user.nickname %></strong>
+              <div id="star-rate-#{review.id}">
+                <div class="review-rating" data-score="<%= review.rate %>">
+                  <small class="text-muted"><i class="far fa-clock pr-2"></i><%= review.created_at.to_s(:datetime) %></small>
+                </div>
+                <div class="review__content">
+                  <pre><%= review.text %></pre>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+      <div class="col-6">
+        <span>aaaaaaaaaaaaaaaaaaaaa</span>
+      </div>
+    </div>
+  </div>
 </div>
+
+<script>
+  $('.average-review-rating').raty({
+    readOnly: true,
+    path: '/assets/',
+    score: function() {
+      return $(this).attr('data-score')
+    }
+  });
+</script>
+
+<script>
+  $('#rating-form').raty({
+    size: 36,
+    starOff: "<%= asset_path('star-off.png') %>",
+    starOn: "<%= asset_path('star-on.png') %>",
+    starHalf: "<%= asset_path('star-half.png') %>",
+    scoreName: 'review[rate]',
+    half: true, 
+  });
+</script>
+
+
+
+<script>
+  $('.review-rating').raty({
+    readOnly: true,
+    score: function() {
+      return $(this).attr('data-score');
+    },
+    path: '/assets/'
+  });
+</script>
+
 <%= render "layouts/footer" %>
 
 

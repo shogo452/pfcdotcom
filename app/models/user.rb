@@ -6,6 +6,7 @@ class User < ApplicationRecord
   has_one :balance, dependent: :destroy
   has_one_attached :avatar
   has_many :records, dependent: :destroy
+  has_many :reviews, dependent: :destroy
 
   enum gender: [:noselect, :male, :female], _prefix: true
   enum activity: [:noselect, :low, :normal, :high], _prefix: true
