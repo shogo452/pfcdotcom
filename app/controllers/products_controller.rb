@@ -3,6 +3,7 @@ class ProductsController < ApplicationController
   def index
     @products = Product.includes(:user)
     @tags = ActsAsTaggableOn::Tag.most_used
+    @rates = Review.group(:product_id).average(:rate)
   end
 
   def new
@@ -24,6 +25,13 @@ class ProductsController < ApplicationController
   def show
     @product = Product.find(params[:id])
     @nutrition = [@product.protein, @product.fat, @product.carbo]
+    @reviews = @product.reviews
+    @review = Review.new
+    if @product.reviews.blank?
+      @average_review = 0
+    else
+      @average_review = @product.reviews.average(:rate).round(2)
+    end
   end
 
   def update
