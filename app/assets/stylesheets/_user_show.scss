@@ -1,7 +1,7 @@
 .user-information {
   &__image {
-    width: 60px;
-    height: 60px;
+    width: 100px;
+    height: 100px;
     overflow: hidden;
     margin-right: 10px;
     border-radius: 50%;
@@ -16,19 +16,16 @@
   }
 }
 
-.calory-list {
-  &__item {
+.calory-list__item {
+
     &__activity {
-    background-color: white;
     text-align: center;
     }
     &__intake {
-    background-color: white;
     text-align: center;
     }
     &__value {
-      font-size: 30px;
-    }
+      font-size: 45px;
   }
 }
 

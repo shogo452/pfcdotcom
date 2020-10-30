@@ -7,13 +7,14 @@ class User < ApplicationRecord
   has_one_attached :avatar
   has_many :records, dependent: :destroy
   has_many :reviews, dependent: :destroy
+  has_one :area
 
   enum gender: [:noselect, :male, :female], _prefix: true
   enum activity: [:noselect, :low, :normal, :high], _prefix: true
   enum fitness_type: [:noselect, :diet, :keep, :bulkup], _prefix: true
 
   extend ActiveHash::Associations::ActiveRecordExtensions
-  belongs_to :prefecure
+  belongs_to_active_hash :prefecture
 
 
 end
