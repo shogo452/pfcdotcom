@@ -10,14 +10,17 @@ class UsersController < ApplicationController
     end
     @balance = @user.balance
     @record = Record.new
-    @records = @user.records.order("date DESC").page(params[:page]).per(3)
+    @records = @user.records.order("date DESC").page(params[:page]).per(4)
     @record_datas = Record.where(user_id: current_user.id).order("date ASC")
     @weights = @record_datas.map(&:weight)
     @dates = @record_datas.map { |record_data| record_data.date.strftime("%Y/%m/%d") }
     @body_fat_percentages = @record_datas.map(&:body_fat_percentage)
+    @prefecture = Prefecture.find(@user.balance.prefecture_id.to_i)
   end
 
   def destroy
   end
+
+
   
 end

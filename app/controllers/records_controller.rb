@@ -27,7 +27,7 @@ class RecordsController < ApplicationController
   private
 
   def record_params
-    params.require(:record).permit(:date, :weight, :body_fat_percentage).merge(user_id: current_user.id)
+    params.require(:record).permit(:date, :weight, :body_fat_percentage, :prefecture_id).merge(user_id: current_user.id)
   end
   
 end
