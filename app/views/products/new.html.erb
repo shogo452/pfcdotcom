@@ -4,53 +4,64 @@
     <div class="row">
       <div class="col-6">
         <%= f.label "名前" %>
-        <%= f.text_field :name, class: "form-control" %><br/>
+        <%= f.text_field :name, class: "form-control", placeholder: "商品名を入力(必須)" %><br/>
 
         <div class="form-row">
           <div class="form-group col-sm-6">
             <%= f.label "タンパク質[g]" %>
-            <%= f.text_field :protein, class: "form-control" %><br/>
+            <%= f.text_field :protein, class: "form-control", placeholder: "半角入力(必須)" %><br/>
           </div>
           <div class="form-group col-sm-6">
             <%= f.label "脂質[g]" %>
-            <%= f.text_field :fat, class: "form-control" %><br/>
+            <%= f.text_field :fat, class: "form-control", placeholder: "半角入力(必須)" %><br/>
           </div>
         </div>
 
         <div class="form-row">
           <div class="form-group col-sm-6">
             <%= f.label "炭水化物[g]" %>
-            <%= f.text_field :carbo, class: "form-control" %><br/>
+            <%= f.text_field :carbo, class: "form-control", placeholder: "半角入力(必須)" %><br/>
           </div>
           <div class="form-group col-sm-6">
             <%= f.label "糖質[g]" %>
-            <%= f.text_field :sugar, class: "form-control" %><br/>
+            <%= f.text_field :sugar, class: "form-control", placeholder: "半角入力(任意)" %><br/>
           </div>
         </div>
 
         <div class="form-row">
           <div class="form-group col-sm-6">
             <%= f.label "カロリー[kcal]" %>
-            <%= f.text_field :calory, class: "form-control" %><br/>
+            <%= f.text_field :calory, class: "form-control", placeholder: "半角入力(任意)" %><br/>
           </div>
           <div class="form-group col-sm-6">
             <%= f.label "価格[円]" %>
-            <%= f.text_field :price, class: "form-control" %><br/>
+            <%= f.text_field :price, class: "form-control", placeholder: "半角入力(任意)" %><br/>
           </div>
         </div>
-
-          <%= f.label "購入リンク" %><br/>
-          <%= f.text_field :purchase_url, class: "form-control"  %><br/>
-      </div>
-
-      <%= f.label "タグ付け" %>
-      <%= f.text_area :tag_list, value: @product.tag_list.join(','), class: "form-control", placeholder: "カンマ「,」で区切ってください。"%><br/>
-
-      <div class="col-6">
-        <%= f.label :image %>
-        <%= f.file_field :image %>
+        <div class="form-check form-check-inline">
+          <%= f.check_box(:url_type, {class: "form-check-input", id: "inlineCheckbox1"}, checked_value = "1", unchecked_value = "0")%>
+          <%= f.label "購入サイトリンク", class: "form-check-label", for: "inlineCheckbox1" %>
+        </div>
+        <div class="form-check form-check-inline">
+          <%= f.check_box(:url_type, {class: "form-check-input", id: "inlineCheckbox2"}, checked_value = "2", unchecked_value = "0")%>
+          <%= f.label "店舗サイトリンク", class: "form-check-label", for: "inlineCheckbox2" %>
+        </div>
+        <%= f.text_field :purchase_url, class: "form-control", placeholder: "https://....(任意)"  %><br/>
         <%= f.submit "投稿する", class: "btn btn-primary my-3" %><br/>
         <%= link_to "キャンセル", root_path %>
+      </div>
+      <div class="col-6">
+        <%= fa_icon "tags" %>
+        <%= f.label "タグ付け" %>
+        <%= f.text_area :tag_list, value: @product.tag_list.join(','), class: "form-control", placeholder: "カンマ「,」で区切ってください。"%><br/>
+        <div id="img_field" onClick="$('#file').click()" >
+          <% if @product.image.url.present? %>
+            <%= image_tag(@product.image.url) %>
+          <% else %>
+            <i class="fas fa-image"></i><i class="fas fa-file-upload add"></i>
+          <% end %>
+        </div>
+        <%= f.file_field :image, class: "image", style: "display:none;", id: "file"%>
       </div>
     </div>
   <% end %>

@@ -1,0 +1,47 @@
+#img_field {
+  font-size: 15px;
+  margin-top: 10px;
+  padding: 5px 8px;
+  border: solid 1px #ced4da;
+  color: #666;
+  position: relative;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 540px;
+  height: 400px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-color: #fff;
+  overflow: hidden;
+  box-sizing: border-box;
+  transition: 0.3s ease-out;
+  text-align: center;
+}
+
+#img_field i {
+  font-size: 100px;
+  color: #aaa;
+  line-height: 400px;
+  transition: 0.3s ease-out;
+}
+
+#img_field i.add {
+  display: none;
+  font-size: 50px;
+  position: absolute;
+  top: -150px;
+  right: 30px;
+}
+
+#img_field:hover {
+  background-color: #007bff;
+  transition: 0.3s ease-out;
+  opacity: 0.9;
+}
+
+#img_field:hover i {
+  transition: 0.3s ease-out;
+  display: block;
+  color: #fff;
+}

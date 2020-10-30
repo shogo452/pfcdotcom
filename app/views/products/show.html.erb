@@ -36,6 +36,9 @@
               <button type="button" class="btn btn-secondary">
                 <%= fa_icon "shopping-cart" %>
               </button>
+              <button type="button" class="btn btn-secondary">
+                <%= fa_icon "store" %>
+              </button>
               <% if user_signed_in? && @product.user.id == current_user.id %>
                 <%= link_to "/products/#{@product.id}/edit", class: "btn btn-secondary", method: :get do %>
                   <%= fa_icon "edit" %>
