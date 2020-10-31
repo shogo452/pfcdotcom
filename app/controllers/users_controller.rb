@@ -18,8 +18,24 @@ class UsersController < ApplicationController
     @prefecture = Prefecture.find(@user.balance.prefecture_id.to_i)
   end
 
-  def destroy
+  def index
+    @users = User.with_attached_avatar
+    @user = User.new
   end
+
+  def followings
+    @user = User.find(params[:id])
+    @users = @user.followings.page(params[:page]).per(5)
+    render 'index'
+  end
+
+  def followers
+    @user = User.find(params[:id])
+    @users = @user.followers.page(params[:page]).per(5)
+    render 'index'
+  end
+
+
 
 
   

@@ -9,6 +9,7 @@ Rails.application.routes.draw do
       get 'tag_index'
     end
   end
+  resources :relationships, only: [:create, :destroy]
   resources :users
   resources :balances
   resources :records
