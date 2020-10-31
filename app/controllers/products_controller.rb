@@ -4,6 +4,7 @@ class ProductsController < ApplicationController
     @products = Product.includes(:user)
     @tags = ActsAsTaggableOn::Tag.most_used
     @rates = Review.group(:product_id).average(:rate)
+    @likes_ranking = Product.find(Like.group(:product_id).order("count(id) DESC").limit(5).pluck(:product_id))
   end
 
   def new
@@ -32,6 +33,7 @@ class ProductsController < ApplicationController
     else
       @average_review = @product.reviews.average(:rate).round(2)
     end
+    @like = Like.new
   end
 
   def update

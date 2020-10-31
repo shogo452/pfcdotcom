@@ -61,31 +61,17 @@
           </tr>
         </thead>
         <tbody>
+          <% @likes_ranking.each.with_index(1) do |product, i| %>
             <tr>
-              <th scope="row">1</th>
-              <td>aaaaa</td>
-              <td>20</td>
+              <th scope="row"><%= "#{i}" %></th>
+              <td>
+                <%= link_to product_path(product), method: :get do %>
+                  <%= product.name %>
+                <% end %>
+              </td>
+              <td><%= "#{product.liked_users.count}"%></td>
             </tr>
-            <tr>
-              <th scope="row">2</th>
-              <td>aaaaa</td>
-              <td>20</td>
-            </tr>
-            <tr>
-              <th scope="row">3</th>
-              <td>aaaaa</td>
-              <td>20</td>
-            </tr>
-            <tr>
-              <th scope="row">4</th>
-              <td>aaaaa</td>
-              <td>20</td>
-            </tr>
-            <tr>
-              <th scope="row">5</th>
-              <td>aaaaa</td>
-              <td>20</td>
-            </tr>
+          <% end %>
         </tbody>
       </table>
 </div>
@@ -152,11 +138,11 @@
               <div class="product__response-list">
                 <div class="product__response-list__item">
                   <%= fa_icon "thumbs-up" %>
-                  <small class=>12</small>
+                  <small class=><%= product.liked_users.count %></small>
                 </div>
                 <div class="product__response-list__item">
                   <%= fa_icon "heart" %>
-                  <small class=>12</small>
+                  <small class=>23</small>
                 </div>
               </div>
               <div class="d-block text-center my-1">
