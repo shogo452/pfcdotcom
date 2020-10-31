@@ -199,25 +199,67 @@
 
   <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
     <li class="nav-item">
-      <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">投稿一覧</a>
+      <a class="nav-link active" id="product-index-tab" data-toggle="tab" href="#product-index" role="tab" aria-controls="product-index" aria-selected="true">投稿一覧</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">お気に入り商品</a>
+      <a class="nav-link" id="favproducts-tab" data-toggle="tab" href="#favproducts" role="tab" aria-controls="favproducts" aria-selected="false">お気に入り商品</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">いいねした商品</a>
+      <a class="nav-link" id="likes-tab" data-toggle="tab" href="#likes" role="tab" aria-controls="likes" aria-selected="false">いいねした商品</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">フォロー</a>
+      <a class="nav-link" id="followings-tab" data-toggle="tab" href="#followings" role="tab" aria-controls="followings" aria-selected="false">フォロー</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">フォロワー</a>
+      <a class="nav-link" id="followers-tab" data-toggle="tab" href="#followers" role="tab" aria-controls="followers" aria-selected="false">フォロワー</a>
     </li>
   </ul>
   <div class="tab-content" id="myTabContent">
-    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">...</div>
-    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div>
-    <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>
+    <div class="tab-pane fade show active" id="product-index" role="tabpanel" aria-labelledby="product-index-tab">
+      <% if @same_user_products.exists? %>
+        <div class="d-flex flex-wrap justify-content-around">
+          <%= render partial: 'products/product', collection: @same_user_products, as: 'product' %>
+        </div> 
+      <% else %>
+        <h6 class="mt-2 ml-2">他に投稿はありません。</h6>
+      <% end %>
+    </div>
+    <div class="tab-pane fade" id="favproducts" role="tabpanel" aria-labelledby="favproducts-tab">
+      <% if current_user.favproducts.exists? %>
+        <div class="d-flex flex-wrap justify-content-around">
+          <%= render partial: 'products/product', collection: current_user.favproducts, as: 'product' %>
+        </div> 
+      <% else %>
+        <h6 class="mt-2 ml-2">お気に入りの商品はありません。</h6>
+      <% end %>
+    </div>
+    <div class="tab-pane fade" id="likes" role="tabpanel" aria-labelledby="likes-tab">
+      <% if current_user.liked_products.exists? %>
+        <div class="d-flex flex-wrap justify-content-around">
+          <%= render partial: 'products/product', collection: current_user.liked_products, as: 'product' %>
+        </div> 
+      <% else %>
+        <h6 class="mt-2 ml-2">いいねした商品はありません。</h6>
+      <% end %>
+    </div>
+    <div class="tab-pane fade" id="followings" role="tabpanel" aria-labelledby="followings-tab">
+      <% if @user_followings.exists? %>
+        <div class="container mt-3">
+          <%= render partial: 'user', collection: @user_followings, as: 'user' %>
+        </div> 
+      <% else %>
+        <h6 class="mt-2 ml-2">フォローしているユーザーがいません。</h6>
+      <% end %>
+    </div>    
+    <div class="tab-pane fade" id="followers" role="tabpanel" aria-labelledby="followers-tab">
+      <% if @user_followers.exists? %>
+        <div class="container mt-3">
+          <%= render partial: 'user', collection: @user_followers, as: 'user' %>
+        </div> 
+      <% else %>
+        <h6 class="mt-2 ml-2">フォロワーはいません。</h6>
+      <% end %>
+    </div>
   </div>
 
 </div>

@@ -1,0 +1,56 @@
+
+    <% unless user == current_user %>
+
+
+    <div class="card", style="max-width: 500px;">
+    <div class="row no-gutters">
+      <div class="col-5 mt-3 text-center">
+        <% if user.avatar.attached? %>
+          <%= image_tag user.avatar, class: "user-card__img mb-1" %>
+        <% else %>
+          <%= image_tag "user_image.png", class: "user-card__img mb-1" %>
+        <% end %>
+        <h6 class="card-title border-0 text-center">
+          <%= user.nickname %>
+        </h6>
+      </div>
+      <div class="col-7">
+        <div class="card-body">
+          <div class="card-text text-left">
+            <%= fa_icon "pencil", class: "mr-1" %>
+            <small>投稿数 : </small>
+            <h5 class="d-inline"><%= user.products.count %></h5>
+            </div>
+          <div class="card-text text-left">
+          <%= fa_icon "user-check", class: "mr-1" %>
+          <small>フォロー数 : </small><h5 class="d-inline"7>
+          <%= user.followings.count %></h5><small>人</small>
+          </div>
+          <div class="card-text text-left">
+          <%= fa_icon "users", class: "mr-1" %>
+          <small>フォロワー数 : </small>
+          <h5 class="d-inline"8><%= user.followers.count %></h5><small>人</small>
+          </div>
+          <% if current_user.following?(user) %>
+            <%= form_for(current_user.relationships.find_by(follow_id: user.id), html: {method: :delete}) do |f| %>
+              <%= f.hidden_field :follow_id, value: user.id %>
+              <%= f.button type: 'submit', class: "btn btn-info btn-sm mt-2" do %>
+                <%= fa_icon "check", style: "color:info" %>
+                フォロー中
+              <% end %>
+            <% end %>
+          <% else %>
+            <%= form_for(current_user.relationships.build) do |f| %>
+              <%= f.hidden_field :follow_id, value: user.id %>
+              <%= f.button type: 'submit', class: "btn btn-outline-info btn-sm mt-2" do %>
+                <%= fa_icon "plus", style: "color:info" %>
+                フォロー
+              <% end %>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    </div>
+
+    <% end %>

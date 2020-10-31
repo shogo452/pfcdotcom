@@ -35,6 +35,10 @@ class ProductsController < ApplicationController
       @average_review = @product.reviews.average(:rate).round(2)
     end
     @like = Like.new
+    tag_list = @product.tag_list
+    @same_taged_products = Product.tagged_with(tag_list, :any => true)
+    @same_user_products = Product.where(user_id: @product.user.id)
+    @rates = Review.group(:product_id).average(:rate)
   end
 
   def update

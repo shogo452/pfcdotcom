@@ -2,13 +2,8 @@
   &__image {
     width: 100px;
     height: 100px;
-    overflow: hidden;
     margin-right: 10px;
     border-radius: 50%;
-    &__index {
-      width: 150px;
-      height: 150px;
-    }
   }
   &__name {
     display: inline-block;
