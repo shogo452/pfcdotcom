@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   root to: 'products#index'
   resources :products do
     resources :reviews
+    resources :likes, only: [:create, :destroy]
     collection do
       get 'tag_index'
     end
