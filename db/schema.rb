@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_30_224408) do
+ActiveRecord::Schema.define(version: 2020_10_31_013906) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -51,6 +51,16 @@ ActiveRecord::Schema.define(version: 2020_10_30_224408) do
     t.datetime "updated_at", null: false
     t.integer "prefecture_id"
     t.index ["user_id"], name: "index_balances_on_user_id"
+  end
+
+  create_table "favorites", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "product_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["product_id"], name: "index_favorites_on_product_id"
+    t.index ["user_id", "product_id"], name: "index_favorites_on_user_id_and_product_id", unique: true
+    t.index ["user_id"], name: "index_favorites_on_user_id"
   end
 
   create_table "likes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -143,6 +153,8 @@ ActiveRecord::Schema.define(version: 2020_10_30_224408) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "balances", "users"
+  add_foreign_key "favorites", "products"
+  add_foreign_key "favorites", "users"
   add_foreign_key "likes", "products"
   add_foreign_key "likes", "users"
   add_foreign_key "products", "users"
