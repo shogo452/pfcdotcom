@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :products do
     resources :reviews
     resources :likes, only: [:create, :destroy]
+    resources :favorites, only: [:create, :destroy]
     collection do
       get 'tag_index'
     end

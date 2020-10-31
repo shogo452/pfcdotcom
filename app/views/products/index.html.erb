@@ -88,28 +88,17 @@
           </tr>
         </thead>
         <tbody>
+          <% @favorites_ranking.each.with_index(1) do |product, i| %>
             <tr>
-              <th scope="row">1</th>
-              <td>aaaaa</td>
-              <td>20</td>
+              <th scope="row"><%= "#{i}" %></th>
+              <td>
+                <%= link_to product_path(product), method: :get do %>
+                  <%= product.name %>
+                <% end %>
+              </td>
+              <td><%= "#{product.favorites.length}"%></td>
             </tr>
-            <tr>
-              <th scope="row">2</th>
-              <td>aaaaa</td>
-              <td>20</td>
-            </tr>
-              <th scope="row">3</th>
-              <td>aaaaa</td>
-              <td>20</td>
-            </tr>
-              <th scope="row">4</th>
-              <td>aaaaa</td>
-              <td>20</td>
-            </tr>
-              <th scope="row">5</th>
-              <td>aaaaa</td>
-              <td>20</td>
-            </tr>
+          <% end %>
         </tbody>
       </table>
   </div>
@@ -142,7 +131,7 @@
                 </div>
                 <div class="product__response-list__item">
                   <%= fa_icon "heart" %>
-                  <small class=>23</small>
+                  <small class=><%= product.favorites.length %></small>
                 </div>
               </div>
               <div class="d-block text-center my-1">

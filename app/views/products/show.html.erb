@@ -10,25 +10,32 @@
             <% end %>
           </div>
           <div class="product-detail__left__button">
-            <%= button_tag type: "submit", class: "btn btn-primary btn-sm" do %>
-              <i class="fas fa-heart mr-2"></i>お気に入り
+            <% if current_user.favproduct?(@product) %>
+              <%= button_to product_favorite_path(@product), class: "btn btn-primary btn-sm", method: :delete  do %>
+                <i class="fas fa-heart mr-2"></i>お気に入りを取り消す
+              <% end %>
+            <% else %>
+              <%= button_to product_favorites_path(@product), class: "btn btn-primary btn-sm" do %>
+                <i class="fas fa-heart mr-2"></i>お気に入り
+              <% end %>
             <% end %>
           </div>
           <div class="product-detail__left__button">
-            <%= button_tag type: "submit", class: "btn btn-primary btn-sm" do %>
-              <i class="fas fa-thumbs-up mr-2"></i>いいね
-            <% end %>
             <% if current_user.already_liked?(@product) %>
-              <%= button_to "いいねを取り消す", product_like_path(@product), class: "btn btn-primary btn-sm", method: :delete %>
+              <%= button_to product_like_path(@product), class: "btn btn-primary btn-sm", method: :delete  do %>
+                <i class="fas fa-thumbs-up mr-2"></i>いいねを取り消す
+              <% end %>
             <% else %>
-              <%= button_to "いいね", product_likes_path(@product), class: "btn btn-primary btn-sm" %>
+              <%= button_to product_likes_path(@product), class: "btn btn-primary btn-sm" do %>
+                <i class="fas fa-thumbs-up mr-2"></i>いいね
+              <% end %>
             <% end %>
           </div>
           <div class="product-detail__left__response-list">
             <%= fa_icon "thumbs-up" %>
             <small><%= @product.liked_users.count %></small>
             <%= fa_icon "heart" %>
-            <small>14</small>
+            <small><%= @product.favorites.length %></small>
           </div>
           <div class="d-block text-center my-1">
             <button type="button" class="btn btn-primary btn-sm mb-1 border-0 mx-auto", style="background: #55ACEE;">
