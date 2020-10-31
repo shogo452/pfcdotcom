@@ -16,6 +16,12 @@ class UsersController < ApplicationController
     @dates = @record_datas.map { |record_data| record_data.date.strftime("%Y/%m/%d") }
     @body_fat_percentages = @record_datas.map(&:body_fat_percentage)
     @prefecture = Prefecture.find(@user.balance.prefecture_id.to_i)
+    @same_user_products = Product.where(user_id: current_user.id)
+    @rates = Review.group(:product_id).average(:rate)
+    @likes_ranking = Product.find(Like.group(:product_id).order("count(id) DESC").limit(5).pluck(:product_id))
+    @favorites_ranking = Product.find(Favorite.group(:product_id).order("count(id) DESC").limit(5).pluck(:product_id))
+    @user_followings = @user.followings
+    @user_followers = @user.followers
   end
 
   def index

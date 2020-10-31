@@ -36,6 +36,8 @@
             <small><%= @product.liked_users.count %></small>
             <%= fa_icon "heart" %>
             <small><%= @product.favorites.length %></small>
+            <%= fa_icon "comment" %>
+            <small class=><%= @product.reviews.length %></small>
           </div>
           <div class="d-block text-center my-1">
             <button type="button" class="btn btn-primary btn-sm mb-1 border-0 mx-auto", style="background: #55ACEE;">
@@ -73,11 +75,10 @@
             <% end %>
           </div>
           <div>
-            投稿者：tiphp452
+            投稿者：<%= @product.user.nickname %>
           </div>
           <div class="d-block">
             <div class="average-review-rating d-inline", data-score=<%= @average_review %>></div>
-            <div class="d-inline text-muted">(<%= @product.reviews.count %>)</div>
           </div>
           <ul class="product-detail__list">
             <li class="product-detail__list__item">
@@ -135,7 +136,7 @@
   <div class="container">
     <div class="row">
       <div class="col-6">
-        <div class="review__form">
+        <div class="review__form mt-3">
           <%= form_for [@product, @review] do |f| %>
             <div class="form-group">
               <div class="field" id="rating-form">
@@ -145,38 +146,71 @@
               <%= f.label "コメント" %>
               <%= f.text_area :text, class: "form-control" %><br/>
             </div>
-              <%= f.submit "レビュー評価", class: 'btn btn-primary' %>
+              <%= f.submit "レビュー評価", class: 'btn btn-primary mb-3' %>
           <% end %>
         </div>
-        <div class="reviews__title">
+        <div class="review__title">
           <%= fa_icon "comments" %>
-          <h5 class="reviews__title">コメント一覧</h5>
+          <h5 class="review__title d-inline-block">レビュー</h5>
         </div>
-        <div class="reviews__list">
-          <% @reviews.each do |review| %>
-            <div class="review">
-              <div class="review__user-image">
-                <% if review.user.avatar.attached? %>
-                  <%= image_tag review.user.avatar, class: "user-information__image" %>
-                <% else  %>
-                  <%= image_tag "user_image.png", alt: "aaa", class: "user-information__image" %>
-                <% end %>
-              </div>
-              <strong><%= review.user.nickname %></strong>
-              <div id="star-rate-#{review.id}">
-                <div class="review-rating" data-score="<%= review.rate %>">
-                  <small class="text-muted"><i class="far fa-clock pr-2"></i><%= review.created_at.to_s(:datetime) %></small>
+        <div class="review__list">
+          <% if @reviews.exists? %>
+            <% @reviews.each do |review| %>
+              <div class="row review__list__item">
+                <div class="col-2 review__list__item__avatar">
+                  <% if review.user.avatar.attached? %>
+                    <%= image_tag review.user.avatar, class: "review__list__item__avatar__img" %>
+                  <% else  %>
+                    <%= image_tag "user_image.png", alt: "aaa", class: "review__list__item__avatar__img" %>
+                  <% end %>
                 </div>
-                <div class="review__content">
-                  <pre><%= review.text %></pre>
+                <div class="col-10">
+                  <div id="star-rate-#{review.id}">
+                    <div class="review-rating" data-score="<%= review.rate %>"></div>
+                  </div>
+                  投稿者：<%= review.user.nickname %><small class="ml-2 text-muted"><%= review.created_at.to_s(:datetime) %></small>
+                  <div class="review__content">
+                    <pre><%= review.text %></pre>
+                  </div>
                 </div>
               </div>
-            </div>
+            <% end %>
+          <% else %>
+            <h6 class="ml-2">レビューはありません。</h6>
           <% end %>
         </div>
       </div>
       <div class="col-6">
-        <span>aaaaaaaaaaaaaaaaaaaaa</span>
+
+        <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
+          <li class="nav-item">
+            <a class="nav-link active" id="same-tag-tab" data-toggle="tab" href="#same-tag" role="tab" aria-controls="same-tag" aria-selected="true">同じタグの投稿</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="same-user-tab" data-toggle="tab" href="#same-user" role="tab" aria-controls="same-user" aria-selected="false">同じユーザーの投稿</a>
+          </li>
+        </ul>
+        <div class="tab-content" id="myTabContent">
+          <div class="tab-pane fade show active" id="same-tag" role="tabpanel" aria-labelledby="same-tag-tab">
+            <% if @same_tagged_products %>
+              <div class="d-flex flex-wrap justify-content-around">
+                <%= render partial: 'product', collection: @same_tagged_products, as: 'product' %>
+              </div> 
+            <% else %>
+              <h6 class="mt-2 ml-2">同じタグの投稿はありません。</h6>
+            <% end %>
+          </div>
+          <div class="tab-pane fade" id="same-user" role="tabpanel" aria-labelledby="same-user-tab">
+            <% if @same_user_products %>
+              <div class="d-flex flex-wrap justify-content-around">
+                <%= render partial: 'product', collection: @same_user_products, as: 'product' %>
+              </div> 
+            <% else %>
+              <h6 class="mt-2 ml-2">同じユーザーの投稿はありません。</h6>
+            <% end %>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>
