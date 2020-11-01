@@ -4,6 +4,7 @@ class RelationshipsController < ApplicationController
     @user = User.find(params[:relationship][:follow_id])
     if current_user.follow(@user)
       flash[:success] = 'ユーザーをフォローしました。'
+      @user.create_notification_follow!(current_user)
       redirect_back(fallback_location: root_path)
     else
       flash[:alert] = 'ユーザーのフォローに失敗しました。'

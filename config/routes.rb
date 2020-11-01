@@ -17,4 +17,9 @@ Rails.application.routes.draw do
   end
   resources :balances
   resources :records
+  resources :notifications do
+    collection do
+      get 'destroy_all'
+    end
+  end
 end

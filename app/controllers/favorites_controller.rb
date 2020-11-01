@@ -2,6 +2,7 @@ class FavoritesController < ApplicationController
   def create
     product = Product.find(params[:product_id])
     current_user.like(product)
+    product.created_favorite_notification_by(current_user)
     redirect_back(fallback_location: root_path)
   end
 

@@ -1,0 +1,19 @@
+<%= render "layouts/header" %>
+<div class="container">
+<h3 class="text-center mt-3">通知</h3>
+  <%= link_to destroy_all_notifications_path do %>
+    <i class="fas fa-trash" style="color: balck;"></i>
+    <h7 style="color: balck;">全削除</h7>
+  <% end %>
+  <hr>
+<% if @notifications.exists? %>
+  <div class="users-index">
+    <ul class="list-group list-group-flush">
+      <%= render @notifications %>
+    </ul>
+  </div>
+<% else %>
+  <p>通知はありません。</p>
+<% end %>
+</div>
+
