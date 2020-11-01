@@ -1,0 +1,20 @@
+<% visiter = notification.visiter %>
+<% product = notification.product %>
+<li class="list-group-item">
+  <div class="media">
+  <%= link_to user_path(notification.visiter) do %>
+    <% if visiter.avatar.attached? %>
+      <%= image_tag visiter.avatar, class: "review__list__item__avatar__img" %>
+    <% else  %>
+      <%= image_tag "user_image.png", alt: "aaa", class: "review__list__item__avatar__img" %>
+    <% end %>
+  <% end %>
+  <div class="media-body">
+  <%= notification_form(notification) %><span class="moderate-font"><%= "(#{time_ago_in_words(notification.created_at)}前)" %></span>
+  <br>
+  <% if !@review.nil? %>
+    <p class="moderate-font" style="color: #C0C0C0;"><%= @review %></p>
+  <% end %>
+  </div>
+  </div>
+</li>

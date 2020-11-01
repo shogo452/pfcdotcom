@@ -2,6 +2,8 @@ class LikesController < ApplicationController
 
   def create
     @like = current_user.likes.create(product_id: params[:product_id])
+    @product = Product.find(params[:product_id])
+    @product.created_like_notification_by(current_user)
     redirect_back(fallback_location: root_path)
   end
 
