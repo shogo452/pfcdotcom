@@ -18,8 +18,10 @@ class ProductsController < ApplicationController
   end
 
   def create
+    notifier = Slack::Notifier.new(ENV['SLACK_WEBHOOK_URL'])
     @product = Product.new(product_params)
     if @product.save
+      notifier.ping "product:#{@product.name}が投稿されました。"
       redirect_to action: :index
     end
   end
