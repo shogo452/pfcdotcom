@@ -1,4 +1,5 @@
 class ProductsController < ApplicationController
+  before_action :set_search
 
   def index
     @products = Product.includes(:user)
@@ -63,6 +64,11 @@ class ProductsController < ApplicationController
     @tag_name = params[:tag_name]
   end
 
+  def set_search
+    @search = Product.ransack(params[:q])
+    @search_products = @search.result.includes(:user).order("created_at DESC").page(params[:page]).per(6)
+  end
+  
   private
   def product_params
     params.require(:product).permit(:name, :carbo, :fat, :protein, :sugar, :calory, :price, :purchase_url, :image, :tag_list).merge(user_id: current_user.id)

@@ -68,6 +68,7 @@ gem "mini_magick"
 gem "momentjs-rails"
 gem 'pry-rails'
 gem 'rails-i18n', '~> 5.1'
+gem 'ransack'
 
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
