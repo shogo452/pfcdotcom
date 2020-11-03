@@ -1,0 +1,64 @@
+<%= render "layouts/header" %>
+<div class="container">
+  <h3 class="">Messaging</h3>
+  <div class="">
+    <div class="row">
+      <div class="col mesgs">
+        <div class="msg_history px-5">
+
+          <% if @messages.present? %>
+            <% @messages.each do |m| %>
+              <% if m.user.id == current_user.id %>
+                <div class="incoming_msg">
+                  <div class="incoming_msg_img">
+                    <% if m.user.avatar.attached? %>
+                      <%= image_tag m.user.avatar %>
+                    <% else %>
+                      <%= image_tag "user_image.png" %>
+                    <% end %>  
+                  </div>
+                  <div class="received_msg">
+                    <div class="received_withd_msg">
+                      <p><%= m.message %></p>
+                      <span class="time_date"><%= m.created_at.strftime("%Y-%m-%d %H:%M") %></span>
+                    </div>
+                  </div>
+                </div>
+              <% else %>
+                <div class="outgoing_msg">
+                  <div class="sent_msg">
+                    <p><%= m.message %></p>
+                    <span class="time_date"><%= m.created_at.strftime("%Y-%m-%d %H:%M") %></span>
+                  </div>
+                </div>
+                <div class="incoming_msg_img">
+                  <% if m.user.avatar.attached? %>
+                    <%= image_tag m.user.avatar %>
+                  <% else %>
+                    <%= image_tag "user_image.png" %>
+                  <% end %>  
+                </div>
+              <% end %>
+            <% end %>
+          <% end %>
+                      <div class="outgoing_msg">
+              <div class="sent_msg">
+                <p>Apollo University, Delhi, India Test</p>
+                <span class="time_date"> 11:01 AM    |    Today</span> </div>
+            </div>
+
+        <div class="">
+          <%= form_for @message do |f| %>
+              <%= f.text_field :message, placeholder: "メッセージを入力してください", class:"form-control" %>
+              <%=f.hidden_field :room_id, value: @room.id %>
+              <%= f.submit "送信", class: "btn btn-primary btn-sm" %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+    
+    
+  </div>
+</div>
+<%= render "layouts/footer" %>

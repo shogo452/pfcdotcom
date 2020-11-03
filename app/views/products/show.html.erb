@@ -9,28 +9,30 @@
               <%= image_tag "noimage.jpg", alt: "aaa", size: "350x350" %>
             <% end %>
           </div>
-          <div class="product-detail__left__button">
-            <% if current_user.favproduct?(@product) %>
-              <%= button_to product_favorite_path(@product), class: "btn btn-primary btn-sm", method: :delete  do %>
-                <i class="fas fa-heart mr-2"></i>お気に入りを取り消す
+          <% if user_signed_in? && @product.user.id == current_user.id %>
+            <div class="product-detail__left__button">
+              <% if current_user.favproduct?(@product) %>
+                <%= button_to product_favorite_path(@product), class: "btn btn-primary btn-sm", method: :delete  do %>
+                  <i class="fas fa-heart mr-2"></i>お気に入りを取り消す
+                <% end %>
+              <% else %>
+                <%= button_to product_favorites_path(@product), class: "btn btn-primary btn-sm" do %>
+                  <i class="fas fa-heart mr-2"></i>お気に入り
+                <% end %>
               <% end %>
-            <% else %>
-              <%= button_to product_favorites_path(@product), class: "btn btn-primary btn-sm" do %>
-                <i class="fas fa-heart mr-2"></i>お気に入り
+            </div>
+            <div class="product-detail__left__button">
+              <% if current_user.already_liked?(@product) %>
+                <%= button_to product_like_path(@product), class: "btn btn-primary btn-sm", method: :delete  do %>
+                  <i class="fas fa-thumbs-up mr-2"></i>いいねを取り消す
+                <% end %>
+              <% else %>
+                <%= button_to product_likes_path(@product), class: "btn btn-primary btn-sm" do %>
+                  <i class="fas fa-thumbs-up mr-2"></i>いいね
+                <% end %>
               <% end %>
-            <% end %>
-          </div>
-          <div class="product-detail__left__button">
-            <% if current_user.already_liked?(@product) %>
-              <%= button_to product_like_path(@product), class: "btn btn-primary btn-sm", method: :delete  do %>
-                <i class="fas fa-thumbs-up mr-2"></i>いいねを取り消す
-              <% end %>
-            <% else %>
-              <%= button_to product_likes_path(@product), class: "btn btn-primary btn-sm" do %>
-                <i class="fas fa-thumbs-up mr-2"></i>いいね
-              <% end %>
-            <% end %>
-          </div>
+            </div>
+          <% end %>
           <div class="product-detail__left__response-list">
             <%= fa_icon "thumbs-up" %>
             <small><%= @product.liked_users.count %></small>
@@ -75,7 +77,10 @@
             <% end %>
           </div>
           <div>
-            投稿者：<%= @product.user.nickname %>
+            投稿者：
+            <%= link_to user_path(@product.user), method: :get do %>
+              <%= @product.user.nickname %>
+            <% end %>
           </div>
           <div class="d-block">
             <div class="average-review-rating d-inline", data-score=<%= @average_review %>></div>
