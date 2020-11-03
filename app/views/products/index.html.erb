@@ -27,91 +27,110 @@
 </div>
 <% end %>
 
-<div class="container pt-3">
-<div class="row">
-  <div class="col-8">
-    <%= fa_icon "tags" %>
-    <h5 class="tag_list__title">タグ一覧</h5>
-    <div class="tag_list__content">
-      <% @tags.each do |tag| %>
-        <span class="badge badge-info">
-          <%= link_to tag.name, tag_index_products_path(tag_name: tag.name), class: "text-white" %> 
-          <%= "(#{tag.taggings_count})"%>
-        </span>
-      <% end %>
-    </div>
-  </div>
-  <div class="col-4">
-    検索欄
-  </div>
-</div>
-</div>
-
 <div class="container pb-3">
-<div class="row justify-content-around">
-<div class="col">
-    <%= fa_icon "crown" %>
-    <h5 class="ranking__title">いいねランキング</h5>
-      <table class="table table-sm my-2">
-        <thead class="thead-dark">
-          <tr>
-            <th scope="col">順位</th>
-            <th scope="col">名前</th>
-            <th scope="col">いいね数</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @likes_ranking.each.with_index(1) do |product, i| %>
-            <tr>
-              <th scope="row"><%= "#{i}" %></th>
-              <td>
-                <%= link_to product_path(product), method: :get do %>
-                  <%= product.name %>
-                <% end %>
-              </td>
-              <td><%= "#{product.liked_users.count}"%></td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-</div>
-<div class="col">
-    <%= fa_icon "heart" %>
-    <h5 class="ranking__title">お気に入りランキング</h5>
+  <div class="row justify-content-around">
+    <div class="col">
+        <%= fa_icon "crown" %>
+        <h5 class="ranking__title">いいねランキング</h5>
+          <table class="table table-sm my-2">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">順位</th>
+                <th scope="col">名前</th>
+                <th scope="col">いいね数</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @likes_ranking.each.with_index(1) do |product, i| %>
+                <tr>
+                  <th scope="row"><%= "#{i}" %></th>
+                  <td>
+                    <%= link_to product_path(product), method: :get do %>
+                      <%= product.name %>
+                    <% end %>
+                  </td>
+                  <td><%= "#{product.liked_users.count}"%></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+    </div>
+    <div class="col">
+        <%= fa_icon "heart" %>
+        <h5 class="ranking__title">お気に入りランキング</h5>
 
-      <table class="table table-sm my-2">
-        <thead class="thead-dark">
-          <tr>
-            <th scope="col">順位</th>
-            <th scope="col">名前</th>
-            <th scope="col">お気に入り数</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @favorites_ranking.each.with_index(1) do |product, i| %>
-            <tr>
-              <th scope="row"><%= "#{i}" %></th>
-              <td>
-                <%= link_to product_path(product), method: :get do %>
-                  <%= product.name %>
-                <% end %>
-              </td>
-              <td><%= "#{product.favorites.length}"%></td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-  </div>
-</div>
-</div>
-
-    <div class="container">
-      <div class="d-flex flex-wrap justify-content-around">
-
-        <%= render @products %>
-
+          <table class="table table-sm my-2">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">順位</th>
+                <th scope="col">名前</th>
+                <th scope="col">お気に入り数</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @favorites_ranking.each.with_index(1) do |product, i| %>
+                <tr>
+                  <th scope="row"><%= "#{i}" %></th>
+                  <td>
+                    <%= link_to product_path(product), method: :get do %>
+                      <%= product.name %>
+                    <% end %>
+                  </td>
+                  <td><%= "#{product.favorites.length}"%></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
       </div>
     </div>
+  </div>
+</div>
+
+<div class="container pt-3">
+  <div class="row">
+    <div class="col-6">
+      <form action="">  
+        <div class="input-group mb-4">
+          <%= search_form_for @search, url: products_path do |f| %>
+            <%= f.search_field :name_cont, { "aria-describedby": "button-addon5", class: "form-control", placeholder: "検索する名前を入力…" } %>
+            <div class="input-group-append">
+                <%= button_tag type: "submit", class: "btn btn-primary" do %>
+                  <i class="fa fa-search"></i>
+                <% end %>
+            </div>
+          <% end %>
+        </div>
+      </form>
+    </div>
+    <div class="col-6">
+      <%= fa_icon "tags" %>
+      <h5 class="tag_list__title">タグ一覧</h5>
+      <div class="tag_list__content">
+        <% @tags.each do |tag| %>
+          <span class="badge badge-info">
+            <%= link_to tag.name, tag_index_products_path(tag_name: tag.name), class: "text-white" %> 
+            <%= "(#{tag.taggings_count})"%>
+          </span>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="container">
+  <% if params[:q].present? && params[:q][:name_cont].present? %>
+      <h3>「<%= params[:q][:name_cont] %>」の検索結果</h3>
+  <% end %>
+  <div class="d-flex flex-wrap justify-content-around">
+    <% if @search != 0 %>
+      <%= render partial: 'product', collection: @search_products, as: 'product' %>
+    <% else %>
+      <%= render @products %>
+    <% end %>
+  </div>
+</div>
 
 
 
