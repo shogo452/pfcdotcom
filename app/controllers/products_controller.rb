@@ -68,6 +68,10 @@ class ProductsController < ApplicationController
     @search = Product.ransack(params[:q])
     @search_products = @search.result.includes(:user).order("created_at DESC").page(params[:page]).per(6)
   end
+
+  def get_tag_search
+    @tags = Product.tag_counts_on(:tags).where('name LIKE(?)', "%#{params[:key]}%")
+  end
   
   private
   def product_params
