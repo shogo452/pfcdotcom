@@ -53,10 +53,12 @@
       <div class="col-6">
         <%= fa_icon "tags" %>
         <%= f.label "タグ付け" %>
+        <small id="tagHelpBlock" class="form-text text-muted">
+          入力候補から選ぶかカンマ(,)で区切って入力してください
+        </small>
         <div class="input_form">
-          <%= f.text_field :tag_list, value: @product.tag_list.join(','), class: "tag_form tagit-hidden-field", name: "product[tag_list]", id: "product_tag_list"%>
+          <%= f.text_field :tag_list, value: @product.tag_list.join(','), class: "tag_form tagit-hidden-field", name: "product[tag_list]", id: "product_tag_list", "aria-describedby": "tagHelpBlock" %>
         </div>
-
         <div id="img_field" onClick="$('#file').click()" >
           <% if @product.image.url.present? %>
             <%= image_tag(@product.image.url) %>

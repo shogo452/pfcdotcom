@@ -8,6 +8,8 @@ Rails.application.routes.draw do
     collection do
       get 'tag_index'
     end
+    get 'get_tag_search', on: :collection, defaults: { format: 'json' }
+    get 'get_tag_search', on: :member, defaults: { format: 'json' }
   end
   resources :relationships, only: [:create, :destroy]
   resources :users do
@@ -22,6 +24,7 @@ Rails.application.routes.draw do
       get 'destroy_all'
     end
   end
+
   get 'inquiry' => 'inquiry#index'
   post 'inquiry/confirm' => 'inquiry#confirm'
   post 'inquiry/thanks' => 'inquiry#thanks'
