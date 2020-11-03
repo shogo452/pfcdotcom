@@ -10,7 +10,10 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require_tree .
+//= require jquery
+//= require jquery_ujs
+//= require jquery-ui
+//= require tag-it
 //= require moment
 //= require moment/ja.js
 //= require tempusdominus-bootstrap-4.js
@@ -18,3 +21,4 @@
 //= require Chart.bundle
 //= require rails-ujs
 //= require activestorage
+//= require_tree .

@@ -53,7 +53,10 @@
       <div class="col-6">
         <%= fa_icon "tags" %>
         <%= f.label "タグ付け" %>
-        <%= f.text_area :tag_list, value: @product.tag_list.join(','), class: "form-control", placeholder: "カンマ「,」で区切ってください。"%><br/>
+        <div class="input_form">
+          <%= f.text_field :tag_list, value: @product.tag_list.join(','), class: "tag_form tagit-hidden-field", name: "product[tag_list]", id: "product_tag_list"%>
+        </div>
+
         <div id="img_field" onClick="$('#file').click()" >
           <% if @product.image.url.present? %>
             <%= image_tag(@product.image.url) %>

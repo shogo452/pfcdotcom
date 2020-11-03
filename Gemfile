@@ -63,6 +63,8 @@ gem 'devise-i18n'
 gem 'devise-bootstrap-views', '~> 1.0'
 gem 'enum_help'
 gem 'font-awesome-rails'
+gem 'jquery-rails'
+gem 'jquery-ui-rails'
 gem 'kaminari'
 gem "mini_magick"
 gem "momentjs-rails"
