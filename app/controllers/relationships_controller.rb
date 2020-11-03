@@ -1,6 +1,7 @@
 class RelationshipsController < ApplicationController
 
   def create
+    binding.pry
     @user = User.find(params[:relationship][:follow_id])
     if current_user.follow(@user)
       flash[:success] = 'ユーザーをフォローしました。'

@@ -4,14 +4,14 @@
     <div class="col-6">
       <div class="row user-information">
         <div class="col-3">
-          <% if current_user.avatar.attached? %>
-            <%= image_tag current_user.avatar, class: "user-information__image" %>
+          <% if @user.avatar.attached? %>
+            <%= image_tag @user.avatar, class: "user-information__image" %>
           <% else %>
             <%= image_tag "user_image.png", class: "user-information__image" %>
           <% end %>
         </div>
         <div class="col-9">
-          <h4 class="user-information__name"><%= current_user.nickname %></h4></br>
+          <h4 class="user-information__name"><%= @user.nickname %></h4></br>
           <span class="badge badge-light", style="color: gray;">
             <%= fa_icon "map-marker-alt", style: "color:gray" %>
             <%= @prefecture.name %>
@@ -41,163 +41,182 @@
               <% end %>
             <% end %>
           <% end %>
-          <button type="button" class="btn btn-info btn-sm">
-          <%= fa_icon "paper-plane", style: "color:info" %>
-          DMする
-          </button>
+
+          <% unless @user.id == current_user.id %>
+            <% if current_user.following?(@user) && @user.following?(current_user) %>
+
+              <% if @isRoom == true %>
+                <p class="user-show-room"><a href="/rooms/<%= @room_id %>" class="btn btn-primary btn-sm"><%= fa_icon "paper-plane", style: "color:info" %>チャットへ</a></p>
+              <% else %>
+                <%= form_for @room do |f| %>
+                  <%= fields_for @entry do |e| %>
+                    <%= e.hidden_field :user_id, value: @user.id %>
+                  <% end %>
+                  <%= f.submit "チャットを始める", class:"btn btn-primary btn-sm user-show-chat" %><%= fa_icon "paper-plane", style: "color:info" %>
+                <% end %>
+              <% end %>
+
+            <% end %>
+          <% end %>
+
         </div>
       </div>
-      <div class="row justify-content-around macro-list my-1">
-        <div class="col-5 calory-list__item__activity rounded my-1">
-          <div class="activity_metabolism">
-            <%= image_tag "activity_metabolism_image.png", alt: "aaa" %>
-            <span class="calory-list__item__value"><%= current_user.balance.activity_metabolism %></span>[kcal]
+      <% if @user.id == current_user.id %>
+        <div class="row justify-content-around macro-list my-1">
+          <div class="col-5 calory-list__item__activity rounded my-1">
+            <div class="activity_metabolism">
+              <%= image_tag "activity_metabolism_image.png", alt: "aaa" %>
+              <span class="calory-list__item__value"><%= @user.balance.activity_metabolism %></span>[kcal]
+            </div>
+            <span>1日の消費カロリー</span>
           </div>
-          <span>1日の消費カロリー</span>
-        </div>
-        <div class="col-5 calory-list__item__intake rounded my-1">
-          <div class="calory_intake">
-            <%= image_tag "calory_image.png", alt: "aaa" %>
-            <span class="calory-list__item__value"><%= current_user.balance.calory_intake %></span>[kcal]
-          </div>
-          <span>1日の摂取カロリー</span>
-        </div>
-      </div>
-      <div class="row justify-content-around macro-list my-1">
-        <div class="col-3 macro-list__item__protein rounded">
-          <div class="macro-list__item__value">
-            <span class="macro-list__item__value__char"><%= current_user.balance.protein_intake %></span>[g]
-          </div>
-          <span>タンパク質</span>
-        </div>
-        <div class="col-3 macro-list__item__fat rounded">
-          <div class="macro-list__item__value">
-            <span class="macro-list__item__value__char"><%= current_user.balance.fat_intake %></span>[g]
-          </div>
-          <span>脂質</span>
-        </div>
-        <div class="col-3 macro-list__item__carbo rounded">
-          <div class="macro-list__item__value">
-            <span class="macro-list__item__value__char count"><%= current_user.balance.carbo_intake %></span>[g]
-          </div>
-          <span>炭水化物</span>
-        </div>
-      </div>
-    </div>
-    <div class="col-6">
-      <%= form_for (@balance) do |f| %>
-        <div class="form-row">
-          <div class="form-group col-6">
-            <%= f.label "性別" %>
-            <%= f.select :gender, Balance.genders_i18n.invert, {}, class: "form-control" %>
-          </div>
-          <div class="form-group col-6">
-            <%= f.label "活動エリア" %>
-            <%= f.collection_select(:prefecture_id, Prefecture.all, :id, :name, {prompt: "--未設定--"},{class: "form-control"}) %>
+          <div class="col-5 calory-list__item__intake rounded my-1">
+            <div class="calory_intake">
+              <%= image_tag "calory_image.png", alt: "aaa" %>
+              <span class="calory-list__item__value"><%= @user.balance.calory_intake %></span>[kcal]
+            </div>
+            <span>1日の摂取カロリー</span>
           </div>
         </div>
-        <div class="form-row">
-          <div class="form-group col-4">
-            <%= f.label "身長[cm]" %>
-            <%= f.text_field :height, placeholder: '身長を入力(必須)', class: 'form-control' %>
+        <div class="row justify-content-around macro-list my-1">
+          <div class="col-3 macro-list__item__protein rounded">
+            <div class="macro-list__item__value">
+              <span class="macro-list__item__value__char"><%= @user.balance.protein_intake %></span>[g]
+            </div>
+            <span>タンパク質</span>
           </div>
-          <div class="form-group col-4">
-            <%= f.label "体重[kg]" %>
-            <%= f.text_field :weight, placeholder: '体重を入力(必須)', class: 'form-control' %>
+          <div class="col-3 macro-list__item__fat rounded">
+            <div class="macro-list__item__value">
+              <span class="macro-list__item__value__char"><%= @user.balance.fat_intake %></span>[g]
+            </div>
+            <span>脂質</span>
           </div>
-          <div class="form-group col-4">
-            <%= f.label "年齢[才]" %>
-            <%= f.text_field :age, placeholder: '年齢を入力(必須)', class: 'form-control' %>
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="form-group col-6">
-            <%= f.label "アクティブ度" %>
-            <%= f.select :activity, Balance.activities_i18n.keys.map {|k| [I18n.t("enums.balance.activity.#{k}"), k ]}, {}, class: "form-control" %> 
-          </div>
-          <div class="form-group col-6">
-            <%= f.label "目的" %>
-            <%= f.select :fitness_type, Balance.fitness_types_i18n.keys.map {|k| [I18n.t("enums.balance.fitness_type.#{k}"), k ]}, {}, class: "form-control" %>
+          <div class="col-3 macro-list__item__carbo rounded">
+            <div class="macro-list__item__value">
+              <span class="macro-list__item__value__char count"><%= @user.balance.carbo_intake %></span>[g]
+            </div>
+            <span>炭水化物</span>
           </div>
         </div>
-        <%= button_tag type: 'submit', class: "btn btn-info" do %> 
-          <%= fa_icon "sync-alt", style: "color:white" %>
-          データ更新
-        <% end%>
       <% end %>
     </div>
+    <% if @user.id == current_user.id %>
+      <div class="col-6">
+        <%= form_for (@balance) do |f| %>
+          <div class="form-row">
+            <div class="form-group col-6">
+              <%= f.label "性別" %>
+              <%= f.select :gender, Balance.genders_i18n.invert, {}, class: "form-control" %>
+            </div>
+            <div class="form-group col-6">
+              <%= f.label "活動エリア" %>
+              <%= f.collection_select(:prefecture_id, Prefecture.all, :id, :name, {prompt: "--未設定--"},{class: "form-control"}) %>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-4">
+              <%= f.label "身長[cm]" %>
+              <%= f.text_field :height, placeholder: '身長を入力(必須)', class: 'form-control' %>
+            </div>
+            <div class="form-group col-4">
+              <%= f.label "体重[kg]" %>
+              <%= f.text_field :weight, placeholder: '体重を入力(必須)', class: 'form-control' %>
+            </div>
+            <div class="form-group col-4">
+              <%= f.label "年齢[才]" %>
+              <%= f.text_field :age, placeholder: '年齢を入力(必須)', class: 'form-control' %>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-6">
+              <%= f.label "アクティブ度" %>
+              <%= f.select :activity, Balance.activities_i18n.keys.map {|k| [I18n.t("enums.balance.activity.#{k}"), k ]}, {}, class: "form-control" %> 
+            </div>
+            <div class="form-group col-6">
+              <%= f.label "目的" %>
+              <%= f.select :fitness_type, Balance.fitness_types_i18n.keys.map {|k| [I18n.t("enums.balance.fitness_type.#{k}"), k ]}, {}, class: "form-control" %>
+            </div>
+          </div>
+          <%= button_tag type: 'submit', class: "btn btn-info" do %> 
+            <%= fa_icon "sync-alt", style: "color:white" %>
+            データ更新
+          <% end%>
+        <% end %>
+      </div>
+    <% end %>
   </div>
-
-  <div class="row pt-3">
-    <div class="col-5">
-      <table class="table table-sm">
-        <thead>
-          <tr>
-            <th scope="col">年月日</th>
-            <th scope="col">体重[kg]</th>
-            <th scope="col">体脂肪率[%]</th>
-            <th scope="col">
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <%= form_for @record, url: records_path do |f| %>
-              <td>
-                <div class="input-group date" id="datetimepicker4" data-target-input="nearest">
-                  <%= f.text_field :date, class: "form-control form-control-sm datetimepicker-input", "data-target": "#datetimepicker4" %>
-                  <div class="input-group-append" data-target="#datetimepicker4" data-toggle="datetimepicker">
-                      <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                  </div>
-                </div>
-                <script type="text/javascript">
-                  $(function () {
-                      $('#datetimepicker4').datetimepicker({
-                          format: 'L'
-                      });
-                  });
-                </script>
-              </td>
-              <td>
-                <%= f.text_field :weight, class: "form-control form-control-sm weight-input" %>
-              </td>
-              <td>
-                <%= f.text_field :body_fat_percentage, class: "form-control form-control-sm body_fat_percentage-input" %>
-              </td>
-              <td>
-                <%= button_tag type: "submit", class: "btn btn-sm" do %>
-                  <%= fa_icon "plus-square" , style: "color:black" %>
-                <% end %>
-
-
-              </td>
-            <% end %>
-          </tr>
-          <% @records.each do |record| %>
+  <% if @user.id == current_user.id %>
+    <div class="row pt-3">
+      <div class="col-5">
+        <table class="table table-sm">
+          <thead>
             <tr>
-              <td><%= record.date.to_s(:date) if record.date? %></td>
-              <td><%= record.weight %></td>
-              <td><%= record.body_fat_percentage%></td>
-              <td>
-                <%= button_to "/records/#{record.id}", method: :delete, class: "btn btn-sm" do %>
-                  <%= fa_icon "minus-square" , style: "color:black" %>
-                <% end %>
-              </td>
+              <th scope="col">年月日</th>
+              <th scope="col">体重[kg]</th>
+              <th scope="col">体脂肪率[%]</th>
+              <th scope="col">
+              </th>
             </tr>
-          <% end %>
-          <tr>
-          </tr>
-        </tbody>
-      </table>
-      <%= paginate @records %>
-      <div id="record_error"></div>
-    </div>
-    <div class="col-7">
-      <%= render "record" %>
-    </div>
-  </div>
+          </thead>
+          <tbody>
+            <tr>
+              <%= form_for @record, url: records_path do |f| %>
+                <td>
+                  <div class="input-group date" id="datetimepicker4" data-target-input="nearest">
+                    <%= f.text_field :date, class: "form-control form-control-sm datetimepicker-input", "data-target": "#datetimepicker4" %>
+                    <div class="input-group-append" data-target="#datetimepicker4" data-toggle="datetimepicker">
+                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                    </div>
+                  </div>
+                  <script type="text/javascript">
+                    $(function () {
+                        $('#datetimepicker4').datetimepicker({
+                            format: 'L'
+                        });
+                    });
+                  </script>
+                </td>
+                <td>
+                  <%= f.text_field :weight, class: "form-control form-control-sm weight-input" %>
+                </td>
+                <td>
+                  <%= f.text_field :body_fat_percentage, class: "form-control form-control-sm body_fat_percentage-input" %>
+                </td>
+                <td>
+                  <%= button_tag type: "submit", class: "btn btn-sm" do %>
+                    <%= fa_icon "plus-square" , style: "color:black" %>
+                  <% end %>
 
-  <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
+
+                </td>
+              <% end %>
+            </tr>
+            <% @records.each do |record| %>
+              <tr>
+                <td><%= record.date.to_s(:date) if record.date? %></td>
+                <td><%= record.weight %></td>
+                <td><%= record.body_fat_percentage%></td>
+                <td>
+                  <%= button_to "/records/#{record.id}", method: :delete, class: "btn btn-sm" do %>
+                    <%= fa_icon "minus-square" , style: "color:black" %>
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>
+            <tr>
+            </tr>
+          </tbody>
+        </table>
+        <%= paginate @records %>
+        <div id="record_error"></div>
+      </div>
+      <div class="col-7">
+        <%= render "record" %>
+      </div>
+    </div>
+  <% end %>
+
+  <ul class="nav nav-tabs nav-justified mt-3" id="myTab" role="tablist">
     <li class="nav-item">
       <a class="nav-link active" id="product-index-tab" data-toggle="tab" href="#product-index" role="tab" aria-controls="product-index" aria-selected="true">投稿一覧</a>
     </li>
@@ -225,18 +244,18 @@
       <% end %>
     </div>
     <div class="tab-pane fade" id="favproducts" role="tabpanel" aria-labelledby="favproducts-tab">
-      <% if current_user.favproducts.exists? %>
+      <% if @user.favproducts.exists? %>
         <div class="d-flex flex-wrap justify-content-around">
-          <%= render partial: 'products/product', collection: current_user.favproducts, as: 'product' %>
+          <%= render partial: 'products/product', collection: @user.favproducts, as: 'product' %>
         </div> 
       <% else %>
         <h6 class="mt-2 ml-2">お気に入りの商品はありません。</h6>
       <% end %>
     </div>
     <div class="tab-pane fade" id="likes" role="tabpanel" aria-labelledby="likes-tab">
-      <% if current_user.liked_products.exists? %>
+      <% if @user.liked_products.exists? %>
         <div class="d-flex flex-wrap justify-content-around">
-          <%= render partial: 'products/product', collection: current_user.liked_products, as: 'product' %>
+          <%= render partial: 'products/product', collection: @user.liked_products, as: 'product' %>
         </div> 
       <% else %>
         <h6 class="mt-2 ml-2">いいねした商品はありません。</h6>

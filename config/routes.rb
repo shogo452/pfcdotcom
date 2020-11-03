@@ -20,6 +20,8 @@ Rails.application.routes.draw do
   end
   resources :balances
   resources :records
+  resources :messages, only: [:create]
+  resources :rooms, only: [:create, :show]
   resources :notifications do
     collection do
       get 'destroy_all'

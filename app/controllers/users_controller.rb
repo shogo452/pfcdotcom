@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   def show
     @user = User.with_attached_avatar.find(params[:id])
+
     unless @balance = @user.balance
       @user.build_balance
       @user.balance.protein_intake = 0
@@ -11,17 +12,33 @@ class UsersController < ApplicationController
     @balance = @user.balance
     @record = Record.new
     @records = @user.records.order("date DESC").page(params[:page]).per(4)
-    @record_datas = Record.where(user_id: current_user.id).order("date ASC")
+    @record_datas = Record.where(user_id: @user.id).order("date ASC")
     @weights = @record_datas.map(&:weight)
     @dates = @record_datas.map { |record_data| record_data.date.strftime("%Y/%m/%d") }
     @body_fat_percentages = @record_datas.map(&:body_fat_percentage)
     @prefecture = Prefecture.find(@user.balance.prefecture_id.to_i)
-    @same_user_products = Product.where(user_id: current_user.id)
+    @same_user_products = Product.where(user_id: @user.id)
     @rates = Review.group(:product_id).average(:rate)
     @likes_ranking = Product.find(Like.group(:product_id).order("count(id) DESC").limit(5).pluck(:product_id))
     @favorites_ranking = Product.find(Favorite.group(:product_id).order("count(id) DESC").limit(5).pluck(:product_id))
     @user_followings = @user.followings
     @user_followers = @user.followers
+    @current_user_entry = Entry.where(user_id: current_user.id)
+    @user_entry = Entry.where(user_id: @user.id)
+    unless @user.id == current_user.id
+      @current_user_entry.each do |cu|
+        @user_entry.each do |u|
+          if cu.room_id == u.room_id
+            @is_room = true
+            @room_id = cu.room_id
+          end
+        end
+      end
+      unless @is_room
+        @room = Room.new
+        @entry = Entry.new
+      end
+    end
   end
 
   def index
