@@ -24,6 +24,7 @@ class User < ApplicationRecord
   enum gender: [:noselect, :male, :female], _prefix: true
   enum activity: [:noselect, :low, :normal, :high], _prefix: true
   enum fitness_type: [:noselect, :diet, :keep, :bulkup], _prefix: true
+  enum role: { user: 0, admin: 1}
 
   extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to_active_hash :prefecture

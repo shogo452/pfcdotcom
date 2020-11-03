@@ -53,6 +53,7 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.0'
 end
 
+gem 'activeadmin'
 gem 'active_hash'
 gem 'acts-as-taggable-on', '~> 6.0'
 gem 'bootstrap4-datetime-picker-rails'
