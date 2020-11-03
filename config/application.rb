@@ -35,5 +35,7 @@ module Pfcdotcom
     # Don't generate system test files.
     config.generators.system_tests = nil
     config.active_job.queue_adapter = :delayed_job
+    config.assets.paths << config.root.join("vendor/assets/javascripts")
+    config.assets.paths << config.root.join("vendor/assets/stylesheets")
   end
 end
