@@ -1,7 +1,7 @@
 <%= render "layouts/header" %>
 <div class="container mt-3">
   <div class="row product-detail">
-        <div class="col product-detail__left">
+        <div class="col-md product-detail__left">
           <div class="product-detail__left__image">
             <% if @product.image_url %>
               <%= image_tag @product.image_url, alt: "aaa", size: "300x300" %>
@@ -44,7 +44,7 @@
           <div class="d-block text-center my-1">
             <button type="button" class="btn btn-primary btn-sm mb-1 border-0 mx-auto", style="background: #55ACEE;">
               <%= fa_icon "twitter" %>
-                Twitterでシェア
+              Twitterでシェア
             </button>
           </div>
           <div class="d-block text-center mb-1">
@@ -66,7 +66,7 @@
             </div>
           </div>
         </div>
-        <div class="col product-detail__right">
+        <div class="col-md product-detail__right">
           <h3 class="product-detail__name text-break">
             <%= @product.name %>
           </h3>
@@ -130,7 +130,7 @@
             </li>
           </ul>
         </div>
-        <div class="col">
+        <div class="col-md">
           <%= render partial: "chart", locals: { nutrition: @nutrition} %>
           <div class="product-detail__footer__tag-list">
             <span><%= fa_icon "tags" %>タグ</span><br/>
@@ -140,7 +140,7 @@
   </div>
   <div class="container">
     <div class="row">
-      <div class="col-6">
+      <div class="col-md">
         <div class="review__form mt-3">
           <%= form_for [@product, @review] do |f| %>
             <div class="form-group">
@@ -164,28 +164,37 @@
               <div class="row review__list__item">
                 <div class="col-2 review__list__item__avatar">
                   <% if review.user.avatar.attached? %>
-                    <%= image_tag review.user.avatar, class: "review__list__item__avatar__img" %>
+                    <%= link_to user_path(review.user), method: :get do %>
+                      <%= image_tag review.user.avatar, class: "review__list__item__avatar__img" %>
+                    <% end %>
                   <% else  %>
-                    <%= image_tag "user_image.png", alt: "aaa", class: "review__list__item__avatar__img" %>
+                    <%= link_to user_path(review.user), method: :get do %>
+                      <%= image_tag "user_image.png", class: "review__list__item__avatar__img" %>
+                    <% end %>
                   <% end %>
                 </div>
                 <div class="col-10">
                   <div id="star-rate-#{review.id}">
                     <div class="review-rating" data-score="<%= review.rate %>"></div>
                   </div>
-                  投稿者：<%= review.user.nickname %><small class="ml-2 text-muted"><%= review.created_at.to_s(:datetime) %></small>
+                  投稿者：
+                  <%= link_to user_path(review.user), method: :get do %>
+                    <%= review.user.nickname %>
+                  <% end %>
+                  <small class="ml-2 text-muted"><%= review.created_at.to_s(:datetime) %></small>
                   <div class="review__content">
                     <pre><%= review.text %></pre>
                   </div>
                 </div>
               </div>
             <% end %>
+            <%= paginate @reviews %>
           <% else %>
             <h6 class="ml-2">レビューはありません。</h6>
           <% end %>
         </div>
       </div>
-      <div class="col-6">
+      <div class="col-md">
 
         <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
           <li class="nav-item">
@@ -200,7 +209,8 @@
             <% if @same_tagged_products %>
               <div class="d-flex flex-wrap justify-content-around">
                 <%= render partial: 'product', collection: @same_tagged_products, as: 'product' %>
-              </div> 
+              </div>
+            <%= paginate @same_tagged_products %> 
             <% else %>
               <h6 class="mt-2 ml-2">同じタグの投稿はありません。</h6>
             <% end %>
@@ -210,6 +220,7 @@
               <div class="d-flex flex-wrap justify-content-around">
                 <%= render partial: 'product', collection: @same_user_products, as: 'product' %>
               </div> 
+              <%= paginate @same_user_products %>
             <% else %>
               <h6 class="mt-2 ml-2">同じユーザーの投稿はありません。</h6>
             <% end %>

@@ -22,3 +22,6 @@ ja:
       previous: <i class="fas fa-angle-left"></i>
       next: <i class="fas fa-angle-right"></i>
       truncate: "..."
+  recaptcha:
+    errors:
+      verification_failed: "reCAPTCHA認証に失敗しました。"

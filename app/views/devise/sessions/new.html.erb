@@ -24,9 +24,7 @@
                     <%= f.label :remember_me %>
                   </div>
                 <% end %>
-
-                <%= recaptcha_tags %>
-
+                
                 <div class="actions">
                   <%= f.submit "ログイン" , class: 'btn btn-primary btn-login btn-block my-2'%>
                 </div>
@@ -41,14 +39,6 @@
       </div>
     </div>
 
-    <div class="d-none d-md-flex col-md-4 col-lg-6">
-      <article class="login_image">
-        <div class="login_right">
-        <div class="login_logo">
-          <%= image_tag "logo_transparent.png", size: "300x300" %>
-        </div>
-        </div>
-      </article>
-    </div>
+    <div class="d-none d-md-flex col-md-4 col-lg-6 edit_image"></div>
   </div>
 </div>

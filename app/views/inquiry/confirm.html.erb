@@ -1,7 +1,10 @@
-<%= form_for @inquiry, url: inquiry_thanks_path do |f| %>
-  <div>
-    お問い合わせ
-  </div>
+<div class="container-fluid">
+  <div class="row no-gutter align-items-center">
+    <div class="col-md-8 col-lg-6 align-items-center">
+<%= form_for @inquiry, url: inquiry_thanks_path, html: {class:"px-5"} do |f| %>
+        <h2>
+          お問い合わせ
+        </h2>
 
   <table class="table">
     <tr>
@@ -31,3 +34,13 @@
   <%= link_to "戻る", root_path %>
 
 <% end %>
+    </div>
+
+    <div class="d-none d-md-flex col-md-4 col-lg-6">
+      <article class="signup_image">
+        <div class="login_right">
+        </div>
+      </article>
+    </div>
+  </div>
+</div>

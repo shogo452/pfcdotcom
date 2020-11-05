@@ -17,12 +17,14 @@ class UsersController < ApplicationController
     @dates = @record_datas.map { |record_data| record_data.date.strftime("%Y/%m/%d") }
     @body_fat_percentages = @record_datas.map(&:body_fat_percentage)
     @prefecture = Prefecture.find(@user.balance.prefecture_id.to_i)
-    @same_user_products = Product.where(user_id: @user.id)
+    @same_user_products = Product.where(user_id: @user.id).page(params[:page]).per(4)
+    @user_favproducts = @user.favproducts.page(params[:page]).per(4)
+    @user_liked_products = @user.liked_products.page(params[:page]).per(4)
     @rates = Review.group(:product_id).average(:rate)
     @likes_ranking = Product.find(Like.group(:product_id).order("count(id) DESC").limit(5).pluck(:product_id))
     @favorites_ranking = Product.find(Favorite.group(:product_id).order("count(id) DESC").limit(5).pluck(:product_id))
-    @user_followings = @user.followings
-    @user_followers = @user.followers
+    @user_followings = @user.followings.page(params[:page]).per(6)
+    @user_followers = @user.followers.page(params[:page]).per(6)
     @current_user_entry = Entry.where(user_id: current_user.id)
     @user_entry = Entry.where(user_id: @user.id)
     unless @user.id == current_user.id

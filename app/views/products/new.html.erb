@@ -2,7 +2,7 @@
 <div class="container mt-5">
   <%= form_for(@product) do |f| %>
     <div class="row">
-      <div class="col-6">
+      <div class="col-md-6">
         <%= f.label "名前" %>
         <%= f.text_field :name, class: "form-control", placeholder: "商品名を入力(必須)" %><br/>
 
@@ -50,7 +50,7 @@
         <%= f.submit "投稿する", class: "btn btn-primary my-3" %><br/>
         <%= link_to "キャンセル", root_path %>
       </div>
-      <div class="col-6">
+      <div class="col-md-6">
         <%= fa_icon "tags" %>
         <%= f.label "タグ付け" %>
         <small id="tagHelpBlock" class="form-text text-muted">

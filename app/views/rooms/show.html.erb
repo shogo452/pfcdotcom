@@ -12,40 +12,33 @@
                 <div class="incoming_msg">
                   <div class="incoming_msg_img">
                     <% if m.user.avatar.attached? %>
-                      <%= image_tag m.user.avatar %>
+                      <%= image_tag m.user.avatar, class: "incoming_msg_img" %>
                     <% else %>
-                      <%= image_tag "user_image.png" %>
+                      <%= image_tag "user_image.png", class: "incoming_msg_img" %>
                     <% end %>  
                   </div>
                   <div class="received_msg">
-                    <div class="received_withd_msg">
-                      <p><%= m.message %></p>
-                      <span class="time_date"><%= m.created_at.strftime("%Y-%m-%d %H:%M") %></span>
-                    </div>
+                    <p><%= m.message %></p>
+                    <span class="time_date__left"><%= m.created_at.strftime("%Y-%m-%d %H:%M") %></span>
                   </div>
                 </div>
               <% else %>
                 <div class="outgoing_msg">
+                  <div class="outgoing_msg_img">
+                    <% if m.user.avatar.attached? %>
+                      <%= image_tag m.user.avatar, class: "outgoing_msg_img" %>
+                    <% else %>
+                      <%= image_tag "user_image.png", class: "outgoing_msg_img" %>
+                    <% end %>  
+                  </div>
                   <div class="sent_msg">
                     <p><%= m.message %></p>
-                    <span class="time_date"><%= m.created_at.strftime("%Y-%m-%d %H:%M") %></span>
+                    <span class="time_date__right"><%= m.created_at.strftime("%Y-%m-%d %H:%M") %></span>
                   </div>
-                </div>
-                <div class="incoming_msg_img">
-                  <% if m.user.avatar.attached? %>
-                    <%= image_tag m.user.avatar %>
-                  <% else %>
-                    <%= image_tag "user_image.png" %>
-                  <% end %>  
                 </div>
               <% end %>
             <% end %>
           <% end %>
-                      <div class="outgoing_msg">
-              <div class="sent_msg">
-                <p>Apollo University, Delhi, India Test</p>
-                <span class="time_date"> 11:01 AM    |    Today</span> </div>
-            </div>
 
         <div class="">
           <%= form_for @message do |f| %>

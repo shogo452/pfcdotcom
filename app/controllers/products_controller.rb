@@ -2,7 +2,7 @@ class ProductsController < ApplicationController
   before_action :set_search
 
   def index
-    @products = Product.includes(:user)
+    @products = Product.includes(:user).page(params[:page]).per(6)
     @tags = ActsAsTaggableOn::Tag.most_used
     @rates = Review.group(:product_id).average(:rate)
     @likes_ranking = Product.find(Like.group(:product_id).order("count(id) DESC").limit(5).pluck(:product_id))
@@ -30,7 +30,7 @@ class ProductsController < ApplicationController
   def show
     @product = Product.find(params[:id])
     @nutrition = [@product.protein, @product.fat, @product.carbo]
-    @reviews = @product.reviews
+    @reviews = @product.reviews.page(params[:page]).per(6)
     @review = Review.new
     if @product.reviews.blank?
       @average_review = 0
@@ -39,8 +39,8 @@ class ProductsController < ApplicationController
     end
     @like = Like.new
     tag_list = @product.tag_list
-    @same_taged_products = Product.tagged_with(tag_list, :any => true)
-    @same_user_products = Product.where(user_id: @product.user.id)
+    @same_taged_products = Product.tagged_with(tag_list, :any => true).page(params[:page]).per(4)
+    @same_user_products = Product.where(user_id: @product.user.id).page(params[:page]).per(4)
     @rates = Review.group(:product_id).average(:rate)
   end
 
