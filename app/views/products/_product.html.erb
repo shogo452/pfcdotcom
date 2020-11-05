@@ -35,12 +35,17 @@
       </div>
       <div class="d-block text-center mb-1">
         <div class="btn-group btn-group-sm mx-auto" role="group" aria-label="Basic example">
-          <button type="button" class="btn btn-secondary">
-            <%= fa_icon "shopping-cart" %>
-          </button>
-          <button type="button" class="btn btn-secondary">
-            <%= fa_icon "store" %>
-          </button>
+          <% unless product.purchase_url.blank? %>
+            <% if product.url_type == 1 %>
+              <button type="button" class="btn btn-secondary">
+                <%= fa_icon "shopping-cart" %>
+              </button>
+            <% else %>
+              <button type="button" class="btn btn-secondary">
+                <%= fa_icon "store" %>
+              </button>
+            <% end %>
+          <% end %>
           <% if user_signed_in? && product.user.id == current_user.id %>
             <%= link_to "/products/#{product.id}/edit", class: "btn btn-secondary", method: :get do %>
               <%= fa_icon "edit" %>
@@ -55,7 +60,9 @@
     <div class="col">
       <div class="card-body">
         <h5 class="card-title text-truncate">
-        <%= product.name %>
+          <%= link_to product_path(product), method: :get do %>
+            <%= product.name %>
+          <% end %>
         </h5></br>
         <div id="star-rate-#{product.review.id}", class="d-inline-block mb-3"></div>
         <div class="review-rating d-inline-block" data-score="<%= @rates[product.id] %>"></div>

@@ -75,7 +75,7 @@ class ProductsController < ApplicationController
   
   private
   def product_params
-    params.require(:product).permit(:name, :carbo, :fat, :protein, :sugar, :calory, :price, :purchase_url, :image, :tag_list).merge(user_id: current_user.id)
+    params.require(:product).permit(:name, :carbo, :fat, :protein, :sugar, :calory, :price, :purchase_url, :image, :tag_list, :url_type).merge(user_id: current_user.id)
   end
 
 end

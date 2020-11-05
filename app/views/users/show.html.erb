@@ -269,7 +269,7 @@
         <div class="container mt-3">
           <%= render partial: 'user', collection: @user_followings, as: 'user' %>
         </div> 
-        <%= paginate @user_followings%>
+        <%= paginate @user_followings %>
       <% else %>
         <h6 class="mt-2 ml-2">フォローしているユーザーがいません。</h6>
       <% end %>
@@ -279,7 +279,7 @@
         <div class="container mt-3">
           <%= render partial: 'user', collection: @user_followers, as: 'user' %>
         </div> 
-        <%= paginate @user_followers%>
+        <%= paginate @user_followers %>
       <% else %>
         <h6 class="mt-2 ml-2">フォロワーはいません。</h6>
       <% end %>
