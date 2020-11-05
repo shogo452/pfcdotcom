@@ -2,16 +2,22 @@
     <% unless user == current_user %>
 
 
-    <div class="card", style="max-width: 500px;">
+    <div class="card border-0", style="max-width: 500px;">
     <div class="row no-gutters">
       <div class="col-5 mt-3 text-center">
         <% if user.avatar.attached? %>
-          <%= image_tag user.avatar, class: "user-card__img mb-1" %>
+          <%= link_to user_path(user), method: :get do %>
+            <%= image_tag user.avatar, class: "user-card__img mb-1" %>
+          <% end %>
         <% else %>
-          <%= image_tag "user_image.png", class: "user-card__img mb-1" %>
+          <%= link_to user_path(user), method: :get do %>
+            <%= image_tag "user_image.png", class: "user-card__img mb-1" %>
+          <% end %>
         <% end %>
         <h6 class="card-title border-0 text-center">
-          <%= user.nickname %>
+          <%= link_to user_path(user), method: :get do %>
+            <%= user.nickname %>
+          <% end %>
         </h6>
       </div>
       <div class="col-7">

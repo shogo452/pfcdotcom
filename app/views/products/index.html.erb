@@ -12,7 +12,7 @@
         <h1 class="display-4 welcome-header__title title">Welcome to PFC.com !!</h1>
         <p class="lead welcome-header__message">
           PFC.comは筋トレやダイエットに取り組むユーザーに向けた<br/>高タンパク質、低糖質の商品情報をシェアできるサービスです。<br/>
-          タンパク質（Protein）、脂質（Fat）、炭水化物（Carbo）、糖質（Sugar）の<br/>4つの栄養素量をシェアしましょう！
+          タンパク質、脂質、炭水化物、糖質の4つの栄養素量をシェアしましょう！
         </p>
         <p class="text-light">すぐに全機能をお試しになりたい場合は、ゲストユーザーとしてログインできます。</p>
         <%= form_for User.new, url: user_session_path, html: {class: "test-user-login"} do |f| %>
@@ -27,9 +27,9 @@
 </div>
 <% end %>
 
-<div class="container pb-3">
+<div class="container pb-3 mt-3">
   <div class="row justify-content-around">
-    <div class="col">
+    <div class="col-md">
         <%= fa_icon "crown" %>
         <h5 class="ranking__title">いいねランキング</h5>
           <table class="table table-sm my-2">
@@ -55,7 +55,7 @@
             </tbody>
           </table>
     </div>
-    <div class="col">
+    <div class="col-md">
         <%= fa_icon "heart" %>
         <h5 class="ranking__title">お気に入りランキング</h5>
 
@@ -88,7 +88,7 @@
 
 <div class="container pt-3">
   <div class="row">
-    <div class="col-6">
+    <div class="col-sm-6">
       <form action="">  
         <div class="input-group mb-4">
           <%= search_form_for @search, url: products_path do |f| %>
@@ -102,7 +102,7 @@
         </div>
       </form>
     </div>
-    <div class="col-6">
+    <div class="col-sm-6">
       <%= fa_icon "tags" %>
       <h5 class="tag_list__title">タグ一覧</h5>
       <div class="tag_list__content">
@@ -130,6 +130,11 @@
       <%= render @products %>
     <% end %>
   </div>
+    <% if @search != 0 %>
+      <%= paginate @search_products %>
+    <% else %>
+      <%= paginate @products %>
+    <% end %>
 </div>
 
 
