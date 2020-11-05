@@ -62,6 +62,7 @@ class ProductsController < ApplicationController
   def tag_index
     @products = Product.tagged_with(params[:tag_name]).page(params[:page]).per(9)
     @tag_name = params[:tag_name]
+    @rates = Review.group(:product_id).average(:rate)
   end
 
   def set_search
