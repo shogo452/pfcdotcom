@@ -106,7 +106,7 @@
           <div class="form-row">
             <div class="form-group col-6">
               <%= f.label "性別" %>
-              <%= f.select :gender, Balance.genders_i18n.invert, {}, class: "form-control" %>
+              <%= f.select :gender, Balance.genders_i18n.invert, {}, class: "form-control gender-input" %>
             </div>
             <div class="form-group col-6">
               <%= f.label "活動エリア" %>
@@ -116,32 +116,34 @@
           <div class="form-row">
             <div class="form-group col-4">
               <%= f.label "身長[cm]" %>
-              <%= f.text_field :height, placeholder: '身長を入力(必須)', class: 'form-control' %>
+              <%= f.text_field :height, placeholder: '身長を入力(必須)', class: 'form-control height-input' %>
             </div>
             <div class="form-group col-4">
               <%= f.label "体重[kg]" %>
-              <%= f.text_field :weight, placeholder: '体重を入力(必須)', class: 'form-control' %>
+              <%= f.text_field :weight, placeholder: '体重を入力(必須)', class: 'form-control weight-input' %>
             </div>
             <div class="form-group col-4">
               <%= f.label "年齢[才]" %>
-              <%= f.text_field :age, placeholder: '年齢を入力(必須)', class: 'form-control' %>
+              <%= f.text_field :age, placeholder: '年齢を入力(必須)', class: 'form-control age-input' %>
             </div>
           </div>
           <div class="form-row">
             <div class="form-group col-6">
               <%= f.label "アクティブ度" %>
-              <%= f.select :activity, Balance.activities_i18n.keys.map {|k| [I18n.t("enums.balance.activity.#{k}"), k ]}, {}, class: "form-control" %> 
+              <%= f.select :activity, Balance.activities_i18n.keys.map {|k| [I18n.t("enums.balance.activity.#{k}"), k ]}, {}, class: "form-control activity-input" %> 
             </div>
             <div class="form-group col-6">
               <%= f.label "目的" %>
-              <%= f.select :fitness_type, Balance.fitness_types_i18n.keys.map {|k| [I18n.t("enums.balance.fitness_type.#{k}"), k ]}, {}, class: "form-control" %>
+              <%= f.select :fitness_type, Balance.fitness_types_i18n.keys.map {|k| [I18n.t("enums.balance.fitness_type.#{k}"), k ]}, {}, class: "form-control fitness_type-input" %>
             </div>
           </div>
           <%= button_tag type: 'submit', class: "btn btn-info" do %> 
             <%= fa_icon "sync-alt", style: "color:white" %>
             データ更新
           <% end%>
+          <%= render 'layouts/error_messages', model: f.object %>
         <% end %>
+        <div id="balance_error"></div>
       </div>
     <% end %>
   </div>
@@ -186,8 +188,6 @@
                   <%= button_tag type: "submit", class: "btn btn-sm" do %>
                     <%= fa_icon "plus-square" , style: "color:black" %>
                   <% end %>
-
-
                 </td>
               <% end %>
             </tr>

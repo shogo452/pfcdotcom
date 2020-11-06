@@ -24,6 +24,8 @@ class ProductsController < ApplicationController
     if @product.save
       notifier.ping "product:#{@product.name}が投稿されました。"
       redirect_to action: :index
+    else
+      render "new"
     end
   end
 

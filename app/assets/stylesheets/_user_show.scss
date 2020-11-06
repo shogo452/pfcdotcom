@@ -50,5 +50,43 @@
   }
 }
 
+#record_date-error,
+#record_weight-error,
+#record_body_fat_percentage-error,
+#balance_gender-error,
+#balance_height-error,
+#balance_weight-error,
+#balance_age-error,
+#balance_activity-error,
+#balance_fitness_type-error {
+  color: #dc3545;
+  font-size: 80%;
+  margin-top: 0.25rm;
+}
+
+.weight-input.invalid,
+.body_fat_percentage-input.invalid,
+.datetimepicker-input.invalid,
+.gender-input.invalid,
+.height-input.invalid,
+.weight-input.invalid,
+.age-input.invalid,
+.activity-input.invalid,
+.fitness_type-input.invalid {
+  border: #ea352d 1px solid;
+}
+
+.weight-input.valid,
+.body_fat_percentage-input.valid,
+.datetimepicker-input.valid,
+.gender-input.valid,
+.height-input.valid,
+.weight-input.valid,
+.age-input.valid,
+.activity-input.valid,
+.fitness_type-input.valid {
+  border: seagreen 1px solid;
+}
+
 
 

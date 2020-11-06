@@ -10,6 +10,16 @@ class Product < ApplicationRecord
     
   mount_uploader :image, PictureUploader
 
+  validates :name, presence: true
+  validates :protein, presence: true, numericality: {greater_than_or_equal_to: 0, less_than_or_equal_to: 999}
+  validates :fat, presence: true, numericality: {greater_than_or_equal_to: 0, less_than_or_equal_to: 999}
+  validates :carbo, presence: true, numericality: {greater_than_or_equal_to: 0, less_than_or_equal_to: 999}
+  validates :sugar, allow_blank: true, numericality: {greater_than_or_equal_to: 0, less_than_or_equal_to: 999}
+  validates :calory, allow_blank: true, numericality: {greater_than_or_equal_to: 0, less_than_or_equal_to: 9999}
+  validates :price, allow_blank: true, numericality: {greater_than_or_equal_to: 0, less_than_or_equal_to: 999}
+  validates :purchase_url, format: {with: URI.regexp(%w[http https])}, allow_blank: true
+
+
   def new_arrival?
     created_at + 1.week > Date.today
   end

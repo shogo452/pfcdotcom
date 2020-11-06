@@ -38,15 +38,9 @@
             <%= f.text_field :price, class: "form-control", placeholder: "半角入力(任意)" %><br/>
           </div>
         </div>
-        <div class="form-check form-check-inline">
-          <%= f.check_box(:url_type, {class: "form-check-input", id: "inlineCheckbox1"}, checked_value = "1", unchecked_value = "0" %>
-          <%= f.label "購入サイトリンク", class: "form-check-label", for: "inlineCheckbox1" %>
-        </div>
-        <div class="form-check form-check-inline">
-          <%= f.check_box(:url_type, {class: "form-check-input", id: "inlineCheckbox2"}, checked_value = "2", unchecked_value = "0" %>
-          <%= f.label "店舗サイトリンク", class: "form-check-label", for: "inlineCheckbox2" %>
-        </div>
-        <%= f.text_field :purchase_url, class: "form-control", placeholder: "https://....(任意)"  %><br/>
+        <%= f.label "リンク" %>
+        <%= f.text_field :purchase_url, class: "form-control url-input", placeholder: "https://....(任意)"  %><br/>
+        <%= render 'layouts/error_messages', model: f.object %>
         <%= f.submit "投稿する", class: "btn btn-primary my-3" %><br/>
         <%= link_to "キャンセル", root_path %>
       </div>

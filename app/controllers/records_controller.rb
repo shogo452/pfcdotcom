@@ -4,8 +4,10 @@ class RecordsController < ApplicationController
     if @record.save
       redirect_to controller: "users", action: "show", id: current_user.id
     else
+      flash[:danger] = @record.errors.full_messages
       redirect_to controller: "users", action: "show", id: current_user.id
     end
+    
   end
 
   def edit

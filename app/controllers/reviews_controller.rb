@@ -8,7 +8,8 @@ class ReviewsController < ApplicationController
       @reviewed_product.create_notification_review!(current_user, @reviewed_product.id)
       redirect_back(fallback_location: root_path)
     else
-      redirect_back(fallback_location: root_path)
+      flash[:danger] = @review.errors.full_messages
+      redirect_to controller: "products", action: "show", id: @product.id
     end
   end
 
