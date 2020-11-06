@@ -30,6 +30,9 @@ class User < ApplicationRecord
   extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to_active_hash :prefecture
 
+  validates :nickname, presence: true
+
+
   def already_liked?(product)
     self.likes.exists?(product_id: product.id)
   end

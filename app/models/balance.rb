@@ -4,6 +4,11 @@ class Balance < ApplicationRecord
   enum activity: [:noselect, :low, :normal, :high], _prefix: true
   enum fitness_type: [:noselect, :diet, :keep, :bulkup], _prefix: true
 
+  validates :height, presence: true, numericality: {greater_than_or_equal_to: 0, less_than_or_equal_to: 250}
+  validates :weight, presence: true, numericality: {greater_than_or_equal_to: 0, less_than_or_equal_to: 200}
+  validates :age, presence: true, numericality: {greater_than_or_equal_to: 0, less_than_or_equal_to: 150}
+
+
   def set_extra_information
     # 基礎代謝の計算
     if gender == "male"

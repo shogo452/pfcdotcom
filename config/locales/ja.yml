@@ -25,3 +25,11 @@ ja:
   recaptcha:
     errors:
       verification_failed: "reCAPTCHA認証に失敗しました。"
+  activerecord:
+    attributes:
+      record:
+        date: 日付
+        weight: 体重
+        body_fat_percentage: 体脂肪率
+      review:
+        rate: 星評価

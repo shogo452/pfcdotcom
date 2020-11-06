@@ -27,7 +27,7 @@
                   <%= f.password_field :password, autocomplete: "new-password", placeholder: "Password", class: "form-control" %>
                   <%= f.label :password %>
                   <% if @minimum_password_length %>
-                  <em>(<%= @minimum_password_length %>桁以上で入力してください。)</em>
+                  <small>(<%= @minimum_password_length %>桁以上で入力してください。)</small>
                   <% end %><br />
                 </div>
 
@@ -42,7 +42,7 @@
                 </div>
                 
                 <div class="form-group">
-                  <label for="inputFile">アバター画像の登録</label>
+                  <small for="inputFile">アバター画像の登録</small>
                   <div class="input-group">
                     <div class="custom-file">
                       <%= f.file_field :avatar, class:"custom-file-input", id:"inputFile" %>
