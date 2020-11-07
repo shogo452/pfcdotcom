@@ -13,7 +13,7 @@ $(function () {
     $.validator.addMethod(key, this);
   });
   // バリデーションの実行
-  $(".edit_balance").validate({
+  $(".new_balance, .edit_balance").validate({
     // ルール設定
     rules: {
       "balance[gender]": {

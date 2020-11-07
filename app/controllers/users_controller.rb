@@ -33,6 +33,7 @@ class UsersController < ApplicationController
           if cu.room_id == u.room_id
             @is_room = true
             @room_id = cu.room_id
+            @room = Room.find(@room_id)
           end
         end
       end

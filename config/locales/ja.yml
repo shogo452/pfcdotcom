@@ -33,3 +33,10 @@ ja:
         body_fat_percentage: 体脂肪率
       review:
         rate: 星評価
+      balance:
+        gender: 性別
+        height: 身長
+        weight: 体重
+        age: 年齢
+        activity: アクティブ度
+        fitness_type: 目的
