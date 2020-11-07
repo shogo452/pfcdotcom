@@ -1,17 +1,18 @@
-<div class="card border-0 pb-1", style="width: 500px;" >
+<div class="card border-0 pb-1" , style="width: 500px;">
   <div class="row no-gutters">
     <div class="col">
       <% if product.image_url %>
-        <%= link_to product_path(product), method: :get do %>
-          <%= image_tag product.image_url, class: "card-img mx-auto d-block product__photo", alt: "aaa" %>
-        <% end %>
+      <%= link_to product_path(product), method: :get do %>
+      <%= image_tag product.image_url, class: "card-img mx-auto d-block product__photo", alt: "aaa" %>
+      <% end %>
       <% else %>
-        <%= link_to product_path(product), method: :get do %>
-          <%= image_tag "noimage.jpg", class: "card-img mx-auto d-block product__photo", alt: "aaa" %>
-        <% end %>
+      <%= link_to product_path(product), method: :get do %>
+      <%= image_tag "noimage.jpg", class: "card-img mx-auto d-block product__photo", alt: "aaa" %>
+      <% end %>
       <% end %>
       <div class="product__date">
-        <p class="card-text"><i class="far fa-calendar pr-2"></i><small class="text-muted"><%= product.created_at.to_s(:date) %></small></p>
+        <p class="card-text"><i class="far fa-calendar pr-2"></i><small
+            class="text-muted"><%= product.created_at.to_s(:date) %></small></p>
       </div>
       <div class="product__response-list">
         <div class="product__response-list__item">
@@ -28,25 +29,25 @@
         </div>
       </div>
       <div class="d-block text-center my-1">
-        <button type="button" class="btn btn-primary btn-sm mb-1 border-0 mx-auto", style="background: #55ACEE;">
+        <button type="button" class="btn btn-primary btn-sm mb-1 border-0 mx-auto" , style="background: #55ACEE;">
           <%= fa_icon "twitter" %>
-            Twitterでシェア
+          Twitterでシェア
         </button>
       </div>
       <div class="d-block text-center mb-1">
         <div class="btn-group btn-group-sm mx-auto" role="group" aria-label="Basic example">
           <% if product.purchase_url %>
-            <%= link_to product.purchase_url, class: "btn btn-secondary" do %>
-              <%= fa_icon "link" %>
-            <% end %>
+          <%= link_to product.purchase_url, class: "btn btn-secondary" do %>
+          <%= fa_icon "link" %>
+          <% end %>
           <% end %>
           <% if user_signed_in? && product.user.id == current_user.id %>
-            <%= link_to "/products/#{product.id}/edit", class: "btn btn-secondary", method: :get do %>
-              <%= fa_icon "edit" %>
-            <% end %>
-            <%= link_to "/products/#{product.id}", class: "btn btn-secondary", method: :delete, data: { confirm: "商品を削除します。よろしいですか?"} do %>
-              <%= fa_icon "trash"%>
-            <% end %>
+          <%= link_to "/products/#{product.id}/edit", class: "btn btn-secondary", method: :get do %>
+          <%= fa_icon "edit" %>
+          <% end %>
+          <%= link_to "/products/#{product.id}", class: "btn btn-secondary", method: :delete, data: { confirm: "商品を削除します。よろしいですか?"} do %>
+          <%= fa_icon "trash"%>
+          <% end %>
           <% end %>
         </div>
       </div>
@@ -55,51 +56,51 @@
       <div class="card-body">
         <h5 class="card-title text-truncate">
           <%= link_to product_path(product), method: :get do %>
-            <%= product.name %>
+          <%= product.name %>
           <% end %>
         </h5></br>
-        <div id="star-rate-#{product.review.id}", class="d-inline-block mb-3"></div>
+        <div id="star-rate-#{product.review.id}" , class="d-inline-block mb-3"></div>
         <div class="review-rating d-inline-block" data-score="<%= @rates[product.id] %>"></div>
         <% if product.new_arrival? %>
-          <span class="badge badge-secondary ml-1 mb-3">New</span><br/>
+        <span class="badge badge-secondary ml-1 mb-3">New</span><br />
         <% end %>
         <div class="row">
           <div class="col">
-            <span class="card-text">たんぱく質</span><br/>
-          <% if product.protein? %>
-            <strong class="h4 pl-2"><%= product.protein.to_f %></strong> g<br/>
-          <% end %>
-            <span class="card-text">脂質</span><br/>
-          <% if product.fat? %>
-            <strong class="h4 pl-2"><%= product.fat.to_f %></strong> g<br/>
-          <% end %>
+            <span class="card-text">たんぱく質</span><br />
+            <% if product.protein? %>
+            <strong class="h4 pl-2"><%= product.protein.to_f %></strong> g<br />
+            <% end %>
+            <span class="card-text">脂質</span><br />
+            <% if product.fat? %>
+            <strong class="h4 pl-2"><%= product.fat.to_f %></strong> g<br />
+            <% end %>
           </div>
           <div class="col">
-            <span class="card-text">炭水化物</span><br/>
-          <% if product.carbo? %>
-            <strong class="h4 pl-2"><%= product.carbo.to_f %></strong> g<br/>
-          <% end %>
-            <span class="card-text">糖質</span><br/>
-          <% if product.sugar? %>
-            <strong class="h4 pl-2"><%= product.sugar.to_f %></strong> g<br/>
-          <% else %>
-            <strong class="h4 pl-2"> - </strong> g<br/>
-          <% end %>
+            <span class="card-text">炭水化物</span><br />
+            <% if product.carbo? %>
+            <strong class="h4 pl-2"><%= product.carbo.to_f %></strong> g<br />
+            <% end %>
+            <span class="card-text">糖質</span><br />
+            <% if product.sugar? %>
+            <strong class="h4 pl-2"><%= product.sugar.to_f %></strong> g<br />
+            <% else %>
+            <strong class="h4 pl-2"> - </strong> g<br />
+            <% end %>
           </div>
         </div>
         <div class="row">
           <div class="col">
-            <span class="card-text">価格</span><br/>
+            <span class="card-text">価格</span><br />
             <% if product.price? %>
-              <strong class="h4 pl-2"><%= product.price %></strong> 円<br/>
+            <strong class="h4 pl-2"><%= product.price %></strong> 円<br />
             <% else %>
-              <strong class="h4 pl-2"> - </strong> 円<br/>
+            <strong class="h4 pl-2"> - </strong> 円<br />
             <% end %>
           </div>
           <div class="col">
           </div>
         </div>
-        <%= render "products/tag_list", tag_list: product.tag_list %><br/>
+        <%= render "products/tag_list", tag_list: product.tag_list %><br />
       </div>
     </div>
   </div>

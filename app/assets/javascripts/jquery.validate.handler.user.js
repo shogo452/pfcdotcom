@@ -106,8 +106,26 @@ $(function () {
     errorElement: "p",
     validClass: "is-valid",
   });
+    $("#new_message").validate({
+    // ルール設定
+    rules: {
+      "message[message]": {
+        required: true
+      }
+    },
+    // エラーメッセージの定義
+    messages: {
+      "message[message]": {
+        required: "メッセージを入力してください"
+      }
+    },
+    errorClass: "is-invalid",
+    errorElement: "p",
+    validClass: "is-valid",
+  });
+
   // 入力欄をフォーカスアウトしたときにバリデーションを実行
-  $("#user_nickname, #user_email, #user_password, #user_current_password, #user_password_confirmation").blur(function () {
+  $("#user_nickname, #user_email, #user_password, #user_current_password, #user_password_confirmation, #message_message").blur(function () {
     $(this).valid();
   });
 });

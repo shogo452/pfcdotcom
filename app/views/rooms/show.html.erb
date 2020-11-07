@@ -1,57 +1,55 @@
 <%= render "layouts/header" %>
-<div class="container">
-  <h3 class="">Messaging</h3>
-  <div class="">
-    <div class="row">
-      <div class="col mesgs">
-        <div class="msg_history px-5">
-
-          <% if @messages.present? %>
-            <% @messages.each do |m| %>
-              <% if m.user.id == current_user.id %>
-                <div class="incoming_msg">
-                  <div class="incoming_msg_img">
-                    <% if m.user.avatar.attached? %>
-                      <%= image_tag m.user.avatar, class: "incoming_msg_img" %>
-                    <% else %>
-                      <%= image_tag "user_image.png", class: "incoming_msg_img" %>
-                    <% end %>  
-                  </div>
-                  <div class="received_msg">
-                    <p><%= m.message %></p>
-                    <span class="time_date__left"><%= m.created_at.strftime("%Y-%m-%d %H:%M") %></span>
-                  </div>
-                </div>
-              <% else %>
-                <div class="outgoing_msg">
-                  <div class="outgoing_msg_img">
-                    <% if m.user.avatar.attached? %>
-                      <%= image_tag m.user.avatar, class: "outgoing_msg_img" %>
-                    <% else %>
-                      <%= image_tag "user_image.png", class: "outgoing_msg_img" %>
-                    <% end %>  
-                  </div>
-                  <div class="sent_msg">
-                    <p><%= m.message %></p>
-                    <span class="time_date__right"><%= m.created_at.strftime("%Y-%m-%d %H:%M") %></span>
-                  </div>
-                </div>
-              <% end %>
-            <% end %>
-          <% end %>
-
-        <div class="">
-          <%= form_for @message do |f| %>
-              <%= f.text_field :message, placeholder: "メッセージを入力してください", class:"form-control" %>
-              <%=f.hidden_field :room_id, value: @room.id %>
-              <%= f.submit "送信", class: "btn btn-primary btn-sm" %>
-          <% end %>
-        </div>
+<div class="container mt-3">
+  <h2>ダイレクトメッセージ</h2>
+  <h4>参加者</h4>
+  <% @entries.each do |e| %>
+  <h5><strong><a href="/users/<%= e.user.id %>"><%= e.user.nickname%>さん</a></strong></h5>
+  <% end %>
+  <div class="msg_history px-5 mt-1">
+    <% if @messages.present? %>
+    <% @messages.each do |m| %>
+    <% if m.user.id == current_user.id %>
+    <div class="incoming_msg row">
+      <div class="incoming_msg_img col-3 text-right">
+        <% if m.user.avatar.attached? %>
+        <%= image_tag m.user.avatar, class: "incoming_msg_img" %>
+        <% else %>
+        <%= image_tag "user_image.png", class: "incoming_msg_img" %>
+        <% end %>
+      </div>
+      <div class="received_msg col-19">
+        <p><%= m.message %></p>
+        <span class="time_date__left"><%= m.created_at.strftime("%Y-%m-%d %H:%M") %></span>
       </div>
     </div>
-
-    
-    
+    <% else %>
+    <div class="outgoing_msg row">
+      <div class="sent_msg col-9 text-right">
+        <p><%= m.message %></p>
+        <span class="time_date__right"><%= m.created_at.strftime("%Y-%m-%d %H:%M") %></span>
+      </div>
+      <div class="outgoing_msg_img col-3 text-left">
+        <% if m.user.avatar.attached? %>
+        <%= image_tag m.user.avatar, class: "outgoing_msg_img" %>
+        <% else %>
+        <%= image_tag "user_image.png", class: "outgoing_msg_img" %>
+        <% end %>
+      </div>
+    </div>
+    <% end %>
+    <% end %>
+    <% else %>
+    <h3 class="text-center">メッセージはまだありません</h3>
+    <% end %>
+  </div>
+  <div class="row justify-content-center">
+    <div class="col-8 my-2">
+      <%= form_for @message, html: {class: ""} do |f| %>
+      <%= f.text_field :message, placeholder: "メッセージを入力してください", class:"form-control" %>
+      <%=f.hidden_field :room_id, value: @room.id %>
+      <%= f.submit "送信", class: "btn btn-primary btn-sm my-2" %>
+      <% end %>
+    </div>
   </div>
 </div>
 <%= render "layouts/footer" %>
