@@ -50,6 +50,7 @@ test:
 production:
   <<: *default
   database: pfcdotcom_production
+  host: 10.0.2.10
   username: root
   password: <%= ENV['DATABASE_PASSWORD'] %>
   socket: /var/lib/mysql/mysql.sock
