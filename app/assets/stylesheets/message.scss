@@ -1,29 +1,19 @@
-.container {
-  max-width: 1170px;
-  margin: auto;
-}
-
 .incoming_msg_img {
   width: 70px;
   height: 70px;
-  margin-right: 10px;
   border-radius: 50%;
-  float: left;
 }
 
 .outgoing_msg_img {
   width: 70px;
   height: 70px;
   border-radius: 50%;
-  margin-left: 10px;
-  float: right;
 }
 
 .received_msg {
   display: inline-block;
   padding: 0 0 0 10px;
   vertical-align: top;
-  // width: 92%;
 }
 
 .received_msg p {
@@ -33,7 +23,7 @@
   font-size: 14px;
   margin: 0;
   padding: 5px 10px 5px 12px;
-  // width: 100%;
+  display: inline-block;
 }
 
 .time_date {
@@ -42,23 +32,18 @@
     display: block;
     font-size: 12px;
     margin: 8px 0 0;
-    float: right;
   }
+
   &__left {
     color: #747474;
     display: block;
     font-size: 12px;
     margin: 8px 0 0;
-    float: left;
   }
 }
 
-
-
 .mesgs {
-  // float: left;
   padding: 30px 15px 0 25px;
-  // width: 60%;
 }
 
 .sent_msg p {
@@ -68,17 +53,12 @@
   margin: 0;
   color: #fff;
   padding: 5px 10px 5px 12px;
-  // width: 100%;
-}
-
-.incomming_msg,
-.outgoing_msg {
-  margin: 26px 0 26px;
+  display: inline-block;
 }
 
 .sent_msg {
-  float: right;
-  // width: 46%;
+  padding: 0 0 0 10px;
+  vertical-align: top;
 }
 
 .messaging {
@@ -86,6 +66,12 @@
 }
 
 .msg_history {
-  height: 516px;
+  height: 500px;
+  overflow: scroll;
+}
 
+#message_message-error {
+  color: #dc3545;
+  font-size: 80%;
+  margin-top: 0.25rm;
 }
