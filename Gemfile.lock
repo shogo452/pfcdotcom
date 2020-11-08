@@ -118,6 +118,9 @@ GEM
     enum_help (0.0.17)
       activesupport (>= 3.0.0)
     erubi (1.9.0)
+    exception_notification (4.4.3)
+      actionmailer (>= 4.0, < 7)
+      activesupport (>= 4.0, < 7)
     execjs (2.7.0)
     ffi (1.13.1)
     font-awesome-rails (4.7.0.5)
@@ -319,6 +322,7 @@ DEPENDENCIES
   devise-i18n
   dotenv-rails
   enum_help
+  exception_notification
   font-awesome-rails
   jbuilder (~> 2.5)
   jquery-rails
