@@ -1,23 +1,24 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>PFC.com</title>
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <%= stylesheet_link_tag    'application', media: 'all' %>
-    <%= javascript_include_tag 'application' %>
-    <%= favicon_link_tag('favicon.ico') %>
-    <script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.js"></script>
-    <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/localization/messages_ja.min.js" integrity="sha512-+ojfME4BUeS/Qz6PI0QPCbybzZ7h17O7pDCJKoui3d7AfaiDKcq3/Awv3TQXcG1B3dbwrwKe1jw5axGI9JyhUw==" crossorigin="anonymous"></script>
-  </head>
 
-  <body>
-    <div id="wrapper">
-      <%= render 'layouts/flash' %>
-      <%= yield %>
-    </div>
-  </body>
+<head>
+  <title>PFC.com</title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <%= stylesheet_link_tag    'application', media: 'all' %>
+  <%= javascript_include_tag 'application' %>
+  <%= favicon_link_tag('favicon.ico') %>
+  <script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.js"></script>
+  <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
+</head>
+
+<body>
+  <div id="wrapper">
+    <%= render 'layouts/flash' %>
+    <%= yield %>
+  </div>
+</body>
+
 </html>
