@@ -28,7 +28,3 @@
 /public/uploads
 /.vscode
 .env
-main.tf
-providers.tf
-.terraform-version
-.terraform
