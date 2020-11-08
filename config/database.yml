@@ -52,6 +52,5 @@ production:
   database: pfcdotcom_production
   host: <%= ENV['DATABASE_HOST_PRODUCTION'] %>
   username: <%= ENV['DATABASE_USER_NAME_PRODUCTION'] %>
-  port: 3306
   password: <%= ENV['DATABASE_PASSWORD_PRODUCTION'] %>
   # socket: /var/lib/mysql/mysql.sock
