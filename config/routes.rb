@@ -35,6 +35,9 @@ Rails.application.routes.draw do
   post 'inquiry/confirm' => 'inquiry#confirm'
   post 'inquiry/thanks' => 'inquiry#thanks'
 
+  get '*path', to: 'application#error_500'
+  get '*path', to: 'application#error_404'
+
   devise_scope :user do
     get '/users/sign_out' => 'devise/sessions#destroy'
   end
