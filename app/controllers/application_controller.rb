@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
 
   unless Rails.env.development?
     rescue_from ActiveRecord::RecordNotFound, with: :error_404
-    rescue_from Exception, with: :render_500
+    rescue_from Exception, with: :error_500
   end
 
   def error_404
