@@ -15,7 +15,6 @@
 //= require tag-it
 //= require moment
 //= require moment/ja.js
-//= require tempusdominus-bootstrap-4.js
 //= require chartkick
 //= require Chart.bundle
 //= require rails-ujs
