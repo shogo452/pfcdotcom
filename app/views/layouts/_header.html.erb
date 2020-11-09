@@ -1,31 +1,30 @@
-
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <a class="navbar-brand" href="/">
     <h1 class="text-hide header-logo">PFC.com</h1>
   </a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupported" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-    
+
   <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
     <ul class="navbar-nav">
 
       <% if user_signed_in? %>
-        <li class="nav-item"><%= link_to "新規投稿", new_product_path, method: :get, class: "nav-link" %></li>
+      <li class="nav-item"><%= link_to "新規投稿", new_product_path, method: :get, class: "nav-link" %></li>
 
-        <li class="nav-item">
-          <% if unchecked_notifications.any? %>
-            <i class="fa fa-circle notice-icon" style="color: blue;"></i>
-          <% end %>
-          <%= link_to "通知", notifications_path, class: "nav-link notice-char" %>
-        </li>
-        <li class="nav-item"><%= link_to "マイページ", user_path(current_user.id), class: "nav-link" %></li>
-        <li class="nav-item"><%= link_to "ログアウト", destroy_user_session_path, method: :get, class: "nav-link" %></li>
-        <li class="nav-item"><%= link_to "問い合わせ", inquiry_path, class: "nav-link" %></li>        
+      <li class="nav-item">
+        <% if unchecked_notifications.any? %>
+        <i class="fa fa-circle notice-icon" style="color: blue;"></i>
+        <% end %>
+        <%= link_to "通知", notifications_path, class: "nav-link notice-char" %>
+      </li>
+      <li class="nav-item"><%= link_to "マイページ", user_path(current_user.id), class: "nav-link" %></li>
+      <li class="nav-item"><%= link_to "ログアウト", destroy_user_session_path, method: :get, class: "nav-link" %></li>
+      <li class="nav-item"><%= link_to "問い合わせ", inquiry_path, class: "nav-link" %></li>
       <% else %>
-        <li class="nav-item"><%= link_to "サインアップ", new_user_registration_path, method: :get, class: "nav-link" %></li>
-        <li class="nav-item"><%= link_to "ログイン", new_user_session_path, method: :get, class: "nav-link" %></li>
-        <li class="nav-item"><%= link_to "問い合わせ", inquiry_path, class: "nav-link" %></li>
+      <li class="nav-item"><%= link_to "サインアップ", new_user_registration_path, method: :get, class: "nav-link" %></li>
+      <li class="nav-item"><%= link_to "ログイン", new_user_session_path, method: :get, class: "nav-link" %></li>
+      <li class="nav-item"><%= link_to "問い合わせ", inquiry_path, class: "nav-link" %></li>
       <% end %>
     </ul>
   </div>
