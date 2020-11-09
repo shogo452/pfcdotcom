@@ -15,7 +15,7 @@ class ApplicationController < ActionController::Base
             layout: false, status: 404
   end
 
-  def render_500(error)
+  def error_500(error)
     logger.error error
     logger.error error.backtrace.join("\n\n")
     render file: "#{Rails.root}/public/500.html",
