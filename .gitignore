@@ -32,3 +32,5 @@ terraform.tfvars
 terraform.tfstate
 terraform.tfstate.backup
 /.terraform
+.terraformrc
+remote-state.tf
