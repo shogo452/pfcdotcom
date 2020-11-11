@@ -1,15 +1,15 @@
 class UsersController < ApplicationController
   def show
     @user = User.with_attached_avatar.find(params[:id])
-
-    unless @balance = @user.balance
-      @user.build_balance
-      @user.balance.protein_intake = 0
-      @user.balance.fat_intake = 0
-      @user.balance.carbo_intake = 0
-      @user.balance.save
+    unless @user.balance
+      @balance = @user.build_balance
+      @balance.protein_intake = 0
+      @balance.fat_intake = 0
+      @balance.carbo_intake = 0
+      @balance.save
+    else
+      @balance = @user.balance
     end
-    @balance = @user.balance
     @record = Record.new
     @records = @user.records.order("date DESC").page(params[:page]).per(4)
     @record_datas = Record.where(user_id: @user.id).order("date ASC")

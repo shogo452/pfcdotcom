@@ -10,6 +10,7 @@ class Balance < ApplicationRecord
 
 
   def set_extra_information
+    binding.pry
     # 基礎代謝の計算
     if gender == "male"
       basal_metabolism = ( 10 * weight ) + ( 6.25 * height ) - ( 5 * age ) + 5
