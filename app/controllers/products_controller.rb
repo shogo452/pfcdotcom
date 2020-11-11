@@ -12,6 +12,7 @@ class ProductsController < ApplicationController
   def new
     @product = Product.new
     @all_tag_list = ActsAsTaggableOn::Tag.all.pluck(:name)
+    render "new"
   end
 
   def edit
