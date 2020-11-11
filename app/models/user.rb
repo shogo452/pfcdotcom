@@ -21,7 +21,6 @@ class User < ApplicationRecord
   has_many :messages, dependent: :destroy
   has_many :entry, dependent: :destroy
 
-
   enum gender: [:noselect, :male, :female], _prefix: true
   enum activity: [:noselect, :low, :normal, :high], _prefix: true
   enum fitness_type: [:noselect, :diet, :keep, :bulkup], _prefix: true
