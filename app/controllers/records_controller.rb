@@ -7,7 +7,6 @@ class RecordsController < ApplicationController
       flash[:danger] = @record.errors.full_messages
       redirect_to controller: "users", action: "show", id: current_user.id
     end
-    
   end
 
   def edit
@@ -31,5 +30,4 @@ class RecordsController < ApplicationController
   def record_params
     params.require(:record).permit(:date, :weight, :body_fat_percentage, :prefecture_id).merge(user_id: current_user.id)
   end
-  
 end

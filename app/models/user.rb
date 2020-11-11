@@ -12,9 +12,9 @@ class User < ApplicationRecord
   has_many :liked_products, through: :likes, source: :product
   has_many :favorites, dependent: :destroy
   has_many :favproducts, through: :favorites, source: :product
-  has_many :relationships, foreign_key: 'user_id'
+  has_many :relationships, foreign_key: "user_id"
   has_many :followings, through: :relationships, source: :follow
-  has_many :reverse_of_relationships, class_name: 'Relationship', foreign_key: 'follow_id'
+  has_many :reverse_of_relationships, class_name: "Relationship", foreign_key: "follow_id"
   has_many :followers, through: :reverse_of_relationships, source: :user
   has_many :active_notifications, class_name: "Notification", foreign_key: "visiter_id", dependent: :destroy
   has_many :passive_notifications, class_name: "Notification", foreign_key: "visited_id", dependent: :destroy
@@ -24,13 +24,12 @@ class User < ApplicationRecord
   enum gender: [:noselect, :male, :female], _prefix: true
   enum activity: [:noselect, :low, :normal, :high], _prefix: true
   enum fitness_type: [:noselect, :diet, :keep, :bulkup], _prefix: true
-  enum role: { user: 0, admin: 1}
+  enum role: { user: 0, admin: 1 }
 
   extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to_active_hash :prefecture
 
   validates :nickname, presence: true
-
 
   def already_liked?(product)
     self.likes.exists?(product_id: product.id)
@@ -69,10 +68,9 @@ class User < ApplicationRecord
     if temp.blank?
       notification = current_user.active_notifications.new(
         visited_id: id,
-        action: 'follow'
+        action: "follow",
       )
       notification.save if notification.valid?
-      
     end
   end
 end
