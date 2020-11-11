@@ -14,7 +14,7 @@ $(function () {
   });
   // バリデーションの実行
   $(".new_balance, .edit_balance").validate({
-    // ルール設定Ï
+    // ルール設定
     rules: {
       "balance[gender]": {
         valueNotEquals: "noselect"

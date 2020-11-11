@@ -20,7 +20,7 @@ $(document).on("keyup", '.tagit', function() {
   // 参:placeholderの書き換え方法
     $(".input").attr('placeholder','書き換え後のテキスト');
   // 参:placeholderの削除方法
-    $(".input").removeAttr('placeholder');Ï
+    $(".input").removeAttr('placeholder');
     
 
 $(document).on("keyup", '.tagit', function() {
