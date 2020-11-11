@@ -14,7 +14,7 @@ $(function () {
     $.validator.addMethod(key, this);
   });
   // バリデーションの実行(ユーザー登録、ログイン)
-  $("#new_user").validate({
+  $("#new_user").validate({Ï
     // ルール設定
     rules: {
       "user[nickname]": {

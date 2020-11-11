@@ -10,134 +10,134 @@
 <script src="//www.amcharts.com/lib/4/lang/ja_JP.js"></script>
 
 <script>
-am4core.ready(function() {
+  am4core.ready(function() {
 
-am4core.useTheme(am4themes_animated);
+    am4core.useTheme(am4themes_animated);
 
-var chart = am4core.create("chartdiv", am4charts.XYChart);
-chart.dateFormatter.language = new am4core.Language();
-chart.dateFormatter.language.locale = am4lang_ja_JP;
-chart.language.locale["_date_day"] = "MMMdd日";
-chart.language.locale["_date_year"] = "yyyy年";
+    var chart = am4core.create("chartdiv", am4charts.XYChart);
+    chart.dateFormatter.language = new am4core.Language();
+    chart.dateFormatter.language.locale = am4lang_ja_JP;
+    chart.language.locale["_date_day"] = "MMMdd日";
+    chart.language.locale["_date_year"] = "yyyy年";
 
-const weights = <%== JSON.dump(@weights) %>;
-const body_fat_percentages = <%== JSON.dump(@body_fat_percentages) %>;
-const dates = <%== JSON.dump(@dates) %>;
+    const weights = < %= = JSON.dump(@weights) % > ;
+    const body_fat_percentages = < %= = JSON.dump(@body_fat_percentages) % > ;
+    const dates = < %= = JSON.dump(@dates) % > ;
 
-var firstDate = new Date(dates[0])
-var lastDate = new Date(dates.slice(-1)[0])
-var termDate = (lastDate - firstDate) / 1000 / 60 / 60 / 24 + 1
+    var firstDate = new Date(dates[0])
+    var lastDate = new Date(dates.slice(-1)[0])
+    var termDate = (lastDate - firstDate) / 1000 / 60 / 60 / 24 + 1
 
-function generateChartData() {
-  var chartData = [];
-  for (var j = 0; j < weights.length; j++ ) {
-    for (var i = 0; i < termDate; i++ ) {
-      var newDate = new Date(firstDate)
-      newDate.setDate(newDate.getDate() + i);
-      if ((new Date(dates[j])) - (newDate) == 0 ){
-        weight = weights[j]
-        body_fat_percentage = body_fat_percentages[j]
-        chartData.push({
-          date1: newDate,
-          weight: weight,
-          date2: newDate,
-          body_fat_percentage: body_fat_percentage
-        });
+    function generateChartData() {
+      var chartData = [];
+      for (var j = 0; j < weights.length; j++) {
+        for (var i = 0; i < termDate; i++) {
+          var newDate = new Date(firstDate)
+          newDate.setDate(newDate.getDate() + i);
+          if ((new Date(dates[j])) - (newDate) == 0) {
+            weight = weights[j]
+            body_fat_percentage = body_fat_percentages[j]
+            chartData.push({
+              date1: newDate,
+              weight: weight,
+              date2: newDate,
+              body_fat_percentage: body_fat_percentage
+            });
+          }
+        }
       }
+      return chartData;
     }
-  }
-  return chartData;
-}
 
-chart.data = generateChartData();
-chart.responsive.enabled = true;
+    chart.data = generateChartData();
+    chart.responsive.enabled = true;
 
-var title = chart.titles.create();
-title.text = "体重・体脂肪率の推移";
-title.fontSize = 15;
-title.tooltipText = "スクロールバーで拡大できます。";
+    var title = chart.titles.create();
+    title.text = "体重・体脂肪率の推移";
+    title.fontSize = 15;
+    title.tooltipText = "スクロールバーで拡大できます。";
 
-var dateAxis = chart.xAxes.push(new am4charts.DateAxis());
-dateAxis.renderer.grid.template.location = 0;
-dateAxis.renderer.labels.template.fill = am4core.color("#ffffff");
+    var dateAxis = chart.xAxes.push(new am4charts.DateAxis());
+    dateAxis.renderer.grid.template.location = 0;
+    dateAxis.renderer.labels.template.fill = am4core.color("#ffffff");
 
-var dateAxis2 = chart.xAxes.push(new am4charts.DateAxis());
-dateAxis2.tooltip.disabled = true;
-dateAxis2.renderer.grid.template.location = 0;
-dateAxis2.renderer.labels.template.fill = am4core.color("#000000");
+    var dateAxis2 = chart.xAxes.push(new am4charts.DateAxis());
+    dateAxis2.tooltip.disabled = true;
+    dateAxis2.renderer.grid.template.location = 0;
+    dateAxis2.renderer.labels.template.fill = am4core.color("#000000");
 
-var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
-valueAxis.tooltip.disabled = true;
-valueAxis.renderer.labels.template.fill = am4core.color("#e59165");
-valueAxis.renderer.minWidth = 60;
-valueAxis.renderer.labels.template.adapter.add("text", function(text) {
-  return text + "kg";
-});
-valueAxis.renderer.fontWeight = "bold"; //軸の値を太字に変更
+    var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+    valueAxis.tooltip.disabled = true;
+    valueAxis.renderer.labels.template.fill = am4core.color("#e59165");
+    valueAxis.renderer.minWidth = 60;
+    valueAxis.renderer.labels.template.adapter.add("text", function(text) {
+      return text + "kg";
+    });
+    valueAxis.renderer.fontWeight = "bold"; //軸の値を太字に変更
 
-var valueAxis2 = chart.yAxes.push(new am4charts.ValueAxis());
-valueAxis2.tooltip.disabled = true;
-valueAxis2.renderer.grid.template.strokeDasharray = "2,3";
-valueAxis2.renderer.labels.template.fill = am4core.color("#dfcc64");
-valueAxis2.renderer.minWidth = 60;
-valueAxis2.renderer.labels.template.adapter.add("text", function(text) {
-  return text + "%";
-});
-valueAxis2.renderer.opposite = true; //第２縦軸を右側に設定
-valueAxis2.renderer.fontWeight = "bold"; //軸の値を太字に変更
+    var valueAxis2 = chart.yAxes.push(new am4charts.ValueAxis());
+    valueAxis2.tooltip.disabled = true;
+    valueAxis2.renderer.grid.template.strokeDasharray = "2,3";
+    valueAxis2.renderer.labels.template.fill = am4core.color("#dfcc64");
+    valueAxis2.renderer.minWidth = 60;
+    valueAxis2.renderer.labels.template.adapter.add("text", function(text) {
+      return text + "%";
+    });
+    valueAxis2.renderer.opposite = true; //第２縦軸を右側に設定
+    valueAxis2.renderer.fontWeight = "bold"; //軸の値を太字に変更
 
-var series = chart.series.push(new am4charts.LineSeries());
-series.name = "体重";
-series.dataFields.dateX = "date1";
-series.dataFields.valueY = "weight";
-series.tooltipText = "{valueY.value}kg";
-series.fill = am4core.color("#e59165");
-series.stroke = am4core.color("#e59165");
-series.smoothing = "monotoneX";
-series.strokeWidth = 2;
+    var series = chart.series.push(new am4charts.LineSeries());
+    series.name = "体重";
+    series.dataFields.dateX = "date1";
+    series.dataFields.valueY = "weight";
+    series.tooltipText = "{valueY.value}kg";
+    series.fill = am4core.color("#e59165");
+    series.stroke = am4core.color("#e59165");
+    series.smoothing = "monotoneX";
+    series.strokeWidth = 2;
 
-var bullet = series.bullets.push(new am4charts.Bullet());
-var circle = bullet.createChild(am4core.Circle);
-circle.width = 5;
-circle.height = 5;
-circle.horizontalCenter = "middle";
-circle.verticalCenter = "middle";
+    var bullet = series.bullets.push(new am4charts.Bullet());
+    var circle = bullet.createChild(am4core.Circle);
+    circle.width = 5;
+    circle.height = 5;
+    circle.horizontalCenter = "middle";
+    circle.verticalCenter = "middle";
 
-var series2 = chart.series.push(new am4charts.LineSeries());
-series2.name = "体脂肪率";
-series2.dataFields.dateX = "date2";
-series2.dataFields.valueY = "body_fat_percentage";
-series2.yAxis = valueAxis2;
-series2.xAxis = dateAxis2;
-series2.tooltipText = "{valueY.value}%"; //ツールチップの表示内容
-series2.fill = am4core.color("#dfcc64"); //ツールチップの色
-series2.stroke = am4core.color("#dfcc64"); //グラフの線の色
-series2.smoothing = "monotoneX";
-series2.strokeWidth = 2;
+    var series2 = chart.series.push(new am4charts.LineSeries());
+    series2.name = "体脂肪率";
+    series2.dataFields.dateX = "date2";
+    series2.dataFields.valueY = "body_fat_percentage";
+    series2.yAxis = valueAxis2;
+    series2.xAxis = dateAxis2;
+    series2.tooltipText = "{valueY.value}%"; //ツールチップの表示内容
+    series2.fill = am4core.color("#dfcc64"); //ツールチップの色
+    series2.stroke = am4core.color("#dfcc64"); //グラフの線の色
+    series2.smoothing = "monotoneX";
+    series2.strokeWidth = 2;
 
-var bullet2 = series2.bullets.push(new am4charts.Bullet());
-var circle2 = bullet2.createChild(am4core.Circle);
-circle2.width = 5;
-circle2.height = 5;
-circle2.horizontalCenter = "middle";
-circle2.verticalCenter = "middle";
+    var bullet2 = series2.bullets.push(new am4charts.Bullet());
+    var circle2 = bullet2.createChild(am4core.Circle);
+    circle2.width = 5;
+    circle2.height = 5;
+    circle2.horizontalCenter = "middle";
+    circle2.verticalCenter = "middle";
 
-chart.scrollbarX = new am4core.Scrollbar();
-chart.cursor = new am4charts.XYCursor();
-chart.cursor.xAxis = dateAxis2;
+    chart.scrollbarX = new am4core.Scrollbar();
+    chart.cursor = new am4charts.XYCursor();
+    chart.cursor.xAxis = dateAxis2;
 
-chart.legend = new am4charts.Legend();
-chart.legend.parent = chart.plotContainer;
-chart.legend.zIndex = 100;
-chart.legend.position = "top";
-chart.legend.contentAlign = "right";
+    chart.legend = new am4charts.Legend();
+    chart.legend.parent = chart.plotContainer;
+    chart.legend.zIndex = 100;
+    chart.legend.position = "top";
+    chart.legend.contentAlign = "right";
 
-valueAxis2.renderer.grid.template.strokeOpacity = 0.07;
-dateAxis2.renderer.grid.template.strokeOpacity = 0.07;
-dateAxis.renderer.grid.template.strokeOpacity = 0.07;
-valueAxis.renderer.grid.template.strokeOpacity = 0.07;
+    valueAxis2.renderer.grid.template.strokeOpacity = 0.07;
+    dateAxis2.renderer.grid.template.strokeOpacity = 0.07;
+    dateAxis.renderer.grid.template.strokeOpacity = 0.07;
+    valueAxis.renderer.grid.template.strokeOpacity = 0.07;
 
-});
+  });
 </script>
 
 <div id="chartdiv"></div>

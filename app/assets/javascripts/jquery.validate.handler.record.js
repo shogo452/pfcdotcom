@@ -19,7 +19,7 @@ $(function () {
       "record[weight]": {
         required: true,
         numbers: true,
-        range: [0, 200]
+        range: [0, 200]Ï
       },
       "record[body_fat_percentage]": {
         numbers: true,

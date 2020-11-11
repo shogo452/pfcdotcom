@@ -20,7 +20,7 @@ $(function () {
     rules: {
       "product[name]": {
         required: true
-      },
+      },Ï
       "product[protein]": {
         required: true,
         numbers: true,

@@ -12,7 +12,7 @@
 }(this, function($) {
   'use strict';
 
-  var methods = {
+  var methods = {Ï
     init: function(options) {
       return this.each(function() {
         this.self = $(this);
