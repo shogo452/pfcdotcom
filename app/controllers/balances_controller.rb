@@ -4,7 +4,7 @@ class BalancesController < ApplicationController
   end
 
   def create
-    @balance = Balance.new(balance_information)
+    @balance = Balance.new(balance_params)
     if @balance.save
       flash[:success] = "データの更新が完了しました。"
       redirect_back(fallback_location: user_path(current_user))
@@ -20,7 +20,7 @@ class BalancesController < ApplicationController
   def update
     @balance = Balance.find(params[:id])
     @balance.update(balance_params)
-    @balance.update(balance_information)
+    # @balance.update(balance_information)
     flash[:notice] = "データの更新が完了しました。"
     redirect_back(fallback_location: user_path(current_user))
   end
@@ -30,7 +30,8 @@ class BalancesController < ApplicationController
     params.require(:balance).permit(:gender, :height, :weight, :age, :fitness_type, :activity, :basal_metabolism, :protein_intake, :carbo_intake, :fat_intake, :prefecture_id).merge(user_id: current_user.id)
   end
 
-  def balance_information
-    balance_params.merge(@balance.set_extra_information)
-  end
+  # def balance_information
+  #   balance_params.merge(@balance.set_extra_information)
+  # end
+
 end
