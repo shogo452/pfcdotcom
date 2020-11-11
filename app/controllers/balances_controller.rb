@@ -30,8 +30,4 @@ class BalancesController < ApplicationController
     params.require(:balance).permit(:gender, :height, :weight, :age, :fitness_type, :activity, :basal_metabolism, :protein_intake, :carbo_intake, :fat_intake, :prefecture_id).merge(user_id: current_user.id)
   end
 
-  # def balance_information
-  #   balance_params.merge(@balance.set_extra_information)
-  # end
-
 end
