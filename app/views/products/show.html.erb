@@ -1,156 +1,156 @@
 <%= render "layouts/header" %>
 <div class="container mt-3">
   <div class="row product-detail">
-        <div class="col-md product-detail__left">
-          <div class="product-detail__left__image">
-            <% if @product.image_url %>
-              <%= image_tag @product.image_url, alt: "aaa", size: "300x300" %>
-            <% else %>
-              <%= image_tag "noimage.jpg", alt: "aaa", size: "350x350" %>
-            <% end %>
-          </div>
-          <% if user_signed_in? && @product.user.id == current_user.id %>
-            <div class="product-detail__left__button">
-              <% if current_user.favproduct?(@product) %>
-                <%= button_to product_favorite_path(@product), class: "btn btn-primary btn-sm", method: :delete  do %>
-                  <i class="fas fa-heart mr-2"></i>お気に入りを取り消す
-                <% end %>
-              <% else %>
-                <%= button_to product_favorites_path(@product), class: "btn btn-primary btn-sm" do %>
-                  <i class="fas fa-heart mr-2"></i>お気に入り
-                <% end %>
-              <% end %>
-            </div>
-            <div class="product-detail__left__button">
-              <% if current_user.already_liked?(@product) %>
-                <%= button_to product_like_path(@product), class: "btn btn-primary btn-sm", method: :delete  do %>
-                  <i class="fas fa-thumbs-up mr-2"></i>いいねを取り消す
-                <% end %>
-              <% else %>
-                <%= button_to product_likes_path(@product), class: "btn btn-primary btn-sm" do %>
-                  <i class="fas fa-thumbs-up mr-2"></i>いいね
-                <% end %>
-              <% end %>
-            </div>
+    <div class="col-md product-detail__left">
+      <div class="product-detail__left__image">
+        <% if @product.image_url %>
+        <%= image_tag @product.image_url, alt: "aaa", size: "300x300" %>
+        <% else %>
+        <%= image_tag "noimage.jpg", alt: "aaa", size: "350x350" %>
+        <% end %>
+      </div>
+      <% if user_signed_in? && @product.user.id == current_user.id %>
+      <div class="product-detail__left__button">
+        <% if current_user.favproduct?(@product) %>
+        <%= button_to product_favorite_path(@product), class: "btn btn-primary btn-sm", method: :delete  do %>
+        <i class="fas fa-heart mr-2"></i>お気に入りを取り消す
+        <% end %>
+        <% else %>
+        <%= button_to product_favorites_path(@product), class: "btn btn-primary btn-sm" do %>
+        <i class="fas fa-heart mr-2"></i>お気に入り
+        <% end %>
+        <% end %>
+      </div>
+      <div class="product-detail__left__button">
+        <% if current_user.already_liked?(@product) %>
+        <%= button_to product_like_path(@product), class: "btn btn-primary btn-sm", method: :delete  do %>
+        <i class="fas fa-thumbs-up mr-2"></i>いいねを取り消す
+        <% end %>
+        <% else %>
+        <%= button_to product_likes_path(@product), class: "btn btn-primary btn-sm" do %>
+        <i class="fas fa-thumbs-up mr-2"></i>いいね
+        <% end %>
+        <% end %>
+      </div>
+      <% end %>
+      <div class="product-detail__left__response-list">
+        <%= fa_icon "thumbs-up" %>
+        <small><%= @product.liked_users.count %></small>
+        <%= fa_icon "heart" %>
+        <small><%= @product.favorites.length %></small>
+        <%= fa_icon "comment" %>
+        <small class=><%= @product.reviews.length %></small>
+      </div>
+      <div class="d-block text-center my-1">
+        <button type="button" class="btn btn-primary btn-sm mb-1 border-0 mx-auto" , style="background: #55ACEE;">
+          <%= fa_icon "twitter" %>
+          Twitterでシェア
+        </button>
+      </div>
+      <div class="d-block text-center mb-1">
+        <div class="btn-group mx-auto" role="group" aria-label="Basic example">
+          <% if @product.purchase_url %>
+          <%= link_to @product.purchase_url, class: "btn btn-secondary" do %>
+          <%= fa_icon "link" %>
           <% end %>
-          <div class="product-detail__left__response-list">
-            <%= fa_icon "thumbs-up" %>
-            <small><%= @product.liked_users.count %></small>
-            <%= fa_icon "heart" %>
-            <small><%= @product.favorites.length %></small>
-            <%= fa_icon "comment" %>
-            <small class=><%= @product.reviews.length %></small>
-          </div>
-          <div class="d-block text-center my-1">
-            <button type="button" class="btn btn-primary btn-sm mb-1 border-0 mx-auto", style="background: #55ACEE;">
-              <%= fa_icon "twitter" %>
-              Twitterでシェア
-            </button>
-          </div>
-          <div class="d-block text-center mb-1">
-            <div class="btn-group mx-auto" role="group" aria-label="Basic example">
-              <% if @product.purchase_url %>
-                <%= link_to @product.purchase_url, class: "btn btn-secondary" do %>
-                  <%= fa_icon "link" %>
-                <% end %>
-              <% end %>
-              <% if user_signed_in? && @product.user.id == current_user.id %>
-                <%= link_to "/products/#{@product.id}/edit", class: "btn btn-secondary", method: :get do %>
-                  <%= fa_icon "edit" %>
-                <% end %>
-                <%= link_to "/products/#{@product.id}", class: "btn btn-secondary", method: :delete, data: { confirm: "商品を削除します。よろしいですか?"} do %>
-                  <%= fa_icon "trash"%>
-                <% end %>
-              <% end %>
-            </div>
-          </div>
+          <% end %>
+          <% if user_signed_in? && @product.user.id == current_user.id %>
+          <%= link_to "/products/#{@product.id}/edit", class: "btn btn-secondary", method: :get do %>
+          <%= fa_icon "edit" %>
+          <% end %>
+          <%= link_to "/products/#{@product.id}", class: "btn btn-secondary", method: :delete, data: { confirm: "商品を削除します。よろしいですか?"} do %>
+          <%= fa_icon "trash"%>
+          <% end %>
+          <% end %>
         </div>
-        <div class="col-md product-detail__right">
-          <h3 class="product-detail__name text-break">
-            <%= @product.name %>
-          </h3>
-          <div class="product-detail__date">
-            <span class="text-muted"><i class="far fa-clock pr-2"></i><%= @product.created_at.to_s(:datetime) %></span>
-            <% if @product.new_arrival? %>
-              <span class="badge badge-secondary ml-1">New</span><br/>
-            <% end %>
-          </div>
-          <div>
-            投稿者：
-            <%= link_to user_path(@product.user), method: :get do %>
-              <%= @product.user.nickname %>
-            <% end %>
-          </div>
-          <div class="d-block">
-            <div class="average-review-rating d-inline", data-score=<%= @average_review %>></div>
-          </div>
-          <ul class="product-detail__list">
-            <li class="product-detail__list__item">
-              タンパク質:  
-              <% if @product.protein? %>
-                <span class="product-detail__list__item__number"><%= @product.protein.to_f %></span>g
-              <% end %>
-            </li>
-            <li class="product-detail__list__item">
-              脂質:  
-              <% if @product.fat? %>
-                <span class="product-detail__list__item__number"><%= @product.fat.to_f %></span>g
-              <% end %>
-            </li>
-            <li class="product-detail__list__item">
-              炭水化物:  
-              <% if @product.carbo? %>
-                <span class="product-detail__list__item__number"><%= @product.carbo.to_f %></span>g
-              <% end %>
-            </li>
-            <li class="product-detail__list__item">
-              糖質:  
-              <% if @product.sugar %>
-                <span class="product-detail__list__item__number"><%= @product.sugar.to_f %></span>g
-              <% else %>
-                <span class="product-detail__list__item__number">  -  </span>g
-              <% end %>
-            </li>
-            <li class="product-detail__list__item">
-              カロリー :  
-              <% if @product.calory? %>
-                <span class="product-detail__list__item__number"><%= @product.calory.to_f %></span>kcal
-              <% else %>
-                <span class="product-detail__list__item__number">  -  </span>kcal
-              <% end %>
-            </li>
-            <li class="product-detail__list__item">
-              価格 :  
-              <% if @product.price? %>
-                <span class="product-detail__list__item__number"><%= @product.price %></span>円
-              <% else %>
-                <span class="product-detail__list__item__number">  -  </span>円
-              <% end %>
-            </li>
-          </ul>
-        </div>
-        <div class="col-md">
-          <%= render partial: "chart", locals: { nutrition: @nutrition} %>
-          <div class="product-detail__footer__tag-list">
-            <span><%= fa_icon "tags" %>タグ</span><br/>
-            <%= render "tag_list", tag_list: @product.tag_list %><br/>
-          </div>
-        </div>
+      </div>
+    </div>
+    <div class="col-md product-detail__right">
+      <h3 class="product-detail__name text-break">
+        <%= @product.name %>
+      </h3>
+      <div class="product-detail__date">
+        <span class="text-muted"><i class="far fa-clock pr-2"></i><%= @product.created_at.to_s(:datetime) %></span>
+        <% if @product.new_arrival? %>
+        <span class="badge badge-secondary ml-1">New</span><br />
+        <% end %>
+      </div>
+      <div>
+        投稿者：
+        <%= link_to user_path(@product.user), method: :get do %>
+        <%= @product.user.nickname %>
+        <% end %>
+      </div>
+      <div class="d-block">
+        <div class="average-review-rating d-inline" , data-score=<%= @average_review %>></div>
+      </div>
+      <ul class="product-detail__list">
+        <li class="product-detail__list__item">
+          タンパク質:
+          <% if @product.protein? %>
+          <span class="product-detail__list__item__number"><%= @product.protein.to_f %></span>g
+          <% end %>
+        </li>
+        <li class="product-detail__list__item">
+          脂質:
+          <% if @product.fat? %>
+          <span class="product-detail__list__item__number"><%= @product.fat.to_f %></span>g
+          <% end %>
+        </li>
+        <li class="product-detail__list__item">
+          炭水化物:
+          <% if @product.carbo? %>
+          <span class="product-detail__list__item__number"><%= @product.carbo.to_f %></span>g
+          <% end %>
+        </li>
+        <li class="product-detail__list__item">
+          糖質:
+          <% if @product.sugar %>
+          <span class="product-detail__list__item__number"><%= @product.sugar.to_f %></span>g
+          <% else %>
+          <span class="product-detail__list__item__number"> - </span>g
+          <% end %>
+        </li>
+        <li class="product-detail__list__item">
+          カロリー :
+          <% if @product.calory? %>
+          <span class="product-detail__list__item__number"><%= @product.calory.to_f %></span>kcal
+          <% else %>
+          <span class="product-detail__list__item__number"> - </span>kcal
+          <% end %>
+        </li>
+        <li class="product-detail__list__item">
+          価格 :
+          <% if @product.price? %>
+          <span class="product-detail__list__item__number"><%= @product.price %></span>円
+          <% else %>
+          <span class="product-detail__list__item__number"> - </span>円
+          <% end %>
+        </li>
+      </ul>
+    </div>
+    <div class="col-md">
+      <%= render partial: "chart", locals: { nutrition: @nutrition} %>
+      <div class="product-detail__footer__tag-list">
+        <span><%= fa_icon "tags" %>タグ</span><br />
+        <%= render "tag_list", tag_list: @product.tag_list %><br />
+      </div>
+    </div>
   </div>
   <div class="container">
     <div class="row">
       <div class="col-md">
         <div class="review__form mt-3">
           <%= form_for [@product, @review] do |f| %>
-            <div class="form-group">
-              <div class="field" id="rating-form">
-                <%= f.label "星評価" %>
-                <%= f.hidden_field :rate, id: :review_rate %>
-              </div>
-              <%= f.label "コメント" %>
-              <%= f.text_area :text, class: "form-control" %><br/>
+          <div class="form-group">
+            <div class="field" id="rating-form">
+              <%= f.label "星評価" %>
+              <%= f.hidden_field :rate, id: :review_rate %>
             </div>
-              <%= f.submit "レビュー評価", class: 'btn btn-primary mb-3' %>
+            <%= f.label "コメント" %>
+            <%= f.text_area :text, class: "form-control" %><br />
+          </div>
+          <%= f.submit "レビュー評価", class: 'btn btn-primary mb-3' %>
           <% end %>
         </div>
         <div class="review__title">
@@ -159,37 +159,37 @@
         </div>
         <div class="review__list">
           <% if @reviews.exists? %>
-            <% @reviews.each do |review| %>
-              <div class="row review__list__item">
-                <div class="col-2 review__list__item__avatar">
-                  <% if review.user.avatar.attached? %>
-                    <%= link_to user_path(review.user), method: :get do %>
-                      <%= image_tag review.user.avatar, class: "review__list__item__avatar__img" %>
-                    <% end %>
-                  <% else  %>
-                    <%= link_to user_path(review.user), method: :get do %>
-                      <%= image_tag "user_image.png", class: "review__list__item__avatar__img" %>
-                    <% end %>
-                  <% end %>
-                </div>
-                <div class="col-10">
-                  <div id="star-rate-#{review.id}">
-                    <div class="review-rating" data-score="<%= review.rate %>"></div>
-                  </div>
-                  投稿者：
-                  <%= link_to user_path(review.user), method: :get do %>
-                    <%= review.user.nickname %>
-                  <% end %>
-                  <small class="ml-2 text-muted"><%= review.created_at.to_s(:datetime) %></small>
-                  <div class="review__content">
-                    <pre><%= review.text %></pre>
-                  </div>
-                </div>
+          <% @reviews.each do |review| %>
+          <div class="row review__list__item">
+            <div class="col-2 review__list__item__avatar">
+              <% if review.user.avatar.attached? %>
+              <%= link_to user_path(review.user), method: :get do %>
+              <%= image_tag review.user.avatar, class: "review__list__item__avatar__img" %>
+              <% end %>
+              <% else  %>
+              <%= link_to user_path(review.user), method: :get do %>
+              <%= image_tag "user_image.png", class: "review__list__item__avatar__img" %>
+              <% end %>
+              <% end %>
+            </div>
+            <div class="col-10">
+              <div id="star-rate-#{review.id}">
+                <div class="review-rating" data-score="<%= review.rate %>"></div>
               </div>
-            <% end %>
-            <%= paginate @reviews %>
+              投稿者：
+              <%= link_to user_path(review.user), method: :get do %>
+              <%= review.user.nickname %>
+              <% end %>
+              <small class="ml-2 text-muted"><%= review.created_at.to_s(:datetime) %></small>
+              <div class="review__content">
+                <pre><%= review.text %></pre>
+              </div>
+            </div>
+          </div>
+          <% end %>
+          <%= paginate @reviews %>
           <% else %>
-            <h6 class="ml-2">レビューはありません。</h6>
+          <h6 class="ml-2">レビューはありません。</h6>
           <% end %>
         </div>
       </div>
@@ -206,22 +206,22 @@
         <div class="tab-content" id="myTabContent">
           <div class="tab-pane fade show active" id="same-tag" role="tabpanel" aria-labelledby="same-tag-tab">
             <% if @same_tagged_products %>
-              <div class="d-flex flex-wrap justify-content-around">
-                <%= render partial: 'product', collection: @same_tagged_products, as: 'product' %>
-              </div>
-            <%= paginate @same_tagged_products %> 
+            <div class="d-flex flex-wrap justify-content-around">
+              <%= render partial: 'product', collection: @same_tagged_products, as: 'product' %>
+            </div>
+            <%= paginate @same_tagged_products %>
             <% else %>
-              <h6 class="mt-2 ml-2">同じタグの投稿はありません。</h6>
+            <h6 class="mt-2 ml-2">同じタグの投稿はありません。</h6>
             <% end %>
           </div>
           <div class="tab-pane fade" id="same-user" role="tabpanel" aria-labelledby="same-user-tab">
             <% if @same_user_products %>
-              <div class="d-flex flex-wrap justify-content-around">
-                <%= render partial: 'product', collection: @same_user_products, as: 'product' %>
-              </div> 
-              <%= paginate @same_user_products %>
+            <div class="d-flex flex-wrap justify-content-around">
+              <%= render partial: 'product', collection: @same_user_products, as: 'product' %>
+            </div>
+            <%= paginate @same_user_products %>
             <% else %>
-              <h6 class="mt-2 ml-2">同じユーザーの投稿はありません。</h6>
+            <h6 class="mt-2 ml-2">同じユーザーの投稿はありません。</h6>
             <% end %>
           </div>
         </div>
@@ -234,7 +234,9 @@
 <script>
   $('.average-review-rating').raty({
     readOnly: true,
-    path: '/assets/',
+    starOff: "<%= asset_path('star-off.png') %>",
+    starOn: "<%= asset_path('star-on.png') %>",
+    starHalf: "<%= asset_path('star-half.png') %>",
     score: function() {
       return $(this).attr('data-score')
     }
@@ -248,7 +250,7 @@
     starOn: "<%= asset_path('star-on.png') %>",
     starHalf: "<%= asset_path('star-half.png') %>",
     scoreName: 'review[rate]',
-    half: true, 
+    half: true,
   });
 </script>
 
@@ -257,14 +259,13 @@
 <script>
   $('.review-rating').raty({
     readOnly: true,
+    starOff: "<%= asset_path('star-off.png') %>",
+    starOn: "<%= asset_path('star-on.png') %>",
+    starHalf: "<%= asset_path('star-half.png') %>",
     score: function() {
       return $(this).attr('data-score');
     },
-    path: '/assets/'
   });
 </script>
 
 <%= render "layouts/footer" %>
-
-
-
