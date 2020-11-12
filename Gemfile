@@ -72,7 +72,7 @@ end
 gem "activeadmin"
 gem "active_hash"
 gem "acts-as-taggable-on", "~> 6.0"
-gem "aws-sdk-s3", "~> 1"
+gem "aws-sdk-s3", require: false
 gem "bootstrap4-datetime-picker-rails"
 gem "carrierwave"
 gem "chartkick"
