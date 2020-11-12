@@ -5,7 +5,7 @@
       <div class="row user-information">
         <div class="col-3">
           <% if @user.avatar.attached? %>
-          <%= image_tag @user.avatar, class: "user-information__image" %>
+          <%= image_tag @user.avatar.variant(combine_options:{gravity: :center, resize:"100x100^",crop:"100x100+0+0"}).processed, class: "user-information__image" %>
           <% else %>
           <%= image_tag "user_image.png", class: "user-information__image" %>
           <% end %>

@@ -397,7 +397,7 @@ DEPENDENCIES
   active_hash
   activeadmin
   acts-as-taggable-on (~> 6.0)
-  aws-sdk-s3 (~> 1)
+  aws-sdk-s3
   better_errors
   binding_of_caller
   bootsnap (>= 1.1.0)
