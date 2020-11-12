@@ -20,9 +20,12 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   # PUT /resource
-  # def update
-  #   super
-  # end
+  def update
+    super
+    if account_update_params[:avatar].present?
+      resource.avatar.attach(account_update_params[:avatar])
+    end
+  end
 
   # DELETE /resource
   # def destroy
@@ -60,13 +63,15 @@ class Users::RegistrationsController < Devise::RegistrationsController
   #   super(resource)
   # end
   prepend_before_action :check_captcha, only: [:create]
+
   private
+
   def check_captcha
     unless verify_recaptcha
       self.resource = resource_class.new sign_up_params
       resource.validate # Look for any other validation errors besides reCAPTCHA
       set_minimum_password_length
       respond_with_navigational(resource) { render :new }
-    end 
+    end
   end
 end
