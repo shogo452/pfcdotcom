@@ -37,6 +37,11 @@ gem "dotenv-rails"
 gem "slack-notifier"
 gem "delayed_job_active_record"
 
+group :test do
+  gem 'rspec_junit_formatter'
+end
+
+
 group :production do
   gem "unicorn", "5.4.1"
 end
