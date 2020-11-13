@@ -8,6 +8,7 @@ jobs:
       - image: circleci/ruby:2.6.3-stretch-node
         environment:
           - RAILS_ENV: test
+          - BUNDLER_VERSION: 2.1.4
 
       - image: circleci/mysql:5.7
         environment:
