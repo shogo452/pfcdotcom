@@ -8,6 +8,7 @@ class ProductsController < ApplicationController
     @rates = Review.group(:product_id).average(:rate)
     @likes_ranking = Product.find(Like.group(:product_id).order("count(id) DESC").limit(5).pluck(:product_id))
     @favorites_ranking = Product.find(Favorite.group(:product_id).order("count(id) DESC").limit(5).pluck(:product_id))
+    render "index"
   end
 
   def new
