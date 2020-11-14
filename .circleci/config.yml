@@ -1,7 +1,6 @@
 version: 2.1
 orbs:
   ruby: circleci/ruby@0.1.2
-  slack: circleci/slack@4.1.1
 
 jobs:
   build:
@@ -87,7 +86,10 @@ jobs:
               exit 0
             fi
             bundle exec cap production deploy
+orbs:
+  slack: circleci/slack@4.1.1
 
+jobs:
   slack/status:
     success_message: ':ok:\nRepository: $CIRCLE_PROJECT_REPONAME\nBranch: $CIRCLE_BRANCH\nPull Requests: $CIRCLE_PULL_REQUESTS\nDeploy Success!'
     failure_message: ':ng:\nRepository: $CIRCLE_PROJECT_REPONAME\nBranch: $CIRCLE_BRANCH\nPull Requests: $CIRCLE_PULL_REQUESTS\nDeploy Failure!'
