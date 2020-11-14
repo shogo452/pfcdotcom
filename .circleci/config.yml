@@ -88,7 +88,7 @@ jobs:
             fi
             bundle exec cap production deploy
 
-      slack/status:
+      - slack/status:
         success_message: "$CIRCLE_USERNAMEさん、$CIRCLE_BRANCH のテストが完了しました！"
         failure_message: "$CIRCLE_USERNAMEさん、$CIRCLE_BRANCH のテストが失敗しました。。。"
         webhook: "${SLACK_WEBHOOK}"
