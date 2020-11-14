@@ -18,7 +18,7 @@
         <%= form_for User.new, url: user_session_path, html: {class: "test-user-login"} do |f| %>
         <%= f.hidden_field :email, value: "test@example.com" %>
         <%= f.hidden_field :password, value: "testtest" %>
-        <%= f.submit "ゲストユーザーでログイン", class: "btn btn-primary btn-sm mr-2" %>
+        <%= f.submit "ゲストユーザーでログイン", class: "btn btn-orange btn-sm text-white mr-2" %>
         <% end %>
       </div>
       <small class="reference-link">Designed by <a href="https://jp.freepik.com/free-photos-vectors/background">Freepik</a></small>
@@ -93,8 +93,8 @@
           <%= search_form_for @search, url: products_path do |f| %>
           <%= f.search_field :name_cont, { "aria-describedby": "button-addon5", class: "form-control", placeholder: "検索する名前を入力…" } %>
           <div class="input-group-append">
-            <%= button_tag type: "submit", class: "btn btn-primary" do %>
-            <i class="fa fa-search"></i>
+            <%= button_tag type: "submit", class: "btn btn-orange" do %>
+            <i class="fas fa-search text-white"></i>
             <% end %>
           </div>
           <% end %>
@@ -106,7 +106,7 @@
       <h5 class="tag_list__title">人気のタグ一覧</h5>
       <div class="tag_list__content">
         <% @tags.each do |tag| %>
-        <span class="badge badge-info">
+        <span class="badge badge-blue text-white">
           <%= link_to tag.name, tag_index_products_path(tag_name: tag.name), class: "text-white" %>
           <%= "(#{tag.taggings_count})"%>
         </span>
