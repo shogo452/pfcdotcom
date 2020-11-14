@@ -1,0 +1,11 @@
+id,nickname,email,password,password_confirmation
+1,さなえ,test1@test.com,testtest1,testtest1
+2,まさし,test2@test.com,testtest2,testtest2
+3,かずき,test3@test.com,testtest3,testtest3
+4,ともや,test4@test.com,testtest4,testtest4
+5,こうへい,test5@test.com,testtest5,testtest5
+6,しょうた,test6@test.com,testtest6,testtest6
+7,ケイスケ,test7@test.com,testtest7,testtest7
+8,筋トレ太郎,test8@test.com,testtest8,testtest8
+9,ダイエット花子,test9@test.com,testtest9,testtest9
+10,減量次郎,test10@test.com,testtest10,testtest10

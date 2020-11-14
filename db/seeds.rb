@@ -1,20 +1,21 @@
-User.create!(nickname: "ゲストユーザー", email: 'test@example.com', password: 'testtest', password_confirmation: 'testtest')
-9.times do |n|
-  User.create!(
-    email: "test#{n + 1}@test.com",
-    nickname: "テストユーザー#{n+1}",
-    password: 'testtest',
-    password_confirmation: 'testtest'
-  )
-end
 require "csv"
 
+User.create!(nickname: "ゲストユーザー", email: 'test@example.com', password: 'testtest', password_confirmation: 'testtest')
 CSV.foreach('db/records.csv', headers: true) do |row|
   Record.create!(
     date: row['date'],
     weight: row['weight'],
     body_fat_percentage: row['body_fat_percentage'],
     user_id: row['user_id']
+  )
+end
+
+CSV.foreach('db/users.csv', headers: true) do |row|
+  User.create!(
+    nickname: row['nickname'],
+    email: row['email'],
+    password: row['password'],
+    password_confirmation: row['password_confirmation']
   )
 end
 
@@ -33,7 +34,7 @@ CSV.foreach('db/products.csv', headers: true) do |row|
     image: File.open("#{Rails.root}/db/sample_images/sample#{num}.jpg"),
     tag_list: row['tag_list']
   )
-  sleep 0.1
+  sleep 0.2
   num += 1
 end
 

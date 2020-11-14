@@ -43,7 +43,7 @@ class ProductsController < ApplicationController
     @like = Like.new
     tag_list = @product.tag_list
     @same_taged_products = Product.tagged_with(tag_list, :any => true).page(params[:page]).per(4)
-    @same_user_products = Product.where(user_id: @product.user.id).page(params[:page]).per(4)
+    @same_user_products = Product.where(user_id: @product.user.id).page(params[:page]).per(4).where.not(id: @product.id)
     @rates = Review.group(:product_id).average(:rate)
   end
 
