@@ -1,6 +1,7 @@
 version: 2.1
 orbs:
   ruby: circleci/ruby@0.1.2
+  slack: circleci/slack@4.1.1
 
 jobs:
   build:
@@ -86,11 +87,8 @@ jobs:
               exit 0
             fi
             bundle exec cap production deploy
-orbs:
-  slack: circleci/slack@4.1.1
 
-jobs:
-  slack/status:
-    success_message: ':ok:\nRepository: $CIRCLE_PROJECT_REPONAME\nBranch: $CIRCLE_BRANCH\nPull Requests: $CIRCLE_PULL_REQUESTS\nDeploy Success!'
-    failure_message: ':ng:\nRepository: $CIRCLE_PROJECT_REPONAME\nBranch: $CIRCLE_BRANCH\nPull Requests: $CIRCLE_PULL_REQUESTS\nDeploy Failure!'
-    webhook: "${SLACK_WEBHOOK}"
+      - slack/status:
+          success_message: "$CIRCLE_USERNAMEさん、$CIRCLE_BRANCH のテストが完了しました！"
+          failure_message: "$CIRCLE_USERNAMEさん、$CIRCLE_BRANCH のテストが失敗しました。。。"
+          webhook: "${SLACK_WEBHOOK}"
