@@ -72,11 +72,6 @@ jobs:
           path: /tmp/test-results
           destination: test-results
 
-      - slack/status:
-          success_message: "${CIRCLE_USERNAME}さん、${CIRCLE_BRANCH} のテストが完了しました！"
-          failure_message: "${CIRCLE_USERNAME}さん、${CIRCLE_BRANCH} のテストが失敗しました。。。"
-          webhook: "${SLACK_WEBHOOK}"
-
         # run rubocop
       # - run:
       #     name: run rubocop
@@ -92,9 +87,3 @@ jobs:
               exit 0
             fi
             bundle exec cap production deploy
-
-workflows:
-  version: 2.1
-  build_and_test:
-    jobs:
-      - build
