@@ -92,3 +92,9 @@ jobs:
               exit 0
             fi
             bundle exec cap production deploy
+
+workflows:
+  version: 2.1
+  build_and_test:
+    jobs:
+      - build
