@@ -47,7 +47,7 @@
       <%= form_for @message, html: {class: ""} do |f| %>
       <%= f.text_field :message, placeholder: "メッセージを入力してください", class:"form-control" %>
       <%=f.hidden_field :room_id, value: @room.id %>
-      <%= f.submit "送信", class: "btn btn-primary btn-sm my-2" %>
+      <%= f.submit "送信", class: "btn btn-orange btn-sm my-2" %>
       <% end %>
     </div>
   </div>

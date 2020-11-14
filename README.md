@@ -20,7 +20,7 @@ PFC.comは筋トレやダイエットに取り組むユーザーに向けた
 
 *PFCバランス：摂取カロリーのうちのタンパク質、脂質、炭水化物がどれぐらいの割合を占めるかを示した比率
 
-# 特徴
+# 主な利用方法
 
   ### ①シェア
   
@@ -86,7 +86,6 @@ PFC.comは筋トレやダイエットに取り組むユーザーに向けた
 ## テスト
 
 + RSpec
-+ CircleCIで自動テスト、結果をSlackに通知
 
 ## その他使用技術
 
@@ -94,9 +93,9 @@ PFC.comは筋トレやダイエットに取り組むユーザーに向けた
 + ChatWork API(問い合わせの通知)
 + 本番環境での例外発生のSlack通知
 
-# AWSアーキテクチャ図
+# インフラ構成図
 
-![pfcdotcom](https://user-images.githubusercontent.com/54160947/99142401-fd81ee00-2697-11eb-83f7-f070a56e2266.jpg)
+![pfcdotcom](https://user-images.githubusercontent.com/54160947/99143657-9b7ab600-26a2-11eb-8a93-c7011f161e01.jpg)
 
 # デモ画像
 

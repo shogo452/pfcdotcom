@@ -34,7 +34,7 @@ class ProductsController < ApplicationController
 
   def show
     @product = Product.find(params[:id])
-    @nutrition = [@product.protein, @product.fat, @product.carbo]
+    gon.nutrition = [@product.protein, @product.fat, @product.carbo]
     @reviews = @product.reviews.page(params[:page]).per(6)
     @review = Review.new
     if @product.reviews.blank?
