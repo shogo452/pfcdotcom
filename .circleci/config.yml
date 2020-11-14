@@ -88,7 +88,7 @@ jobs:
             fi
             bundle exec cap production deploy
 
-      - slack/status:
-          success_message: ':ok:\nRepository: $CIRCLE_PROJECT_REPONAME\nBranch: $CIRCLE_BRANCH\nPull Requests: $CIRCLE_PULL_REQUESTS\nDeploy Success!'
-          failure_message: ':ng:\nRepository: $CIRCLE_PROJECT_REPONAME\nBranch: $CIRCLE_BRANCH\nPull Requests: $CIRCLE_PULL_REQUESTS\nDeploy Failure!'
-          webhook: "${SLACK_WEBHOOK}"
+  slack/status:
+    success_message: ':ok:\nRepository: $CIRCLE_PROJECT_REPONAME\nBranch: $CIRCLE_BRANCH\nPull Requests: $CIRCLE_PULL_REQUESTS\nDeploy Success!'
+    failure_message: ':ng:\nRepository: $CIRCLE_PROJECT_REPONAME\nBranch: $CIRCLE_BRANCH\nPull Requests: $CIRCLE_PULL_REQUESTS\nDeploy Failure!'
+    webhook: "${SLACK_WEBHOOK}"
