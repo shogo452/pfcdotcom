@@ -41,7 +41,6 @@ group :test do
   gem 'rspec_junit_formatter'
 end
 
-
 group :production do
   gem "unicorn", "5.4.1"
 end
@@ -88,6 +87,7 @@ gem "enum_help"
 gem "exception_notification"
 gem "fog-aws"
 gem "font-awesome-rails"
+gem 'gon'
 gem "jquery-rails"
 gem "jquery-ui-rails"
 gem "kaminari"
