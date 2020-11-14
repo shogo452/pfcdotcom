@@ -126,7 +126,7 @@
     <% if @search != 0 %>
     <%= render partial: 'product', collection: @search_products, as: 'product' %>
     <% else %>
-    <%= render @products %>
+    <%= render partial: 'product', collection: @products, as: 'product' %>
     <% end %>
   </div>
   <% if @search != 0 %>
