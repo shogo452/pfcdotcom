@@ -21,7 +21,7 @@ class BalancesController < ApplicationController
     @balance = Balance.find(params[:id])
     @balance.update(balance_params)
     # @balance.update(balance_information)
-    flash[:notice] = "データの更新が完了しました。"
+    flash[:success] = "データの更新が完了しました。"
     redirect_back(fallback_location: user_path(current_user))
   end
 

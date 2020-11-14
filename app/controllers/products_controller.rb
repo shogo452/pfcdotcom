@@ -1,9 +1,10 @@
 class ProductsController < ApplicationController
   before_action :set_search
+  before_action :authenticate_user!, except: [:index, :tag_index, :set_search]
 
   def index
     @products = Product.includes(:user).page(params[:page]).per(6)
-    @tags = ActsAsTaggableOn::Tag.most_used
+    @tags = ActsAsTaggableOn::Tag.most_used(10)
     @rates = Review.group(:product_id).average(:rate)
     @likes_ranking = Product.find(Like.group(:product_id).order("count(id) DESC").limit(5).pluck(:product_id))
     @favorites_ranking = Product.find(Favorite.group(:product_id).order("count(id) DESC").limit(5).pluck(:product_id))
@@ -24,9 +25,10 @@ class ProductsController < ApplicationController
     @product = Product.new(product_params)
     if @product.save
       notifier.ping "product:#{@product.name}が投稿されました。"
+      flash[:success] = "投稿が完了しました。"
       redirect_to action: :index
     else
-      render "new"
+      render new_product_path(@product)
     end
   end
 
@@ -50,6 +52,7 @@ class ProductsController < ApplicationController
   def update
     @product = Product.find(params[:id])
     if @product.update(product_params)
+      flash[:success] = "編集が完了しました。"
       redirect_to action: :index
     else
       redirect_to edit_ptoduct_path(@product)
@@ -59,6 +62,7 @@ class ProductsController < ApplicationController
   def destroy
     @product = Product.find(params[:id])
     @product.destroy if @product.user_id == current_user.id
+    flash[:success] = "投稿を削除しました。"
     redirect_to root_path
   end
 

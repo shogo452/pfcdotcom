@@ -1,8 +1,9 @@
 class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
+  add_flash_types :success, :info, :warning, :danger
 
   rescue_from SecurityError do |exception|
-    redirect_to root_path, notice: "管理者用のページです。権限があるアカウントでログインしてください。"
+    redirect_to root_path, warning: "管理者用のページです。権限があるアカウントでログインしてください。"
   end
 
   unless Rails.env.development?

@@ -1,0 +1,16 @@
+#inquiry_name-error,
+#inquiry_email-error {
+  color: #dc3545;
+  font-size: 80%;
+  margin-top: 0.25rm;
+}
+
+#inquiry_name.invalid,
+#inquiry_email.invalid {
+  border: #ea352d 1px solid;
+}
+
+#inquiry_name.valid,
+#inquiry_email.valid {
+  border: seagreen 1px solid;
+}
