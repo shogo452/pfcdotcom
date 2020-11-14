@@ -62,14 +62,21 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # def after_inactive_sign_up_path_for(resource)
   #   super(resource)
   # end
+  before_action :forbid_test_user, {only: [:edit, :update, :destroy]}
   prepend_before_action :check_captcha, only: [:create]
 
   private
+  def forbid_test_user
+    if @user.email == "test@example.com"
+      flash[:notice] = "テストユーザーのため変更できません"
+      redirect_to root_path
+    end
+  end
 
   def check_captcha
     unless verify_recaptcha
       self.resource = resource_class.new sign_up_params
-      resource.validate # Look for any other validation errors besides reCAPTCHA
+      resource.validate
       set_minimum_password_length
       respond_with_navigational(resource) { render :new }
     end

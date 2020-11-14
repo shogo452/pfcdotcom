@@ -18,7 +18,7 @@
           </span></br>
           <% unless @user.email == "test@example.com" %>
           <% if @user.email == current_user.email %>
-          <%= link_to edit_user_registration_path, class: "btn btn-info btn-sm pr-1", method: :get do %>
+          <%= link_to edit_user_registration_path, class: "btn btn-info btn-sm mt-1", method: :get do %>
           <%= fa_icon "user-edit", style: "color:white" %>
           ユーザー編集
           <% end %>
@@ -28,7 +28,7 @@
           <% if current_user.following?(@user) %>
           <%= form_for(current_user.relationships.find_by(follow_id: @user.id), html: {method: :delete, class: "d-inline"}) do |f| %>
           <%= f.hidden_field :follow_id, value: @user.id %>
-          <%= button_tag type: 'submit', class: "btn btn-info btn-sm" do %>
+          <%= button_tag type: 'submit', class: "btn btn-info btn-sm mt-1" do %>
           <%= fa_icon "check", style: "color:info" %>
           フォロー中
           <% end %>
@@ -36,7 +36,7 @@
           <% else %>
           <%= form_for(current_user.relationships.build, html: {class: "d-inline"}) do |f| %>
           <%= f.hidden_field :follow_id, value: @user.id %>
-          <%= button_tag type: 'submit', class: "btn btn-outline-info btn-sm" do %>
+          <%= button_tag type: 'submit', class: "btn btn-outline-info btn-sm mt-1" do %>
           <%= fa_icon "plus", style: "color:info" %>
           フォロー
           <% end %>
@@ -46,7 +46,7 @@
           <% unless @user.id == current_user.id %>
           <% if current_user.following?(@user) && @user.following?(current_user) %>
           <% if @is_room == true %>
-          <%= link_to room_path(@room_id), class: "btn btn-primary btn-sm user-show-chat" do %>
+          <%= link_to room_path(@room_id), class: "btn btn-primary btn-sm user-show-chat mt-1" do %>
           <%= fa_icon "paper-plane", style: "color:info" %>
           チャットへ
           <% end %>
@@ -55,7 +55,7 @@
           <%= fields_for @entry do |e| %>
           <%= e.hidden_field :user_id, value: @user.id %>
           <% end %>
-          <%= button_tag type: 'submit', class: "btn btn-primary btn-sm user-show-chat" do %>
+          <%= button_tag type: 'submit', class: "btn btn-primary btn-sm user-show-chat mt-1" do %>
           <%= fa_icon "paper-plane", style: "color:info" %>
           チャットを始める
           <% end %>

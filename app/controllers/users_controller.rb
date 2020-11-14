@@ -16,12 +16,6 @@ class UsersController < ApplicationController
     gon.weights = @record_datas.map(&:weight)
     gon.dates = @record_datas.map { |record_data| record_data.date.strftime('%Y/%m/%d') }
     gon.body_fat_percentages = @record_datas.map(&:body_fat_percentage)
-    # @weights = @record_datas.map {|record| record.weight}
-    # @dates = @record_datas.map {|record| record.date.strftime('%Y/%m/%d')}
-    # @body_fat_percentages = @record_datas.map {|record| record.body_fat_percentage}
-    # weights = JSON.dump(@record_datas.map {|record| record.weight})
-    # dates = JSON.dump(@record_datas.map {|record| record.date.strftime('%Y/%m/%d')})
-    # body_fat_percentages = JSON.dump(@record_datas.map {|record| record.body_fat_percentage})
     @prefecture = Prefecture.find(@user.balance.prefecture_id.to_i)
     @same_user_products = Product.where(user_id: @user.id).page(params[:page]).per(4)
     @user_favproducts = @user.favproducts.page(params[:page]).per(4)

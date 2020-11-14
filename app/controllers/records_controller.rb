@@ -3,20 +3,17 @@ class RecordsController < ApplicationController
     @record = Record.new(record_params)
     if @record.save
       redirect_to controller: "users", action: "show", id: current_user.id
+      flash[:success] = "記録が完了しました。"
     else
-      flash[:danger] = @record.errors.full_messages
+      flash[:caution] = "日付と体重を入力してください" 
       redirect_to controller: "users", action: "show", id: current_user.id
     end
   end
 
   def edit
-    @record = Record.find(params[:id])
   end
 
   def update
-    @record = Record.find(params[:id])
-    @record.update(record_params)
-    redirect_to controller: "users", action: "show", id: current_user.id
   end
 
   def destroy
