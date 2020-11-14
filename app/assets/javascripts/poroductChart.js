@@ -1,5 +1,4 @@
-<canvas id="myChart" width="100" height="100"></canvas>
-<script>
+$(function () {
   var ctx = document.getElementById("myChart");
   var myChart = new Chart(ctx, {
     type: 'radar',
@@ -36,4 +35,4 @@
       }
     }
   });
-</script>
+});

@@ -1,3 +1,4 @@
+<%= Gon::Base.render_data %>
 <%= render "layouts/header" %>
 <div class="container mt-3">
   <div class="row product-detail">
@@ -130,7 +131,7 @@
       </ul>
     </div>
     <div class="col-md">
-      <%= render partial: "chart", locals: { nutrition: @nutrition} %>
+      <canvas id="myChart" width="100" height="100"></canvas>
       <div class="product-detail__footer__tag-list">
         <span><%= fa_icon "tags" %>タグ</span><br />
         <%= render "tag_list", tag_list: @product.tag_list %><br />
