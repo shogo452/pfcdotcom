@@ -46,8 +46,8 @@
           <% unless @user.id == current_user.id %>
           <% if current_user.following?(@user) && @user.following?(current_user) %>
           <% if @is_room == true %>
-          <%= link_to room_path(@room_id), class: "btn btn-orange btn-sm user-show-chat mt-1" do %>
-          <%= fa_icon "paper-plane", style: "color:info" %>
+          <%= link_to room_path(@room_id), class: "btn btn-orange text-white btn-sm user-show-chat mt-1" do %>
+          <%= fa_icon "paper-plane", style: "color: white;" %>
           チャットへ
           <% end %>
           <% else %>
@@ -55,8 +55,8 @@
           <%= fields_for @entry do |e| %>
           <%= e.hidden_field :user_id, value: @user.id %>
           <% end %>
-          <%= button_tag type: 'submit', class: "btn btn-orange btn-sm user-show-chat mt-1" do %>
-          <%= fa_icon "paper-plane", style: "color:info" %>
+          <%= button_tag type: 'submit', class: "btn btn-orange text-white btn-sm user-show-chat mt-1" do %>
+          <%= fa_icon "paper-plane", style: "color: white;" %>
           チャットを始める
           <% end %>
           <% end %>

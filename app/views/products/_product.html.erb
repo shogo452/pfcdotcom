@@ -59,7 +59,11 @@
           <% end %>
         </h5></br>
         <div id="star-rate-#{product.review.id}" , class="d-inline-block mb-3"></div>
-        <div class="review-rating d-inline-block" data-score="<%= @rates[product.id] %>"></div>
+        <% if product.ave_rate? %>
+        <div class="review-rating d-inline-block" data-score="<%= product.ave_rate.round(2) %>"></div>
+        <% else %>
+        <div class="review-rating d-inline-block" data-score="0"></div>
+        <% end %>
         <% if product.new_arrival? %>
         <span class="badge badge-gray ml-1 mb-3">New</span><br />
         <% end %>

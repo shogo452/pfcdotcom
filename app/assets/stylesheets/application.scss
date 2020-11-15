@@ -57,7 +57,15 @@ footer {
   background-color: #f8b862;
 }
 
-.btn-gray,
+.btn-orange:hover {
+  background-color: #c7914a;
+}
+
+.btn-gray {
+  background-color: #9ea1a3;
+  color: white;
+}
+
 .badge-gray {
   background-color: #9ea1a3;
   color: white;
