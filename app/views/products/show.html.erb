@@ -84,7 +84,7 @@
       </div>
       <div class="d-block">
         <% if @product.ave_rate? %>
-        <div class="review-rating d-inline-block" data-score="<%= product.ave_rate.round(2) %>"></div>
+        <div class="review-rating d-inline-block" data-score="<%= @product.ave_rate.round(2) %>"></div>
         <% else %>
         <div class="review-rating d-inline-block" data-score="0"></div>
         <% end %>
