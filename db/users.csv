@@ -1,5 +1,5 @@
 id,nickname,email,password,password_confirmation
-1,さなえ,test1@test.com,testtest1,testtest1
+1,ショウゴ,test1@test.com,testtest1,testtest1
 2,まさし,test2@test.com,testtest2,testtest2
 3,かずき,test3@test.com,testtest3,testtest3
 4,ともや,test4@test.com,testtest4,testtest4

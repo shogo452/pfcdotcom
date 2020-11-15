@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_03_081751) do
+ActiveRecord::Schema.define(version: 2020_11_15_062117) do
 
   create_table "active_admin_comments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "namespace"
@@ -147,6 +147,7 @@ ActiveRecord::Schema.define(version: 2020_11_03_081751) do
     t.decimal "sugar", precision: 12, scale: 2
     t.string "purchase_url"
     t.integer "url_type"
+    t.decimal "ave_rate", precision: 2, scale: 1
     t.index ["user_id"], name: "index_products_on_user_id"
   end
 
