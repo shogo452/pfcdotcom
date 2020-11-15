@@ -91,6 +91,7 @@ gem "exception_notification"
 gem "fog-aws"
 gem "font-awesome-rails"
 gem 'gon'
+gem 'google-analytics-rails'
 gem "jquery-rails"
 gem "jquery-ui-rails"
 gem "kaminari"
