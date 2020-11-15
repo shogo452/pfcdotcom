@@ -27,24 +27,18 @@
           <small class=><%= product.reviews.length %></small>
         </div>
       </div>
-      <div class="d-block text-center my-1">
-        <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button mt-2" data-show-count="false" data-text="おすすめの投稿です！" data-hashtags="pfcdotcom" data-size="large">
-          Tweet
-        </a>
-        <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-      </div>
       <div class="d-block text-center mb-1">
         <div class="btn-group btn-group-sm mx-auto" role="group" aria-label="Basic example">
           <% if product.purchase_url %>
-          <%= link_to product.purchase_url, class: "btn btn-gray" do %>
+          <%= link_to product.purchase_url, class: "btn btn-secondary" do %>
           <%= fa_icon "link" %>
           <% end %>
           <% end %>
           <% if user_signed_in? && product.user.id == current_user.id %>
-          <%= link_to "/products/#{product.id}/edit", class: "btn btn-gray", method: :get do %>
+          <%= link_to "/products/#{product.id}/edit", class: "btn btn-secondary", method: :get do %>
           <%= fa_icon "edit" %>
           <% end %>
-          <%= link_to "/products/#{product.id}", class: "btn btn-gray", method: :delete, data: { confirm: "商品を削除します。よろしいですか?"} do %>
+          <%= link_to "/products/#{product.id}", class: "btn btn-secondary", method: :delete, data: { confirm: "商品を削除します。よろしいですか?"} do %>
           <%= fa_icon "trash"%>
           <% end %>
           <% end %>

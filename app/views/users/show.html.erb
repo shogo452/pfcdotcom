@@ -28,7 +28,7 @@
           <% if current_user.following?(@user) %>
           <%= form_for(current_user.relationships.find_by(follow_id: @user.id), html: {method: :delete, class: "d-inline"}) do |f| %>
           <%= f.hidden_field :follow_id, value: @user.id %>
-          <%= button_tag type: 'submit', class: "btn btn-info btn-sm mt-1" do %>
+          <%= button_tag type: 'submit', class: "btn btn-info text-white btn-sm mt-1" do %>
           <%= fa_icon "check", style: "color:info" %>
           フォロー中
           <% end %>
@@ -36,7 +36,7 @@
           <% else %>
           <%= form_for(current_user.relationships.build, html: {class: "d-inline"}) do |f| %>
           <%= f.hidden_field :follow_id, value: @user.id %>
-          <%= button_tag type: 'submit', class: "btn btn-outline-info btn-sm mt-1" do %>
+          <%= button_tag type: 'submit', class: "btn btn-outline-info text-white btn-sm mt-1" do %>
           <%= fa_icon "plus", style: "color:info" %>
           フォロー
           <% end %>

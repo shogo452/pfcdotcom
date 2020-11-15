@@ -51,15 +51,15 @@
       <div class="d-block text-center mb-1">
         <div class="btn-group mx-auto" role="group" aria-label="Basic example">
           <% if @product.purchase_url %>
-          <%= link_to @product.purchase_url, class: "btn btn-gray" do %>
+          <%= link_to @product.purchase_url, class: "btn btn-secondary" do %>
           <%= fa_icon "link" %>
           <% end %>
           <% end %>
           <% if user_signed_in? && @product.user.id == current_user.id %>
-          <%= link_to "/products/#{@product.id}/edit", class: "btn btn-gray", method: :get do %>
+          <%= link_to "/products/#{@product.id}/edit", class: "btn btn-secondary", method: :get do %>
           <%= fa_icon "edit" %>
           <% end %>
-          <%= link_to "/products/#{@product.id}", class: "btn btn-gray", method: :delete, data: { confirm: "商品を削除します。よろしいですか?"} do %>
+          <%= link_to "/products/#{@product.id}", class: "btn btn-secondary", method: :delete, data: { confirm: "商品を削除します。よろしいですか?"} do %>
           <%= fa_icon "trash"%>
           <% end %>
           <% end %>
@@ -273,4 +273,42 @@
   });
 </script>
 
+<script>
+  var ctx = document.getElementById("myChart");
+  var myChart = new Chart(ctx, {
+    type: 'radar',
+    data: {
+      labels: ['タンパク質', '脂質', '炭水化物'],
+      datasets: [{
+        label: 'マクロ栄養素',
+        data: gon.nutrition,
+        // 塗りつぶしの色
+        backgroundColor: "rgba(248,184,98,0.5)",
+        // 線の色
+        borderColor: "rgba(240,131,0,1)",
+        // 線の幅
+        borderWidth: 2,
+        pointBackgroundColor: "rgba(240,131,0,1)",
+        pointStyle: "circle",
+      }]
+    },
+    options: {
+      legend: {
+        labels: {
+          fontSize: 15,
+        }
+      },
+      tooltips: {
+        titleFontSize: 12,
+      },
+      scale: {
+        pointLabels: {
+          display: true,
+          fontSize: 15,
+          fontColor: "rgba(0,0,0,1)",
+        }
+      }
+    }
+  });
+</script>
 <%= render "layouts/footer" %>
