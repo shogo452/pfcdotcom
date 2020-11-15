@@ -8,12 +8,12 @@ $(function () {
         label: 'マクロ栄養素',
         data: gon.nutrition,
         // 塗りつぶしの色
-        backgroundColor: "rgba(25, 25, 112, 0.5)",
+        backgroundColor: "rgba(248,184,98,0.5)",
         // 線の色
-        borderColor: "rgba(25, 25, 112)",
+        borderColor: "rgba(240,131,0,1)",
         // 線の幅
         borderWidth: 2,
-        pointBackgroundColor: "rgba(25, 25, 112)",
+        pointBackgroundColor: "rgba(240,131,0,1)",
         pointStyle: "circle",
       }]
     },
@@ -30,7 +30,7 @@ $(function () {
         pointLabels: {
           display: true,
           fontSize: 15,
-          fontColor: "rgba(25, 25, 112, 0.5)",
+          fontColor: "rgba(0,0,0,1)",
         }
       }
     }

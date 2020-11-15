@@ -57,6 +57,22 @@ footer {
   background-color: #f8b862;
 }
 
+.btn-gray,
+.badge-gray {
+  background-color: #9ea1a3;
+  color: white;
+}
+
 .badge-blue {
   background-color: #83ccd2;
+}
+
+@media (max-width: 575.98px) {
+  .responsive-font {
+    font-size: 0.9rem;
+  }
+  .responsive-font2 {
+    font-size: 0.8rem;
+    padding: 0;
+  }
 }

@@ -88,19 +88,19 @@
           <div class="macro-list__item__value">
             <span class="macro-list__item__value__char"><%= @user.balance.protein_intake %></span>[g]
           </div>
-          <span>タンパク質</span>
+          <span class="responsive-font">タンパク質</span>
         </div>
         <div class="col-3 macro-list__item__fat rounded">
           <div class="macro-list__item__value">
             <span class="macro-list__item__value__char"><%= @user.balance.fat_intake %></span>[g]
           </div>
-          <span>脂質</span>
+          <span class="responsive-font">脂質</span>
         </div>
         <div class="col-3 macro-list__item__carbo rounded">
           <div class="macro-list__item__value">
             <span class="macro-list__item__value__char count"><%= @user.balance.carbo_intake %></span>[g]
           </div>
-          <span>炭水化物</span>
+          <span class="responsive-font">炭水化物</span>
         </div>
       </div>
       <% end %>
@@ -142,7 +142,7 @@
           <%= f.select :fitness_type, Balance.fitness_types_i18n.keys.map {|k| [I18n.t("enums.balance.fitness_type.#{k}"), k ]}, {}, class: "form-control fitness_type-input" %>
         </div>
       </div>
-      <%= button_tag type: 'submit', class: "btn btn-info" do %>
+      <%= button_tag type: 'submit', class: "btn btn-orange text-white" do %>
       <%= fa_icon "sync-alt", style: "color:white" %>
       データ更新
       <% end%>
@@ -223,19 +223,29 @@
 
   <ul class="nav nav-tabs nav-justified mt-3" id="myTab" role="tablist">
     <li class="nav-item">
-      <a class="nav-link active" id="product-index-tab" data-toggle="tab" href="#product-index" role="tab" aria-controls="product-index" aria-selected="true">投稿一覧</a>
+      <a class="nav-link active responsive-font2" id="product-index-tab" data-toggle="tab" href="#product-index" role="tab" aria-controls="product-index" aria-selected="true">
+        <p>投稿一覧</p>
+      </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" id="favproducts-tab" data-toggle="tab" href="#favproducts" role="tab" aria-controls="favproducts" aria-selected="false">お気に入り商品</a>
+      <a class="nav-link responsive-font2" id="favproducts-tab" data-toggle="tab" href="#favproducts" role="tab" aria-controls="favproducts" aria-selected="false">
+        <p>お気に入り</p>
+      </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" id="likes-tab" data-toggle="tab" href="#likes" role="tab" aria-controls="likes" aria-selected="false">いいねした商品</a>
+      <a class="nav-link responsive-font2" id="likes-tab" data-toggle="tab" href="#likes" role="tab" aria-controls="likes" aria-selected="false">
+        <p>いいね</p>
+      </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" id="followings-tab" data-toggle="tab" href="#followings" role="tab" aria-controls="followings" aria-selected="false">フォロー</a>
+      <a class="nav-link responsive-font2" id="followings-tab" data-toggle="tab" href="#followings" role="tab" aria-controls="followings" aria-selected="false">
+        <p>フォロー</p>
+      </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" id="followers-tab" data-toggle="tab" href="#followers" role="tab" aria-controls="followers" aria-selected="false">フォロワー</a>
+      <a class="nav-link responsive-font2" id="followers-tab" data-toggle="tab" href="#followers" role="tab" aria-controls="followers" aria-selected="false">
+        <p>フォロワー</p>
+      </a>
     </li>
   </ul>
   <div class="tab-content" id="myTabContent">
