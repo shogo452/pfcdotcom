@@ -15,7 +15,6 @@
  */
 @import "jquery.tagit";
 @import "tagit.ui-zendesk";
-@import "font-awesome";
 
 a {
   color: black;
@@ -83,4 +82,132 @@ footer {
     font-size: 0.8rem;
     padding: 0;
   }
+}
+
+@font-face {
+  font-family: 'icomoon';
+  src: font-url('icomoon.eot?qjypht');
+  src: font-url('icomoon.eot?qjypht#iefix') format('embedded-opentype'),
+    font-url('icomoon.ttf?qjypht') format('truetype'),
+    font-url('icomoon.woff?qjypht') format('woff'),
+    font-url('icomoon.svg?qjypht#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+[class^="fa-"],
+[class*=" fa-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.fa-circle:before {
+  content: "\e900";
+}
+
+.fa-clock:before {
+  content: "\e901";
+}
+
+.fa-file-upload:before {
+  content: "\e902";
+}
+
+.fa-link:before {
+  content: "\e903";
+}
+
+.fa-angle-double-left:before {
+  content: "\e904";
+}
+
+.fa-angle-double-right:before {
+  content: "\e905";
+}
+
+.fa-angle-left:before {
+  content: "\e906";
+}
+
+.fa-angle-right:before {
+  content: "\e907";
+}
+
+.fa-calendar:before {
+  content: "\e908";
+}
+
+.fa-comment:before {
+  content: "\e909";
+}
+
+.fa-heart:before {
+  content: "\e90a";
+}
+
+.fa-image:before {
+  content: "\e90b";
+}
+
+.fa-map-marker-alt:before {
+  content: "\e90c";
+}
+
+.fa-minus-square:before {
+  content: "\e90d";
+}
+
+.fa-paper-plane:before {
+  content: "\e90e";
+}
+
+.fa-pencil-alt:before {
+  content: "\e90f";
+}
+
+.fa-plus-square:before {
+  content: "\e910";
+}
+
+.fa-search:before {
+  content: "\e911";
+}
+
+.fa-sync-alt:before {
+  content: "\e912";
+}
+
+.fa-tags:before {
+  content: "\e913";
+}
+
+.fa-thumbs-up:before {
+  content: "\e914";
+}
+
+.fa-trash:before {
+  content: "\e915";
+}
+
+.fa-user-edit:before {
+  content: "\e916";
+}
+
+.fa-user-check:before {
+  content: "\e917";
+}
+
+.fa-user-plus:before {
+  content: "\e918";
 }
