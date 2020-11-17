@@ -1,6 +1,6 @@
 # [PFC.com](https://pfc-share.net/)
 
-![スクリーンショット 2020-11-14 16 29 50](https://user-images.githubusercontent.com/54160947/99142307-38cfed00-2697-11eb-8be6-be5c9480d9ab.png)
+![スクリーンショット 2020-11-17 23 58 46](https://user-images.githubusercontent.com/54160947/99406206-f9243200-2930-11eb-9f2a-3c42e80a3fb7.png)
 
 PFC.comは筋トレやダイエットに取り組むユーザーに向けた
 高タンパク質、低糖質の商品情報をシェアでき、糖質量やPFCバランスを意識したフィットネス活動をサポートするβ版サービスです。
@@ -42,7 +42,7 @@ PFC.comは筋トレやダイエットに取り組むユーザーに向けた
 + 投稿編集・削除機能
 + ページネーション機能（kaminariを使用）
 + タグ付け機能（acts-as-taggable-onを使用）
-+ 検索機能（ransackを使用）
++ 検索機能
 + いいね機能
 + お気に入り機能
 + フォロー・フォロワー機能
@@ -61,7 +61,7 @@ PFC.comは筋トレやダイエットに取り組むユーザーに向けた
 ## バックエンド
 
 + Ruby 2.6.6
-+ Rails 5.2.4.4 (RSpec / Rubocopによる動的静的テスト等も含む)
++ Rails 5.2.4.4
 
 ## フロントエンド
 
@@ -74,7 +74,7 @@ PFC.comは筋トレやダイエットに取り組むユーザーに向けた
 
 + MySQL
 + Docker / docker-compose
-+ 
+
 ## 本番環境
 
 + Nginx, Unicorn
@@ -96,18 +96,6 @@ PFC.comは筋トレやダイエットに取り組むユーザーに向けた
 # インフラ構成図
 
 ![pfcdotcom](https://user-images.githubusercontent.com/54160947/99143657-9b7ab600-26a2-11eb-8a93-c7011f161e01.jpg)
-
-# デモ画像
-
-+ マイページ
-
-+ 商品詳細画面
-
-+ ログイン画面
-
-+ ユーザー登録画面
-
-+ ユーザー編集画面
 
 # ER図
 
