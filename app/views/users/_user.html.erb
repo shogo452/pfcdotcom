@@ -20,7 +20,7 @@
     <div class="col-7">
       <div class="card-body">
         <div class="card-text text-left">
-          <%= fa_icon "pencil", class: "mr-1" %>
+          <%= fa_icon "pencil-alt", class: "mr-1" %>
           <small>投稿数 : </small>
           <h5 class="d-inline"><%= user.products.count %></h5>
         </div>
@@ -39,7 +39,7 @@
         <%= form_for(current_user.relationships.find_by(follow_id: user.id), html: {method: :delete}) do |f| %>
         <%= f.hidden_field :follow_id, value: user.id %>
         <%= f.button type: 'submit', class: "btn btn-info btn-sm mt-2" do %>
-        <%= fa_icon "check", style: "color:info" %>
+        <%= fa_icon "user-check", style: "color:info" %>
         フォロー中
         <% end %>
         <% end %>
@@ -47,7 +47,7 @@
         <%= form_for(current_user.relationships.build) do |f| %>
         <%= f.hidden_field :follow_id, value: user.id %>
         <%= f.button type: 'submit', class: "btn btn-outline-info btn-sm mt-2" do %>
-        <%= fa_icon "plus", style: "color:info" %>
+        <%= fa_icon "user-plus", style: "color:info" %>
         フォロー
         <% end %>
         <% end %>

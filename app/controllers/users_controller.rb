@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   def show
-    @user = User.with_attached_avatar.find(params[:id])
+    @user = User.includes(:balance).includes(:records).with_attached_avatar.find(params[:id])
     unless @user.balance
       @balance = @user.build_balance
       @balance.protein_intake = 0
@@ -12,17 +12,18 @@ class UsersController < ApplicationController
     end
     @record = Record.new
     @records = @user.records.order("date DESC").page(params[:page]).per(4)
-    @record_datas = Record.where(user_id: @user.id).order("date ASC")
-    gon.weights = @record_datas.map(&:weight)
+    @record_datas = @user.records.order("date ASC")
+    gon.weights = @record_datas.pluck(:weight)
     gon.dates = @record_datas.map { |record_data| record_data.date.strftime('%Y/%m/%d') }
-    gon.body_fat_percentages = @record_datas.map(&:body_fat_percentage)
+    gon.body_fat_percentages = @record_datas.pluck(:body_fat_percentage)
     @prefecture = Prefecture.find(@user.balance.prefecture_id.to_i)
-    @same_user_products = Product.where(user_id: @user.id).page(params[:page]).per(4)
+    @products = Product.all.includes(:users).includes(:reviews)
+    @same_user_products = @products.where(user_id: @user.id).page(params[:page]).per(4)
     @user_favproducts = @user.favproducts.page(params[:page]).per(4)
     @user_liked_products = @user.liked_products.page(params[:page]).per(4)
     @rates = Review.group(:product_id).average(:rate)
-    @likes_ranking = Product.find(Like.group(:product_id).order("count(id) DESC").limit(5).pluck(:product_id))
-    @favorites_ranking = Product.find(Favorite.group(:product_id).order("count(id) DESC").limit(5).pluck(:product_id))
+    @likes_ranking = @products.order(likes_count: "DESC").limit(3)
+    @favorites_ranking = @products.order(favorites_count: "DESC").limit(3)
     @user_followings = @user.followings.page(params[:page]).per(6)
     @user_followers = @user.followers.page(params[:page]).per(6)
     @current_user_entry = Entry.where(user_id: current_user.id)

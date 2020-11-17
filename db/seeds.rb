@@ -59,6 +59,8 @@ CSV.foreach('db/reviews.csv', headers: true) do |row|
     user_id: row['user_id'],
     rate: row['rate']
   )
+  ave_rate = Review.where(product_id: row['product_id']).average(:rate)
+  Product.find_by(id: row['product_id']).update(ave_rate: ave_rate)
 end
 
 CSV.foreach('db/relationships.csv', headers: true) do |row|
