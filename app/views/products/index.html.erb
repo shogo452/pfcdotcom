@@ -15,7 +15,7 @@
           タンパク質、脂質、炭水化物、糖質の4つの栄養素量をシェアしましょう！
         </p>
         <p class="text-light">すぐに全機能をお試しになりたい場合は、ゲストユーザーとしてログインできます。</p>
-        <%= form_for User.new, url: user_session_path, html: {class: "test-user-login"} do |f| %>
+        <%= form_for User.new, url: "users/sign_in", html: {class: "test-user-login"} do |f| %>
         <%= f.hidden_field :email, value: "test@example.com" %>
         <%= f.hidden_field :password, value: "testtest" %>
         <%= f.submit "ゲストユーザーでログイン", class: "btn btn-orange btn-sm text-white mr-2" %>
@@ -29,7 +29,6 @@
 <div class="container pb-3 mt-3">
   <div class="row justify-content-around">
     <div class="col-md">
-      <%= fa_icon "thumbs-up" %>
       <h5 class="ranking__title">いいねランキング</h5>
       <table class="table table-sm my-2">
         <thead class="thead-dark">
@@ -40,22 +39,21 @@
           </tr>
         </thead>
         <tbody>
-          <% @likes_ranking.each.with_index(1) do |product, i| %>
+          <% @likes_ranking.find_each.with_index(1) do |product, i| %>
           <tr>
             <th scope="row"><%= "#{i}" %></th>
             <td>
-              <%= link_to product_path(product), method: :get do %>
+              <%= link_to "products/#{product.id}", method: :get do %>
               <%= product.name %>
               <% end %>
             </td>
-            <td><%= "#{product.liked_users.count}"%></td>
+            <td><%= "#{product.likes.size}"%></td>
           </tr>
           <% end %>
         </tbody>
       </table>
     </div>
     <div class="col-md">
-      <%= fa_icon "heart" %>
       <h5 class="ranking__title">お気に入りランキング</h5>
 
       <table class="table table-sm my-2">
@@ -71,11 +69,11 @@
           <tr>
             <th scope="row"><%= "#{i}" %></th>
             <td>
-              <%= link_to product_path(product), method: :get do %>
+              <%= link_to "products/#{product.id}", method: :get do %>
               <%= product.name %>
               <% end %>
             </td>
-            <td><%= "#{product.favorites.length}"%></td>
+            <td><%= "#{product.favorites.size}"%></td>
           </tr>
           <% end %>
         </tbody>
@@ -102,7 +100,6 @@
       </form>
     </div>
     <div class="col-sm-6">
-      <%= fa_icon "tags" %>
       <h5 class="tag_list__title">人気のタグ一覧</h5>
       <div class="tag_list__content">
         <% @tags.each do |tag| %>

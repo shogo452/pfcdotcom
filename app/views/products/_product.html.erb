@@ -16,15 +16,15 @@
       <div class="product__response-list">
         <div class="product__response-list__item">
           <%= fa_icon "thumbs-up" %>
-          <small class=><%= product.liked_users.count %></small>
+          <small class=><%= product.likes.size %></small>
         </div>
         <div class="product__response-list__item">
           <%= fa_icon "heart" %>
-          <small class=><%= product.favorites.length %></small>
+          <small class=><%= product.favorites.size %></small>
         </div>
         <div class="product__response-list__item">
           <%= fa_icon "comment" %>
-          <small class=><%= product.reviews.length %></small>
+          <small class=><%= product.reviews.size %></small>
         </div>
       </div>
       <div class="d-block text-center mb-1">
@@ -97,7 +97,6 @@
           <div class="col">
           </div>
         </div>
-        <%= render "products/tag_list", tag_list: product.tag_list %><br />
       </div>
     </div>
   </div>

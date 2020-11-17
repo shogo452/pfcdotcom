@@ -3,10 +3,10 @@ class ProductsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :tag_index, :set_search]
 
   def index
-    @products = Product.includes(:user).page(params[:page]).per(4)
+    @products = Product.all.includes(:reviews).page(params[:page]).per(4)
     @tags = ActsAsTaggableOn::Tag.most_used(10)
-    @likes_ranking = Product.find(Like.group(:product_id).order("count(id) DESC").limit(3).pluck(:product_id))
-    @favorites_ranking = Product.find(Favorite.group(:product_id).order("count(id) DESC").limit(3).pluck(:product_id))
+    @likes_ranking = @products.order(likes_count: "DESC").limit(3)
+    @favorites_ranking = @products.order(favorites_count: "DESC").limit(3)
   end
 
   def new
@@ -72,7 +72,7 @@ class ProductsController < ApplicationController
 
   def set_search
     @search = Product.ransack(params[:q])
-    @search_products = @search.result.includes(:user).order("created_at DESC").page(params[:page]).per(6)
+    @search_products = @search.result.includes(:user).order("created_at DESC").page(params[:page]).per(4)
   end
 
   def get_tag_search

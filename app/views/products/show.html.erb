@@ -10,7 +10,7 @@
         <%= image_tag "noimage.jpg", alt: "aaa", size: "350x350" %>
         <% end %>
       </div>
-      <% if user_signed_in? && @product.user.id == current_user.id %>
+      <% if user_signed_in? && @product.user.id != current_user.id %>
       <div class="product-detail__left__button">
         <% if current_user.favproduct?(@product) %>
         <%= button_to product_favorite_path(@product), class: "btn btn-orange btn-sm", method: :delete  do %>
@@ -36,11 +36,11 @@
       <% end %>
       <div class="product-detail__left__response-list">
         <%= fa_icon "thumbs-up" %>
-        <small><%= @product.liked_users.count %></small>
+        <small><%= @product.likes.size %></small>
         <%= fa_icon "heart" %>
-        <small><%= @product.favorites.length %></small>
+        <small><%= @product.favorites.size %></small>
         <%= fa_icon "comment" %>
-        <small class=><%= @product.reviews.length %></small>
+        <small class=><%= @product.reviews.size%></small>
       </div>
       <div class="d-block text-center my-1">
         <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button mt-2" data-show-count="false" data-text="PFC.comの投稿をシェアします！" data-hashtags="pfcdotcom" data-size="large">

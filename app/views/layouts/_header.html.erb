@@ -8,24 +8,23 @@
 
   <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
     <ul class="navbar-nav">
-      <li class="nav-item"><%= link_to "トップページ", root_path, method: :get, class: "nav-link" %></li>
+      <li class="nav-item"><%= link_to "トップページ", "/", method: :get, class: "nav-link" %></li>
       <% if user_signed_in? %>
-      <li class="nav-item"><%= link_to "新規投稿", new_product_path, method: :get, class: "nav-link" %></li>
+      <li class="nav-item"><%= link_to "新規投稿", "/products/new", method: :get, class: "nav-link" %></li>
 
       <li class="nav-item">
         <% if unchecked_notifications.any? %>
         <i class="fa fa-circle notice-icon" style="color: #f08300;"></i>
         <% end %>
-        <%= link_to "通知", notifications_path, class: "nav-link notice-char" %>
+        <%= link_to "通知", "/notifications", method: :get, class: "nav-link notice-char" %>
       </li>
-      <li class="nav-item"><%= link_to "マイページ", user_path(current_user.id), class: "nav-link" %></li>
-      <li class="nav-item"><%= link_to "ログアウト", destroy_user_session_path, method: :get, class: "nav-link" %></li>
-      <li class="nav-item"><%= link_to "問い合わせ", inquiry_path, class: "nav-link" %></li>
+      <li class="nav-item"><%= link_to "マイページ", "/users/#{current_user.id}", class: "nav-link" %></li>
+      <li class="nav-item"><%= link_to "ログアウト", "/users/sign_out", method: :get, class: "nav-link" %></li>
       <% else %>
-      <li class="nav-item"><%= link_to "サインアップ", new_user_registration_path, method: :get, class: "nav-link" %></li>
-      <li class="nav-item"><%= link_to "ログイン", new_user_session_path, method: :get, class: "nav-link" %></li>
-      <li class="nav-item"><%= link_to "問い合わせ", inquiry_path, class: "nav-link" %></li>
+      <li class="nav-item"><%= link_to "サインアップ", "/users/sign_up", method: :get, class: "nav-link" %></li>
+      <li class="nav-item"><%= link_to "ログイン", "/users/sign_in", method: :get, class: "nav-link" %></li>
       <% end %>
+      <li class="nav-item"><%= link_to "問い合わせ", "/inquiry/", class: "nav-link" %></li>
     </ul>
   </div>
 </nav>
