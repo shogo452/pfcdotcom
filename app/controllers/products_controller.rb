@@ -33,7 +33,7 @@ class ProductsController < ApplicationController
   end
 
   def show
-    @product = Product.find(params[:id])
+    @product = Product.includes(:reviews).includes(:users).find(params[:id])
     gon.nutrition = [@product.protein, @product.fat, @product.carbo]
     @reviews = @product.reviews.page(params[:page]).per(4)
     @review = Review.new
@@ -44,8 +44,9 @@ class ProductsController < ApplicationController
     end
     @like = Like.new
     tag_list = @product.tag_list
-    @same_taged_products = Product.tagged_with(tag_list, :any => true).page(params[:page]).per(2)
-    @same_user_products = Product.where(user_id: @product.user.id).page(params[:page]).per(2).where.not(id: @product.id)
+    @products = Product.all
+    @same_taged_products = @products.tagged_with(tag_list, :any => true).page(params[:page]).per(2)
+    @same_user_products = @products.where(user_id: @product.user.id).page(params[:page]).per(2).where.not(id: @product.id)
   end
 
   def update

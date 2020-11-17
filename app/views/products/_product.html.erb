@@ -36,7 +36,7 @@
           <% end %>
           <% if user_signed_in? && product.user.id == current_user.id %>
           <%= link_to "/products/#{product.id}/edit", class: "btn btn-secondary", method: :get do %>
-          <%= fa_icon "edit" %>
+          <%= fa_icon "pencil-alt" %>
           <% end %>
           <%= link_to "/products/#{product.id}", class: "btn btn-secondary", method: :delete, data: { confirm: "商品を削除します。よろしいですか?"} do %>
           <%= fa_icon "trash"%>
