@@ -22,6 +22,12 @@ class ApplicationController < ActionController::Base
     render file: "#{Rails.root}/public/500.html",
             layout: false, status: 500
   end
+
+  def twitter_image_url
+    url = image_url('twitter_card.png')
+    url = "https:#{url}" if url =~ /\A\/\/s3/
+    url
+  end
   
   protected
 
