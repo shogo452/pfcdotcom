@@ -88,8 +88,8 @@
     <div class="col-sm-6">
       <form action="">
         <div class="input-group mb-4">
-          <%= search_form_for @search, url: products_path do |f| %>
-          <%= f.search_field :name_cont, { "aria-describedby": "button-addon5", class: "form-control", placeholder: "検索する名前を入力…" } %>
+          <%= form_with(scope: :search, url: products_path, method: :get, local: true) do |f| %>
+          <%= f.text_field :name, { value: @search_params[:name], "aria-describedby": "button-addon5", class: "form-control", placeholder: "検索する名前を入力…" } %>
           <div class="input-group-append">
             <%= button_tag type: "submit", class: "btn btn-orange" do %>
             <i class="fas fa-search text-white"></i>
@@ -112,28 +112,23 @@
     </div>
   </div>
 </div>
-
-
-
 <div class="container">
-  <% if params[:q].present? && params[:q][:name_cont].present? %>
-  <h3>「<%= params[:q][:name_cont] %>」の検索結果</h3>
+  <% if @search_params.present? %>
+  <h3>「<%= @search_params[:name] %>」の検索結果</h3>
   <% end %>
   <div class="d-flex flex-wrap justify-content-around">
-    <% if @search != 0 %>
-    <%= render partial: 'product', collection: @search_products, as: 'product' %>
+    <% if @search_params != 0 %>
+    <%= render partial: 'product', collection: @products_searched, as: 'product' %>
     <% else %>
     <%= render partial: 'product', collection: @products, as: 'product' %>
     <% end %>
   </div>
-  <% if @search != 0 %>
-  <%= paginate @search_products %>
+  <% if @search_params != 0 %>
+  <%= paginate @products_searched %>
   <% else %>
   <%= paginate @products %>
   <% end %>
 </div>
-
-
 
 <%= render "layouts/footer" %>
 

@@ -1,5 +1,4 @@
 class ProductsController < ApplicationController
-  before_action :set_search
   before_action :authenticate_user!, except: [:index, :tag_index, :set_search]
 
   def index
@@ -7,6 +6,8 @@ class ProductsController < ApplicationController
     @tags = ActsAsTaggableOn::Tag.most_used(10)
     @likes_ranking = @products.order(likes_count: "DESC").limit(3)
     @favorites_ranking = @products.order(favorites_count: "DESC").limit(3)
+    @search_params = product_search_params
+    @products_searched = @products.search_product(@search_params)
   end
 
   def new
@@ -70,11 +71,6 @@ class ProductsController < ApplicationController
     @rates = Review.group(:product_id).average(:rate)
   end
 
-  def set_search
-    @search = Product.ransack(params[:q])
-    @search_products = @search.result.includes(:user).order("created_at DESC").page(params[:page]).per(4)
-  end
-
   def get_tag_search
     @tags = Product.tag_counts_on(:tags).where('name LIKE(?)', "%#{params[:key]}%")
   end
@@ -82,6 +78,10 @@ class ProductsController < ApplicationController
   private
   def product_params
     params.require(:product).permit(:name, :carbo, :fat, :protein, :sugar, :calory, :price, :purchase_url, :image, :tag_list, :url_type).merge(user_id: current_user.id)
+  end
+
+  def product_search_params
+    params.fetch(:search, {}).permit(:name)
   end
 
 end
