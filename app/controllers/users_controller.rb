@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  before_action :set_user, only: [:followings, :followers]
   def show
     @user = User.includes(:balance).includes(:records).with_attached_avatar.find(params[:id])
     unless @user.balance
@@ -60,5 +61,11 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @users = @user.followers.page(params[:page]).per(5)
     render "index"
+  end
+
+  private
+  
+  def set_user
+    @user = User.find(params[:id])
   end
 end

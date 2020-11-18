@@ -7,6 +7,9 @@ class Balance < ApplicationRecord
   validates :height, presence: true, numericality: { greater_than_or_equal_to: 0, less_than_or_equal_to: 250 }
   validates :weight, presence: true, numericality: { greater_than_or_equal_to: 0, less_than_or_equal_to: 200 }
   validates :age, presence: true, numericality: { greater_than_or_equal_to: 0, less_than_or_equal_to: 150 }
+  validates :gender, inclusion: { in: ["male","female"] }
+  validates :fitness_type, inclusion: { in: ["diet","keep","bulkup"] }
+  validates :activity, inclusion: { in: ["low","normal","high"] }
 
   before_save do
     # 基礎代謝の計算

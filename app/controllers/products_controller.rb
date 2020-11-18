@@ -1,5 +1,6 @@
 class ProductsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :tag_index, :set_search]
+  before_action :set_prodct, only: [:edit, :update, :destroy]
 
   def index
     @products = Product.all.includes(:reviews).page(params[:page]).per(4)
@@ -17,7 +18,6 @@ class ProductsController < ApplicationController
   end
 
   def edit
-    @product = Product.find(params[:id])
   end
 
   def create
@@ -50,7 +50,6 @@ class ProductsController < ApplicationController
   end
 
   def update
-    @product = Product.find(params[:id])
     if @product.update(product_params)
       flash[:success] = "編集が完了しました。"
       redirect_to action: :index
@@ -60,7 +59,6 @@ class ProductsController < ApplicationController
   end
 
   def destroy
-    @product = Product.find(params[:id])
     @product.destroy if @product.user_id == current_user.id
     flash[:success] = "投稿を削除しました。"
     redirect_to root_path
@@ -83,6 +81,10 @@ class ProductsController < ApplicationController
 
   def product_search_params
     params.fetch(:search, {}).permit(:name)
+  end
+
+  def set_product
+    @product = Product.find(params[:id])
   end
 
 end
