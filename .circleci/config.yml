@@ -10,13 +10,11 @@ jobs:
         environment:
           - RAILS_ENV: test
           - BUNDLER_VERSION: 2.1.4
-          - TZ: "Japan"
 
       - image: circleci/mysql:5.7
         environment:
           - MYSQL_ALLOW_EMPTY_PASSWORD: "true"
           - MYSQL_ROOT_HOST: "%"
-          - TZ: "Japan"
 
     working_directory: ~/pfcdotcom
 
