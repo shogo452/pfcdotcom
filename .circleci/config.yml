@@ -10,6 +10,7 @@ jobs:
         environment:
           - RAILS_ENV: test
           - BUNDLER_VERSION: 2.1.4
+          - TZ: "Japan"
 
       - image: circleci/mysql:5.7
         environment:
