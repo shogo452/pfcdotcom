@@ -10,7 +10,6 @@ jobs:
         environment:
           - RAILS_ENV: test
           - BUNDLER_VERSION: 2.1.4
-          - TZ: "Japan"
 
       - image: circleci/mysql:5.7
         environment:
@@ -52,6 +51,12 @@ jobs:
       # Database setup
       - run: bundle exec rake db:create
       - run: bundle exec rake db:schema:load
+
+      - run:
+          command: bundle exec rspec --format progress --format RspecJunitFormatter -o ~/rspec/rspec.xml
+          when: always
+      - store_test_results:
+          path: ~/rspec
 
       # run tests!
       - run:
