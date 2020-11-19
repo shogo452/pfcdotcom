@@ -54,7 +54,7 @@ jobs:
       - run: bundle exec rake db:schema:load
 
       - run:
-          command: bundle exec rspec --format progress --format RspecJunitFormatter -o ~/rspec/rspec.xml
+          command: bundle exec rspec --format progress --format RspecJunitFormatter --out ~/rspec/rspec.xml
           when: always
       - store_test_results:
           path: ~/rspec
