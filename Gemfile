@@ -58,6 +58,7 @@ group :development, :test do
   gem "faker"
   gem 'hirb'
   gem 'hirb-unicode'
+  gem 'rails-controller-testing'
 end
 
 group :development do

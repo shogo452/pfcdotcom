@@ -55,7 +55,7 @@ class ProductsController < ApplicationController
       flash[:success] = "編集が完了しました。"
       redirect_to action: :index
     else
-      redirect_to edit_ptoduct_path(@product)
+      redirect_to edit_product_path(@product)
     end
   end
 
