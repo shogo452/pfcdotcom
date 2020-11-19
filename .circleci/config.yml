@@ -18,6 +18,8 @@ jobs:
           - MYSQL_ROOT_HOST: "%"
 
     working_directory: ~/pfcdotcom
+    environment:
+      TZ: "Japan"
 
     steps:
       - checkout
