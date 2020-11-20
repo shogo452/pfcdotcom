@@ -17,7 +17,12 @@ jobs:
           MYSQL_ALLOW_EMPTY_PASSWORD: "true"
           MYSQL_ROOT_HOST: "%"
           TZ: "Asia/Tokyo"
-        command: [--explicit_defaults_for_timestamp=true]
+        command:
+          [
+            --explicit_defaults_for_timestamp=true,
+            --default-time-zone=Asia/Tokyo,
+            --timezone=Asia/Tokyo,
+          ]
 
     working_directory: ~/pfcdotcom
     environment:
