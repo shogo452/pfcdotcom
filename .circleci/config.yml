@@ -32,13 +32,13 @@ jobs:
             - v1-dependencies-
 
       - run:
-        command: |
-          while true; do
-            sleep 5
-            ps auxwwf
-            echo "======"
-          done
-        background: true
+          command: |
+            while true; do
+              sleep 5
+              ps auxwwf
+              echo "======"
+            done
+          background: true
 
       - run:
           name: bundler install
