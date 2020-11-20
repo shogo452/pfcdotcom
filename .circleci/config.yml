@@ -17,6 +17,8 @@ jobs:
           MYSQL_ALLOW_EMPTY_PASSWORD: "true"
           MYSQL_ROOT_HOST: "%"
           TZ: Asia/Tokyo
+        command: |
+          mysqld --explicit_defaults_for_timestamp server option
 
     working_directory: ~/pfcdotcom
     environment:
