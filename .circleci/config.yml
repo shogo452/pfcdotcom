@@ -88,25 +88,18 @@ jobs:
       #     path: /tmp/test-results
       #     destination: test-results
 
+      - run: mkdir ~/rspec
+
       - run:
           name: Run rspec in parallel
           command: |
             bundle exec rspec --profile 10 \
-                              --format RspecJunitFormatter \
-                              --out test_results/rspec.xml \
                               --format progress \
-                              $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
-
+                              --format RspecJunitFormatter \
+                              --out ~/rspec/rspec.xml \
+          when: always
       - store_test_results:
-          path: test_results
-
-      # - run: mkdir ~/rspec
-      # - run:
-      #     name: run tests
-      #     command: bundle exec rspec --format progress --format RspecJunitFormatter -o ~/rspec/rspec.xml
-      #     when: always
-      # - store_test_results:
-      #     path: ~/rspec
+          path: ~/rspec
 
       #     when: always
       # - store_test_results:
