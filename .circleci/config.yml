@@ -2,9 +2,13 @@ version: 2
 
 jobs:
   build:
+    parallelism: 3
     docker:
       - image: circleci/ruby:2.6.6-stretch-node
         environment:
+          BUNDLE_JOBS: 3
+          BUNDLE_RETRY: 3
+          BUNDLE_PATH: vendor/bundle
           RAILS_ENV: test
           BUNDLER_VERSION: 2.1.4
 
@@ -92,6 +96,9 @@ jobs:
                               --out test_results/rspec.xml \
                               --format progress \
                               $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
+
+      - store_test_results:
+          path: test_results
 
       # - run: mkdir ~/rspec
       # - run:
