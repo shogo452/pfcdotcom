@@ -53,7 +53,13 @@ jobs:
       - run: bundle exec rake db:schema:load
 
       - run:
-          command: bundle exec rspec --format progress --format RspecJunitFormatter --out ~/rspec/rspec.xml
+          name: run tests
+          command: |
+            TEST_FILES="$(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)"
+            bundle exec rspec --format documentation \
+                              --format RspecJunitFormatter \
+                              --out /rspec/rspec.xml \
+                              -- $(echo "${TEST_FILES}" | sed -e 's/\n/\\n/' -e 's/ /\ /')
           when: always
       - store_test_results:
           path: ~/rspec
