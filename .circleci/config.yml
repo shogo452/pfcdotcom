@@ -20,7 +20,7 @@ jobs:
         command:
           [
             --explicit_defaults_for_timestamp=true,
-            --default-time-zone=Asia/Tokyo,
+            default-time-zone='Asia/Tokyo',
           ]
 
     working_directory: ~/pfcdotcom
