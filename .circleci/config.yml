@@ -10,18 +10,16 @@ jobs:
         environment:
           RAILS_ENV: test
           BUNDLER_VERSION: 2.1.4
-          TZ: Asia/Tokyo
 
       - image: circleci/mysql:5.7
         environment:
           MYSQL_ALLOW_EMPTY_PASSWORD: "true"
           MYSQL_ROOT_HOST: "%"
-          TZ: Asia/Tokyo
-        command: ["explicit_defaults_for_timestamp=TRUE"]
+          TZ: "Asia/Tokyo"
 
     working_directory: ~/pfcdotcom
     environment:
-      TZ: Asia/Tokyo
+      TZ: "Asia/Tokyo"
 
     steps:
       - checkout
