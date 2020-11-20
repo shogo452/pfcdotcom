@@ -16,6 +16,7 @@ jobs:
         environment:
           - MYSQL_ALLOW_EMPTY_PASSWORD: "true"
           - MYSQL_ROOT_HOST: "%"
+          - TZ: "Japan"
 
     working_directory: ~/pfcdotcom
     environment:
