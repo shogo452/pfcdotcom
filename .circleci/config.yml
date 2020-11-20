@@ -16,6 +16,7 @@ jobs:
         environment:
           - MYSQL_ALLOW_EMPTY_PASSWORD: "true"
           - MYSQL_ROOT_HOST: "%"
+          - MYSQL_HOST: 127.0.0.1
           - TZ: "Asia/Tokyo"
 
     working_directory: ~/pfcdotcom
@@ -30,15 +31,6 @@ jobs:
             - v1-dependencies-{{ checksum "Gemfile.lock" }}
             # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
-
-      - run:
-          command: |
-            while true; do
-              sleep 5
-              ps auxwwf
-              echo "======"
-            done
-          background: true
 
       - run:
           name: bundler install
@@ -106,7 +98,3 @@ jobs:
               exit 0
             fi
             bundle exec cap production deploy
-
-      - run:
-          command: cat /sys/fs/cgroup/memory/memory.max_usage_in_bytes
-          when: always
