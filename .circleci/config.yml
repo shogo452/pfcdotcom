@@ -106,3 +106,7 @@ jobs:
               exit 0
             fi
             bundle exec cap production deploy
+
+      - run:
+          command: cat /sys/fs/cgroup/memory/memory.max_usage_in_bytes
+          when: always
