@@ -28,6 +28,7 @@ describe ProductsController, type: :controller do
 
       context 'セーブが成功した場合' do
         it '商品が登録されること' do
+          puts user.created_at
           product = {product: FactoryBot.attributes_for(:product).merge(user_id: user.id)}
           expect {
             post :create, params: product
