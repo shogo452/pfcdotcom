@@ -21,7 +21,6 @@ jobs:
           [
             --explicit_defaults_for_timestamp=true,
             --default-time-zone=Asia/Tokyo,
-            --timezone=Asia/Tokyo,
           ]
 
     working_directory: ~/pfcdotcom
