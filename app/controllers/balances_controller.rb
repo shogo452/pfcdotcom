@@ -1,9 +1,5 @@
 class BalancesController < ApplicationController
-before_action :set_balance, only: [:edit, :update]
-
-  def new
-    @balance = Balance.new
-  end
+before_action :set_balance, only: [:update]
 
   def create
     @balance = Balance.new(balance_params)
@@ -13,9 +9,6 @@ before_action :set_balance, only: [:edit, :update]
     else
       redirect_back(fallback_location: user_path(current_user))
     end
-  end
-
-  def edit
   end
 
   def update

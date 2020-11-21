@@ -1,11 +1,11 @@
 FactoryBot.define do
   factory :balance do
     user
-    gender { 1 }
+    gender { :male }
     height { 170 }
     weight { 65 }
     age { 28 }
-    fitness_type { 1 }
-    activity { 1 }
+    fitness_type { :diet }
+    activity  { :low }
   end
 end
