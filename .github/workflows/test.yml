@@ -59,22 +59,25 @@ jobs:
     needs: rspec
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
       - name: slack notify
         uses: rtCamp/action-slack-notify@master
         env:
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
           SLACK_MESSAGE: "Post Content :rocket:"
-          SLACK_CHANNEL: ci
+          SLACK_CHANNEL: general
+          SLACK_COLOR: "#3278BD"
 
   failure_notify:
     if: failure()
     needs: rspec
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
       - name: slack notify
         uses: rtCamp/action-slack-notify@master
         env:
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
           SLACK_MESSAGE: "Post Content :rocket:"
-          SLACK_CHANNEL: ci
+          SLACK_CHANNEL: general
           SLACK_COLOR: "#FF0000"
