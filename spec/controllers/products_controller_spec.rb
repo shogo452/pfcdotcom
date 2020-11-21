@@ -35,10 +35,10 @@ describe ProductsController, type: :controller do
           }.to change(Product, :count).by(1)
         end
 
-        it 'レンダリング先に遷移するかどうか' do
+        it 'トップページにリダイレクトすること' do
           product = {product: FactoryBot.attributes_for(:product).merge(user_id: user.id)}
           post :create, params: product
-          expect(response).to render_template :index
+          expect(response).to redirect_to "/"
         end
       end
 
