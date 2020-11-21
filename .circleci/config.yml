@@ -12,7 +12,6 @@ jobs:
           RAILS_ENV: test
           BUNDLER_VERSION: 2.1.4
           TZ: /usr/share/zoneinfo/Asia/Tokyo
-          
 
       - image: circleci/mysql:5.7
         environment:
@@ -27,11 +26,11 @@ jobs:
     steps:
       - checkout
 
-# Set Timezone 
+      # Set Timezone
       - run:
           name: set timezone
-          command: | sudo systemsetup -settimezone "Asia/Tokyo"
-
+          command: |
+            sudo systemsetup -settimezone "Asia/Tokyo"
 
       - restore_cache:
           keys:
