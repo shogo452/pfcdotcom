@@ -8,6 +8,7 @@ describe ProductsController, type: :controller do
       before do
         login user
       end
+      
       it "newアクションのページに遷移するか" do
         get :new
         expect(response).to render_template :new
