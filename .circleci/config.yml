@@ -26,12 +26,6 @@ jobs:
     steps:
       - checkout
 
-      # Set Timezone
-      - run:
-          name: set timezone
-          command: |
-            sudo systemsetup -settimezone "Asia/Tokyo"
-
       - restore_cache:
           keys:
             - v1-dependencies-{{ checksum "Gemfile.lock" }}
