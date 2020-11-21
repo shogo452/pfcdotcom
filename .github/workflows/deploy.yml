@@ -7,33 +7,21 @@ on:
       - master
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Repo
-        uses: actions/checkout@master
-        with:
-          ref: master
-      - name: Set up Ruby 2.6
-        uses: actions/setup-ruby@v1
+      - uses: actions/checkout@v1
+      - uses: ruby/setup-ruby@v1
         with:
           ruby-version: 2.6
-      - name: Install SSH key
-        uses: webfactory/ssh-agent@v0.1.1
+          bundler-cache: true
+      - uses: miloserdow/capistrano-deploy@master
         with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-      - name: Install Libmysqlclient-dev
-        run: |
-          sudo apt-get install libmysqlclient-dev
-      - name: Bundle install
-        run: |
-          bundle install
-      - name: Deploy Production
-        run: |
-          bundle exec cap production deploy
+          target: production
+          deploy_key: ${{ secrets.SSH_SECRET_KEY }}
 
   success_notify:
-    needs: build
+    needs: deploy
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -47,7 +35,7 @@ jobs:
 
   failure_notify:
     if: failure()
-    needs: build
+    needs: deploy
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
