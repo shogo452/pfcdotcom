@@ -38,7 +38,7 @@ describe ProductsController, type: :controller do
         it 'トップページにリダイレクトすること' do
           product = {product: FactoryBot.attributes_for(:product).merge(user_id: user.id)}
           post :create, params: product
-          expect(response).to redirect_to root_path
+          expect(response).to redirect_to "/"
         end
       end
 

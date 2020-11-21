@@ -1,0 +1,60 @@
+name: Deploy
+
+on:
+  pull_request:
+    types: [closed]
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@master
+        with:
+          ref: master
+      - name: Set up Ruby 2.6
+        uses: actions/setup-ruby@v1
+        with:
+          ruby-version: 2.6
+      - name: Install SSH key
+        uses: webfactory/ssh-agent@v0.1.1
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+      - name: Install Libmysqlclient-dev
+        run: |
+          sudo apt-get install libmysqlclient-dev
+      - name: Bundle install
+        run: |
+          bundle install
+      - name: Deploy Production
+        run: |
+          bundle exec cap production deploy
+
+  success_notify:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: slack notify
+        uses: rtCamp/action-slack-notify@master
+        env:
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+          SLACK_MESSAGE: "デプロイが完了しました :bell:"
+          SLACK_CHANNEL: general
+          SLACK_COLOR: "#3278BD"
+
+  failure_notify:
+    if: failure()
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: slack notify
+        uses: rtCamp/action-slack-notify@master
+        env:
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+          SLACK_MESSAGE: "デプロイに失敗しました :bell:"
+          SLACK_CHANNEL: general
+          SLACK_COLOR: "#FF0000"
