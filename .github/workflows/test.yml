@@ -13,14 +13,13 @@ jobs:
     env:
       RAILS_ENV: test
     services:
-      mysql:
-        image: mysql:5.7.27
-        ports:
-          - 4306:3306
-        env:
-          MYSQL_USER: root
-          MYSQL_ALLOW_EMPTY_PASSWORD: yes
-          BIND-ADDRESS: 0.0.0.0
+      image: mysql:5.7.27
+      ports:
+        - 4306:3306
+      env:
+        MYSQL_USER: root
+        MYSQL_ALLOW_EMPTY_PASSWORD: yes
+        BIND-ADDRESS: 0.0.0.0
     steps:
       - uses: actions/checkout@v1
       - name: Set up Ruby 2.6
