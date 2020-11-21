@@ -1,6 +1,6 @@
 class ProductsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :tag_index, :set_search]
-  before_action :set_prodct, only: [:edit, :update, :destroy]
+  before_action :set_product, only: [:edit, :update, :destroy]
 
   def index
     @products = Product.all.includes(:reviews).page(params[:page]).per(4)

@@ -39,14 +39,6 @@ describe ProductsController, type: :controller do
           post :create, params: product
           expect(response).to redirect_to root_path
         end
-
-        it 'トップページにリダイレクトすること' do
-          product = {product: FactoryBot.attributes_for(:product).merge(user_id: user.id)}
-          post :create, params: product
-          puts product
-          puts product.created_at
-          expect(response).to redirect_to root_path
-        end
       end
 
       context 'セーブが失敗した場合' do
@@ -164,7 +156,7 @@ describe ProductsController, type: :controller do
       end
 
       context '更新に成功した場合' do
-        it "商品が更新されること" do        
+        it "商品が更新されること" do
           product = create(:product)
           expect {
             patch :update, params: {
