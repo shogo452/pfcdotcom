@@ -55,6 +55,7 @@ jobs:
         run: yarn install --check-files
       - name: migration
         run: |
+          cp config/database.yml.ci config/database.yml
           bundle exec rake db:create
           bundle exec rake db:migrate
       - name: run rspec
