@@ -22,42 +22,45 @@ jobs:
         RAILS_ENV: test
     steps:
       - uses: actions/checkout@v1
-      - name: Set up Ruby 2.6
-        uses: actions/setup-ruby@v1
-        with:
-          ruby-version: 2.6.6
-      - name: apt-get
-        run: |
-          sudo apt-get update
-          sudo apt-get install libmysqlclient-dev
-      - name: Cache gems
-        uses: actions/cache@preview
+      - uses: actions/cache@v1
         with:
           path: vendor/bundle
-          key: ${{ runner.os }}-gem-${{ hashFiles('**/Gemfile.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-gem-
-      - name: Cache node modules
-        uses: actions/cache@preview
+          key: bundle-${{ hashFiles('**/Gemfile.lock') }}
+      - uses: actions/cache@v1
         with:
           path: node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
+          key: yarn-${{ hashFiles('**/yarn.lock') }}
+      - name: Set up yarn and node
+        run: |
+          curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
+          echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
+          curl -sL https://deb.nodesource.com/setup_12.x | bash -
+          apt install -y yarn nodejs
+      - name: Install chrome
+        run: |
+          wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | apt-key add -
+          echo 'deb http://dl.google.com/linux/chrome/deb/ stable main' | tee /etc/apt/sources.list.d/google-chrome.list
+          apt update -y
+          apt install -y google-chrome-stable
       - name: bundle install
         run: |
           gem install bundler
-          bundle install --jobs 4 --retry 3 --path vendor/bundle
+          bundle install --path vendor/bundle --quiet --jobs 4 --retry 3
       - name: yarn install
-        run: yarn install --check-files
+        run: yarn install
       - name: set database.yml
         run: cp -v config/database.ci.yml config/database.yml
-      - name: migration
-        run: |
-          bundle exec rake db:create
-          bundle exec rake db:migrate
+      - name: db create
+        run: bundle exec rails db:create db:schema:load --trace
       - name: run rspec
         run: bundle exec rspec
+
+      - name: Archive rspec result screenshots
+        if: failure()
+        uses: actions/upload-artifact@v1
+        with:
+          name: rspec result screenshots
+          path: tmp/screenshots/
 
   success_notify:
     needs: rspec
