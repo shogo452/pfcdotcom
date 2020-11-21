@@ -10,12 +10,8 @@ on:
 jobs:
   rspec:
     runs-on: ubuntu-latest
-    env:
-      RAILS_ENV: test
-      DB_HOST: 127.0.0.1
-      DB_PORT: 4306
     services:
-      db:
+      mysql:
         image: mysql:5.7.27
         ports:
           - 4306:3306
@@ -53,6 +49,8 @@ jobs:
           bundle install --jobs 4 --retry 3 --path vendor/bundle
       - name: yarn install
         run: yarn install --check-files
+      - name: set database.yml
+        run: cp -v config/database.ci.yml config/database.yml
       - name: migration
         run: |
           bundle exec rake db:create
