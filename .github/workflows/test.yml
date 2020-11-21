@@ -1,7 +1,7 @@
 name: Test
 
 on:
-  push:
+  pull_request:
     paths-ignore:
       - README.md
       - Dockerfile
@@ -13,12 +13,12 @@ jobs:
     env:
       RAILS_ENV: test
       DB_HOST: 127.0.0.1
-      DB_PORT: 33060
+      DB_PORT: 3306
     services:
       db:
         image: mysql:5.7.27
         ports:
-          - 33060:3306
+          - 3306
         env:
           MYSQL_USER: root
           MYSQL_ALLOW_EMPTY_PASSWORD: yes
