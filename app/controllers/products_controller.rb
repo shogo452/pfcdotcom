@@ -21,10 +21,10 @@ class ProductsController < ApplicationController
   end
 
   def create
-    # notifier = Slack::Notifier.new(ENV['SLACK_WEBHOOK_URL'])
+    notifier = Slack::Notifier.new(ENV['SLACK_WEBHOOK_URL']) if Rails.env.development? || Rails.env.production?
     @product = Product.new(product_params)
     if @product.save
-      notifier.ping "product:#{@product.name}が投稿されました。"
+      notifier.ping "product:#{@product.name}が投稿されました。" if Rails.env.development? || Rails.env.production?
       flash[:success] = "投稿が完了しました。"
       redirect_to action: :index
     else
