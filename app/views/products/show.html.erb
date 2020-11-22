@@ -11,7 +11,7 @@
         <% end %>
       </div>
       <% if user_signed_in? && @product.user.id != current_user.id %>
-      <div class="product-detail__left__button" id="show_favorite_<%= @product.id %>"">
+      <div class="product-detail__left__button" id="show_favorite_<%= @product.id %>">
         <%= render partial: 'favorites/favorite', locals: { product: @product} %>
       </div>
       <div class=" product-detail__left__button" id="show_like_<%= @product.id %>">
