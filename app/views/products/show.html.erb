@@ -14,7 +14,7 @@
       <div class="product-detail__left__button" id="show_favorite_<%= @product.id %>">
         <%= render partial: 'favorites/favorite', locals: { product: @product} %>
       </div>
-      <div class=" product-detail__left__button" id="show_like_<%= @product.id %>">
+      <div class="product-detail__left__button" id="show_like_<%= @product.id %>">
         <%= render partial: 'likes/like', locals: { product: @product} %>
       </div>
       <% end %>
@@ -28,7 +28,7 @@
           <%= @product.favorites.size %>
         </small>
         <%= fa_icon "comment" %>
-        <small><%= @product.reviews.size%></small>
+        <small><%= @product.reviews.size %></small>
       </div>
       <div class="d-block text-center my-1">
         <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button mt-2" data-show-count="false" data-text="PFC.comの投稿をシェアします！" data-hashtags="pfcdotcom" data-size="large">
