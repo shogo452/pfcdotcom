@@ -18,7 +18,7 @@ jobs:
       - uses: miloserdow/capistrano-deploy@master
         with:
           target: production
-          deploy_key: ${{ secrets.SSH_SECRET_KEY }}
+          deploy_key: ${{ secrets.DEPLOY_ENC_KEY }}
 
   success_notify:
     needs: deploy
