@@ -42,12 +42,12 @@ server '3.115.221.165', user: 'ec2-user', roles: %w{app db web}
 #
 # Global options
 # --------------
-set :ssh_options, {
-  keys: %w(/home/runner/.ssh/id_rsa /home/runner/.ssh/id_ed25519),
-  forward_agent: false,
-  auth_methods: %w(publickey)
-  port: 10024
-}
+# set :ssh_options, {
+#   keys: %w(/home/runner/.ssh/id_rsa /home/runner/.ssh/id_ed25519),
+#   forward_agent: false,
+#   auth_methods: %w(publickey)
+#   port: 10024
+# }
 #
 # The server-based syntax can be used to override options:
 # ------------------------------------
