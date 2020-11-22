@@ -1,0 +1,2 @@
+$("#show_like_<%= @product.id %>").html("<%= j(render partial: 'likes/like', locals: { product: @product}) %>");
+$("#likes_count_<%= @product.id %>").html("<%= @product.likes.reload.size %>");

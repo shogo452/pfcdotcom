@@ -11,36 +11,24 @@
         <% end %>
       </div>
       <% if user_signed_in? && @product.user.id != current_user.id %>
-      <div class="product-detail__left__button">
-        <% if current_user.favproduct?(@product) %>
-        <%= button_to product_favorite_path(@product), class: "btn btn-orange btn-sm text-white", method: :delete  do %>
-        <i class="fas fa-heart mr-2"></i>お気に入りを取り消す
-        <% end %>
-        <% else %>
-        <%= button_to "#{@product.id}/favorites", class: "btn btn-orange btn-sm text-white" do %>
-        <i class="fas fa-heart mr-2"></i>お気に入り
-        <% end %>
-        <% end %>
+      <div class="product-detail__left__button" id="show_favorite_<%= @product.id %>"">
+        <%= render partial: 'favorites/favorite', locals: { product: @product} %>
       </div>
-      <div class="product-detail__left__button">
-        <% if current_user.already_liked?(@product) %>
-        <%= button_to product_like_path(@product), class: "btn btn-orange btn-sm text-white", method: :delete  do %>
-        <i class="fas fa-thumbs-up mr-2"></i>いいねを取り消す
-        <% end %>
-        <% else %>
-        <%= button_to "#{@product.id}/likes", class: "btn btn-orange btn-sm text-white" do %>
-        <i class="fas fa-thumbs-up mr-2"></i>いいね
-        <% end %>
-        <% end %>
+      <div class=" product-detail__left__button" id="show_like_<%= @product.id %>">
+        <%= render partial: 'likes/like', locals: { product: @product} %>
       </div>
       <% end %>
       <div class="product-detail__left__response-list">
         <%= fa_icon "thumbs-up" %>
-        <small><%= @product.likes.size %></small>
+        <small id="likes_count_<%= @product.id %>">
+          <%= @product.likes.size %>
+        </small>
         <%= fa_icon "heart" %>
-        <small><%= @product.favorites.size %></small>
+        <small id="favorites_count_<%= @product.id %>">
+          <%= @product.favorites.size %>
+        </small>
         <%= fa_icon "comment" %>
-        <small class=><%= @product.reviews.size%></small>
+        <small><%= @product.reviews.size%></small>
       </div>
       <div class="d-block text-center my-1">
         <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button mt-2" data-show-count="false" data-text="PFC.comの投稿をシェアします！" data-hashtags="pfcdotcom" data-size="large">
@@ -78,7 +66,7 @@
       </div>
       <div>
         投稿者：
-        <%= link_to "/users/#{@product.user.id}", method: :get do %>
+        <%= link_to '', controller: 'users', action: 'show', id: @product.user_id, method: :get do %>
         <%= @product.user.nickname %>
         <% end %>
       </div>

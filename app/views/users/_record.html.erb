@@ -22,17 +22,9 @@
     const weights = gon.weights;
     const body_fat_percentages = gon.body_fat_percentages;
     const dates = gon.dates;
-    console.log(dates);
-    console.log(body_fat_percentages);
-    console.log(weights);
     var firstDate = new Date(dates[0]);
-    console.log(Date(dates[0]));
-    console.log(firstDate);
     var lastDate = new Date(dates.slice(-1)[0]);
-    console.log(Date(dates.slice(-1)[0]));
     var termDate = (lastDate - firstDate) / 1000 / 60 / 60 / 24 + 1;
-    console.log(lastDate);
-    console.log(termDate);
 
     function generateChartData() {
       var chartData = [];
@@ -52,13 +44,11 @@
           }
         }
       }
-      console.log(chartData);
       return chartData;
     }
 
 
     chart.data = generateChartData();
-    console.log(chart.data);
     chart.responsive.enabled = true;
 
     var title = chart.titles.create();
