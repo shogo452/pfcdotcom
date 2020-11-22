@@ -1,0 +1,9 @@
+<% if current_user.favproduct?(product) %>
+<%= button_to product_favorite_path(product_id: product.id, id: product.favorites[0].id), class: "btn btn-orange btn-sm text-white", method: :delete, remote: true do %>
+<i class="fas fa-heart mr-2"></i>お気に入りを取り消す
+<% end %>
+<% else %>
+<%= button_to product_favorites_path(product_id: product.id), class: "btn btn-orange btn-sm text-white" , method: :post, remote: true do %>
+<i class="fas fa-heart mr-2"></i>お気に入り
+<% end %>
+<% end %>

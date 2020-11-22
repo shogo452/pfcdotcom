@@ -1,0 +1,2 @@
+$("#show_favorite_<%= @product.id %>").html("<%= j(render partial: 'favroites/favorite', locals: { product: @product}) %>");
+$("#favorites_count_<%= @product.id %>").html("<%= @product.favorites.reload.size %>");

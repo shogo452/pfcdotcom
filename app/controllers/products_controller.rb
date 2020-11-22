@@ -1,5 +1,5 @@
 class ProductsController < ApplicationController
-  before_action :authenticate_user!, except: [:index, :tag_index, :set_search]
+  before_action :authenticate_user!, except: [:index, :tag_index]
   before_action :set_product, only: [:edit, :update, :destroy]
 
   def index
@@ -35,7 +35,7 @@ class ProductsController < ApplicationController
   def show
     @product = Product.includes(:reviews).includes(:users).find(params[:id])
     gon.nutrition = [@product.protein, @product.fat, @product.carbo]
-    @reviews = @product.reviews.page(params[:page]).per(4)
+    @reviews = @product.reviews.page(params[:page]).per(4).order(created_at: :desc)
     @review = Review.new
     if @product.reviews.blank?
       @average_review = 0

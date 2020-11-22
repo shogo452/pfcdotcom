@@ -1,0 +1,9 @@
+  <% if current_user.already_liked?(product) %>
+  <%= button_to product_like_path(product_id: product.id, id: product.likes[0].id), class: "btn btn-orange btn-sm text-white", method: :delete, remote: true  do %>
+  <i class="fas fa-thumbs-up mr-2"></i>いいねを取り消す
+  <% end %>
+  <% else %>
+  <%= button_to product_likes_path(product.id), class: "btn btn-orange btn-sm text-white", method: :post, remote: true do %>
+  <i class="fas fa-thumbs-up mr-2"></i>いいね
+  <% end %>
+  <% end %>

@@ -1,14 +1,17 @@
 class FavoritesController < ApplicationController
+  before_action :set_product
   def create
-    product = Product.find(params[:product_id])
-    current_user.like(product)
-    product.created_favorite_notification_by(current_user)
-    redirect_back(fallback_location: root_path)
+    @favorite = current_user.favorites.create(product_id: params[:product_id])
+    @product.created_favorite_notification_by(current_user)
   end
 
   def destroy
-    product = Product.find(params[:product_id])
-    current_user.unlike(product)
-    redirect_back(fallback_location: root_path)
+    @favorite = Favorite.find_by(user_id: current_user.id, product_id: @product.id)
+    @favorite.destroy
+  end
+  
+  private
+  def set_product
+    @product = Product.find(params[:product_id])
   end
 end
