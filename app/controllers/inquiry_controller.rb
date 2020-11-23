@@ -1,4 +1,5 @@
 class InquiryController < ApplicationController
+  before_action :set_flag_no_footer
   def index
     @inquiry = Inquiry.new
     render action: "index"
@@ -19,5 +20,9 @@ class InquiryController < ApplicationController
     @chatwork = InquiryChatwork.new
     @chatwork.push_chatwork_message(@inquiry)
     render action: "thanks"
+  end
+
+  def set_flag_no_footer
+    @flag = true
   end
 end

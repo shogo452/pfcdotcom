@@ -29,14 +29,14 @@ describe ProductsController, type: :controller do
 
       context 'セーブが成功した場合' do
         it '商品が登録されること' do
-          product = {product: FactoryBot.attributes_for(:product).merge(user_id: user.id)}
+          product = { product: FactoryBot.attributes_for(:product).merge(user_id: user.id) }
           expect {
             post :create, params: product
           }.to change(Product, :count).by(1)
         end
 
         it 'トップページにリダイレクトすること' do
-          product = {product: FactoryBot.attributes_for(:product).merge(user_id: user.id)}
+          product = { product: FactoryBot.attributes_for(:product).merge(user_id: user.id) }
           post :create, params: product
           expect(response).to redirect_to "/"
         end
@@ -44,14 +44,14 @@ describe ProductsController, type: :controller do
 
       context 'セーブが失敗した場合' do
         it '商品が登録されないこと' do
-          product = {product: FactoryBot.attributes_for(:product, name: "").merge(user_id: user.id)}
+          product = { product: FactoryBot.attributes_for(:product, name: "").merge(user_id: user.id) }
           expect { 
             post :create, params: product
           }.not_to change(Product, :count)
         end
 
         it 'レンダリング先に遷移するかどうか' do
-          product = {product: FactoryBot.attributes_for(:product, name: "").merge(user_id: user.id)}
+          product = { product: FactoryBot.attributes_for(:product, name: "").merge(user_id: user.id) }
           post :create, params: product
           expect(response).to render_template :new
         end
@@ -66,25 +66,25 @@ describe ProductsController, type: :controller do
       end
       it "showアクションのページに遷移するか" do
         product = create(:product)
-        get :show, params: {id: product}
+        get :show, params: { id: product }
         expect(response).to render_template :show
       end
 
       it "@productは正しくアサインされるか" do
         product = create(:product)
-        get :show, params: {id: product}
+        get :show, params: { id: product }
         expect(assigns(:product)).to eq product
       end
 
       it "正常なレスポンスか" do
         product = create(:product)
-        get :show, params: {id: product}
+        get :show, params: { id: product }
         expect(response).to be_successful
       end
 
       it "200レスポンスが返ってきているか" do
         product = create(:product)
-        get :show, params: {id: product}
+        get :show, params: { id: product }
         expect(response).to have_http_status "200"
       end
 
@@ -92,7 +92,7 @@ describe ProductsController, type: :controller do
 
     it "未ログイン時にログインページに遷移するか" do
       product = create(:product)
-      get :show, params: {id: product}
+      get :show, params: { id: product }
       expect(response).to redirect_to new_user_session_path
     end
   end
@@ -144,7 +144,7 @@ describe ProductsController, type: :controller do
 
       it "editアクションのページに遷移するか" do
         product = create(:product)
-        get :edit, params: {id: product}
+        get :edit, params: { id: product }
         expect(response).to render_template :edit
       end
     end
@@ -205,13 +205,13 @@ describe ProductsController, type: :controller do
         product = create(:product, user_id: user.id)
         expect {
           delete :destroy, 
-          params: {id: product.id}
+          params: { id: product.id }
         }.to change(Product, :count).by(-1)
       end
 
       it "トップページにリダイレクトされるかどうか" do
         product = create(:product, user_id: user.id)
-        delete :destroy, params: {id: product.id}
+        delete :destroy, params: { id: product.id }
         expect(response).to redirect_to root_path
       end
     end

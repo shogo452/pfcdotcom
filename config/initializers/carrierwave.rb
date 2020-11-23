@@ -12,7 +12,7 @@ CarrierWave.configure do |config|
       aws_secret_access_key: Rails.application.credentials.aws[:secret_access_key],
       region: 'ap-northeast-1'
     }
-    config.fog_directory  = Rails.application.credentials.aws[:s3_bucket_name]
+    config.fog_directory = Rails.application.credentials.aws[:s3_bucket_name]
     config.asset_host = Rails.application.credentials.aws[:s3_host] 
     # config.fog_directory  = 'tiphp452-pfc-com'
     # config.asset_host = 'https://s3-ap-northeast-1.amazonaws.com/tiphp452-pfc-com'  

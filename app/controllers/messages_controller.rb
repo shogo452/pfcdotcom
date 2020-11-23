@@ -7,7 +7,7 @@ class MessagesController < ApplicationController
         @room_member_not_me = Entry.where(room_id: @room.id).where.not(user_id: current_user.id)
         @other_member = @room_member_not_me.find_by(room_id: @room.id)
         notification = current_user.active_notifications.new(
-          room_id:  @room.id,
+          room_id: @room.id,
           message_id: @message.id,
           visited_id: @other_member.user_id,
           visiter_id: current_user.id,
@@ -21,7 +21,6 @@ class MessagesController < ApplicationController
       flash[:alert] = "メッセージ送信に失敗しました。"
       redirect_back(fallback_location: root_path)
     end
-    # redirect_to "/rooms/#{@message.room_id}"
   end
 
   private

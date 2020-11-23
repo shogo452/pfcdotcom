@@ -56,15 +56,13 @@ class Product < ApplicationRecord
       visited_id: visited_id,
       action: "review",
     )
-    if notification.visiter_id == notification.visited_id
-      notification.checked == true
-    end
+    notification.checked == true if notification.visiter_id == notification.visited_id
     notification.save if notification.valid?
   end
 
-  scope :search_product, -> (search_params) do
+  scope :search_product, lambda {|search_params|
     return if search_params.blank?
     name_like(search_params[:name])
-  end
+  }
   scope :name_like, -> (name) { where('name LIKE ?', "%#{name}%") if name.present? }
 end

@@ -1,322 +1,67 @@
 <%= render "layouts/header" %>
-<div class="container pt-3">
+<div class="container mt-5">
+  <%= form_for(@product) do |f| %>
   <div class="row">
-    <div class="col-md">
-      <div class="row user-information">
-        <div class="col-3">
-          <% if @user.avatar.attached? %>
-          <%= image_tag @user.avatar.variant(combine_options:{gravity: :center, resize:"100x100^",crop:"100x100+0+0"}).processed, class: "user-information__image" %>
-          <% else %>
-          <%= image_tag "user_image.png", class: "user-information__image" %>
-          <% end %>
-        </div>
-        <div class="col-9">
-          <h4 class="user-information__name"><%= @user.nickname %></h4></br>
-          <span class="badge badge-light" , style="color: gray;">
-            <%= fa_icon "map-marker-alt", style: "color:gray" %>
-            <%= @prefecture.name %>
-          </span></br>
-          <% unless @user.email == "test@example.com" %>
-          <% if @user.email == current_user.email %>
-          <%= link_to edit_user_registration_path, class: "btn btn-info btn-sm mt-1", method: :get do %>
-          <%= fa_icon "user-edit", style: "color:white" %>
-          ユーザー編集
-          <% end %>
-          <% end %>
-          <% end %>
-          <% unless current_user == @user %>
-          <% if current_user.following?(@user) %>
-          <%= form_for(current_user.relationships.find_by(follow_id: @user.id), html: {method: :delete, class: "d-inline"}) do |f| %>
-          <%= f.hidden_field :follow_id, value: @user.id %>
-          <%= button_tag type: 'submit', class: "btn btn-info btn-sm mt-1" do %>
-          <%= fa_icon "user-check", style: "color:info" %>
-          フォロー中
-          <% end %>
-          <% end %>
-          <% else %>
-          <%= form_for(current_user.relationships.build, html: {class: "d-inline"}) do |f| %>
-          <%= f.hidden_field :follow_id, value: @user.id %>
-          <%= button_tag type: 'submit', class: "btn btn-outline-info btn-sm mt-1" do %>
-          <%= fa_icon "user-plus", style: "color:info" %>
-          フォロー
-          <% end %>
-          <% end %>
-          <% end %>
-          <% end %>
-          <% unless @user.id == current_user.id %>
-          <% if current_user.following?(@user) && @user.following?(current_user) %>
-          <% if @is_room == true %>
-          <%= link_to room_path(@room_id), class: "btn btn-orange text-white btn-sm user-show-chat mt-1" do %>
-          <%= fa_icon "paper-plane", style: "color: white;" %>
-          チャットへ
-          <% end %>
-          <% else %>
-          <%= form_for @room do |f| %>
-          <%= fields_for @entry do |e| %>
-          <%= e.hidden_field :user_id, value: @user.id %>
-          <% end %>
-          <%= button_tag type: 'submit', class: "btn btn-orange text-white btn-sm user-show-chat mt-1" do %>
-          <%= fa_icon "paper-plane", style: "color: white;" %>
-          チャットを始める
-          <% end %>
-          <% end %>
-          <% end %>
-          <% end %>
-          <% end %>
+    <div class="col-md-6">
+      <%= f.label "名前" %>
+      <%= f.text_field :name, class: "form-control", placeholder: "商品名を入力(必須)" %><br />
 
-        </div>
-      </div>
-      <% if @user.id == current_user.id %>
-      <div class="row justify-content-around macro-list my-1">
-        <div class="col-5 calory-list__item__activity rounded my-1">
-          <div class="activity_metabolism">
-            <%= image_tag "activity_metabolism_image.png", alt: "aaa" %>
-            <span class="calory-list__item__value"><%= @user.balance.activity_metabolism %></span>[kcal]
-          </div>
-          <span>1日の消費カロリー</span>
-        </div>
-        <div class="col-5 calory-list__item__intake rounded my-1">
-          <div class="calory_intake">
-            <%= image_tag "calory_image.png", alt: "aaa" %>
-            <span class="calory-list__item__value"><%= @user.balance.calory_intake %></span>[kcal]
-          </div>
-          <span>1日の摂取カロリー</span>
-        </div>
-      </div>
-      <div class="row justify-content-around macro-list my-1">
-        <div class="col-3 macro-list__item__protein rounded">
-          <div class="macro-list__item__value">
-            <span class="macro-list__item__value__char"><%= @user.balance.protein_intake %></span>[g]
-          </div>
-          <span class="responsive-font">タンパク質</span>
-        </div>
-        <div class="col-3 macro-list__item__fat rounded">
-          <div class="macro-list__item__value">
-            <span class="macro-list__item__value__char"><%= @user.balance.fat_intake %></span>[g]
-          </div>
-          <span class="responsive-font">脂質</span>
-        </div>
-        <div class="col-3 macro-list__item__carbo rounded">
-          <div class="macro-list__item__value">
-            <span class="macro-list__item__value__char count"><%= @user.balance.carbo_intake %></span>[g]
-          </div>
-          <span class="responsive-font">炭水化物</span>
-        </div>
-      </div>
-      <% end %>
-    </div>
-    <% if @user.id == current_user.id %>
-    <div class="col-md">
-      <%= form_for (@balance) do |f| %>
       <div class="form-row">
-        <div class="form-group col-6">
-          <%= f.label "性別" %>
-          <%= f.select :gender, Balance.genders_i18n.invert, {}, class: "form-control gender-input" %>
+        <div class="form-group col-sm-6">
+          <%= f.label "タンパク質[g]" %>
+          <%= f.text_field :protein, class: "form-control", placeholder: "半角入力(必須)" %><br />
         </div>
-        <div class="form-group col-6">
-          <%= f.label "活動エリア" %>
-          <%= f.collection_select(:prefecture_id, Prefecture.all, :id, :name, {prompt: "--未設定--"},{class: "form-control"}) %>
+        <div class="form-group col-sm-6">
+          <%= f.label "脂質[g]" %>
+          <%= f.text_field :fat, class: "form-control", placeholder: "半角入力(必須)" %><br />
         </div>
       </div>
+
       <div class="form-row">
-        <div class="form-group col-4">
-          <%= f.label "身長[cm]" %>
-          <%= f.text_field :height, placeholder: '身長を入力(必須)', class: 'form-control height-input' %>
+        <div class="form-group col-sm-6">
+          <%= f.label "炭水化物[g]" %>
+          <%= f.text_field :carbo, class: "form-control", placeholder: "半角入力(必須)" %><br />
         </div>
-        <div class="form-group col-4">
-          <%= f.label "体重[kg]" %>
-          <%= f.text_field :weight, placeholder: '体重を入力(必須)', class: 'form-control weight-input' %>
-        </div>
-        <div class="form-group col-4">
-          <%= f.label "年齢[才]" %>
-          <%= f.text_field :age, placeholder: '年齢を入力(必須)', class: 'form-control age-input' %>
+        <div class="form-group col-sm-6">
+          <%= f.label "糖質[g]" %>
+          <%= f.text_field :sugar, class: "form-control", placeholder: "半角入力(任意)" %><br />
         </div>
       </div>
+
       <div class="form-row">
-        <div class="form-group col-6">
-          <%= f.label "アクティブ度" %>
-          <%= f.select :activity, Balance.activities_i18n.keys.map {|k| [I18n.t("enums.balance.activity.#{k}"), k ]}, {}, class: "form-control activity-input" %>
+        <div class="form-group col-sm-6">
+          <%= f.label "カロリー[kcal]" %>
+          <%= f.text_field :calory, class: "form-control", placeholder: "半角入力(任意)" %><br />
         </div>
-        <div class="form-group col-6">
-          <%= f.label "目的" %>
-          <%= f.select :fitness_type, Balance.fitness_types_i18n.keys.map {|k| [I18n.t("enums.balance.fitness_type.#{k}"), k ]}, {}, class: "form-control fitness_type-input" %>
+        <div class="form-group col-sm-6">
+          <%= f.label "価格[円]" %>
+          <%= f.text_field :price, class: "form-control", placeholder: "半角入力(任意)" %><br />
         </div>
       </div>
-      <%= button_tag type: 'submit', class: "btn btn-orange text-white" do %>
-      <%= fa_icon "sync-alt", style: "color:white" %>
-      データ更新
-      <% end%>
+      <%= f.label "リンク" %>
+      <%= f.text_field :purchase_url, class: "form-control url-input", placeholder: "https://....(任意)"  %><br />
       <%= render 'layouts/error_messages', model: f.object %>
-      <% end %>
-      <div id="balance_error"></div>
+      <%= f.submit "投稿する", class: "btn btn-orange text-white my-3" %><br />
+      <%= link_to "キャンセル", root_path %>
     </div>
-    <% end %>
-  </div>
-  <% if @user.id == current_user.id %>
-  <div class="row pt-3">
-    <div class="col-md-5">
-      <table class="table table-sm">
-        <thead>
-          <tr>
-            <th scope="col">年月日</th>
-            <th scope="col">体重[kg]</th>
-            <th scope="col">体脂肪率[%]</th>
-            <th scope="col">
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <%= form_for @record, url: records_path do |f| %>
-            <td>
-              <div class="input-group date" id="datetimepicker4" data-target-input="nearest">
-                <%= f.text_field :date, class: "form-control form-control-sm datetimepicker-input", "data-target": "#datetimepicker4" %>
-                <div class="input-group-append" data-target="#datetimepicker4" data-toggle="datetimepicker">
-                  <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                </div>
-              </div>
-              <script type="text/javascript">
-                $(function() {
-                  $('#datetimepicker4').datetimepicker({
-                    format: 'L'
-                  });
-                });
-              </script>
-            </td>
-            <td>
-              <%= f.text_field :weight, class: "form-control form-control-sm weight-input" %>
-            </td>
-            <td>
-              <%= f.text_field :body_fat_percentage, class: "form-control form-control-sm body_fat_percentage-input" %>
-            </td>
-            <td>
-              <%= button_tag type: "submit", class: "btn btn-sm" do %>
-              <%= fa_icon "plus-square" , style: "color:black" %>
-              <% end %>
-            </td>
-            <% end %>
-          </tr>
-          <% @records.each do |record| %>
-          <tr>
-            <td><%= record.date.to_s(:date) if record.date? %></td>
-            <td><%= record.weight %></td>
-            <td><%= record.body_fat_percentage%></td>
-            <td>
-              <%= button_to "/records/#{record.id}", method: :delete, class: "btn btn-sm" do %>
-              <%= fa_icon "minus-square" , style: "color:black" %>
-              <% end %>
-            </td>
-          </tr>
-          <% end %>
-          <tr>
-          </tr>
-        </tbody>
-      </table>
-      <%= paginate @records %>
-      <div id="record_error"></div>
-    </div>
-    <div class="col-md-7">
-      <%= render "record" %>
+    <div class="col-md-6">
+      <%= fa_icon "tags" %>
+      <%= f.label "タグ付け" %>
+      <small id="tagHelpBlock" class="form-text text-muted">
+        入力候補から選ぶかカンマ(,)で区切って入力してください
+      </small>
+      <div class="input_form">
+        <%= f.text_field :tag_list, value: @product.tag_list.join(','), class: "tag_form tagit-hidden-field", name: "product[tag_list]", id: "product_tag_list", "aria-describedby": "tagHelpBlock" %>
+      </div>
+      <div id="img_field" onClick="$('#file').click()">
+        <% if @product.image.url.present? %>
+        <%= image_tag(@product.image.url) %>
+        <% else %>
+        <i class="fas fa-image"></i><i class="fas fa-file-upload add"></i>
+        <% end %>
+      </div>
+      <%= f.file_field :image, class: "image", style: "display:none;", id: "file"%>
     </div>
   </div>
   <% end %>
-
-  <ul class="nav nav-tabs nav-justified mt-3" id="myTab" role="tablist">
-    <li class="nav-item">
-      <a class="nav-link active responsive-font2" id="product-index-tab" data-toggle="tab" href="#product-index" role="tab" aria-controls="product-index" aria-selected="true">
-        <p>投稿一覧</p>
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link responsive-font2" id="favproducts-tab" data-toggle="tab" href="#favproducts" role="tab" aria-controls="favproducts" aria-selected="false">
-        <p>お気に入り</p>
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link responsive-font2" id="likes-tab" data-toggle="tab" href="#likes" role="tab" aria-controls="likes" aria-selected="false">
-        <p>いいね</p>
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link responsive-font2" id="followings-tab" data-toggle="tab" href="#followings" role="tab" aria-controls="followings" aria-selected="false">
-        <p>フォロー</p>
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link responsive-font2" id="followers-tab" data-toggle="tab" href="#followers" role="tab" aria-controls="followers" aria-selected="false">
-        <p>フォロワー</p>
-      </a>
-    </li>
-  </ul>
-  <div class="tab-content" id="myTabContent">
-    <div class="tab-pane fade show active" id="product-index" role="tabpanel" aria-labelledby="product-index-tab">
-      <% if @same_user_products.exists? %>
-      <div class="d-flex flex-wrap justify-content-around">
-        <%= render partial: 'products/product', collection: @same_user_products, as: 'product' %>
-      </div>
-      <%= paginate @same_user_products %>
-      <% else %>
-      <h6 class="mt-2 ml-2">他に投稿はありません。</h6>
-      <% end %>
-    </div>
-    <div class="tab-pane fade" id="favproducts" role="tabpanel" aria-labelledby="favproducts-tab">
-      <% if @user.favproducts.exists? %>
-      <div class="d-flex flex-wrap justify-content-around">
-        <%= render partial: 'products/product', collection: @user_favproducts, as: 'product' %>
-      </div>
-      <%= paginate @user_favproducts %>
-      <% else %>
-      <h6 class="mt-2 ml-2">お気に入りの商品はありません。</h6>
-      <% end %>
-    </div>
-    <div class="tab-pane fade" id="likes" role="tabpanel" aria-labelledby="likes-tab">
-      <% if @user.liked_products.exists? %>
-      <div class="d-flex flex-wrap justify-content-around">
-        <%= render partial: 'products/product', collection: @user_liked_products, as: 'product' %>
-      </div>
-      <%= paginate @user_liked_products %>
-      <% else %>
-      <h6 class="mt-2 ml-2">いいねした商品はありません。</h6>
-      <% end %>
-    </div>
-    <div class="tab-pane fade" id="followings" role="tabpanel" aria-labelledby="followings-tab">
-      <% if @user_followings.exists? %>
-      <div class="container mt-3">
-        <div class="card-columns">
-          <%= render partial: 'user', collection: @user_followings, as: 'user' %>
-        </div>
-      </div>
-      <%= paginate @user_followings %>
-      <% else %>
-      <h6 class="mt-2 ml-2">フォローしているユーザーがいません。</h6>
-      <% end %>
-    </div>
-    <div class="tab-pane fade" id="followers" role="tabpanel" aria-labelledby="followers-tab">
-      <% if @user_followers.exists? %>
-      <div class="container mt-3">
-        <div class="card-columns">
-          <%= render partial: 'user', collection: @user_followers, as: 'user' %>
-        </div>
-      </div>
-      <%= paginate @user_followers %>
-      <% else %>
-      <h6 class="mt-2 ml-2">フォロワーはいません。</h6>
-      <% end %>
-    </div>
-  </div>
-
 </div>
-<%= render "layouts/footer" %>
-
-<script>
-  $('.review-rating').raty({
-    readOnly: true,
-    readOnly: true,
-    starOn: "<%= asset_path('star-on.png') %>",
-    starOff: "<%= asset_path('star-off.png') %>",
-    starHalf: "<%= asset_path('star-half.png') %>",
-    score: function() {
-      return $(this).attr('data-score');
-    },
-  });
-</script>

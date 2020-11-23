@@ -45,7 +45,7 @@ class ProductsController < ApplicationController
     @like = Like.new
     tag_list = @product.tag_list
     @products = Product.all
-    @same_taged_products = @products.tagged_with(tag_list, :any => true).page(params[:page]).per(2)
+    @same_taged_products = @products.tagged_with(tag_list, any: true).page(params[:page]).per(2)
     @same_user_products = @products.where(user_id: @product.user.id).page(params[:page]).per(2).where.not(id: @product.id)
   end
 
@@ -65,9 +65,8 @@ class ProductsController < ApplicationController
   end
 
   def tag_index
-    @products = Product.tagged_with(params[:tag_name]).page(params[:page]).per(9)
+    @products = Product.tagged_with(params[:tag_name]).includes(:reviews).page(params[:page]).per(9)
     @tag_name = params[:tag_name]
-    @rates = Review.group(:product_id).average(:rate)
   end
 
   def get_tag_search
@@ -76,7 +75,8 @@ class ProductsController < ApplicationController
   
   private
   def product_params
-    params.require(:product).permit(:name, :carbo, :fat, :protein, :sugar, :calory, :price, :purchase_url, :image, :tag_list, :url_type).merge(user_id: current_user.id)
+    params.require(:product).permit(:name, :carbo, :fat, :protein, :sugar, :calory,
+                                    :price, :purchase_url, :image, :tag_list, :url_type).merge(user_id: current_user.id)
   end
 
   def product_search_params

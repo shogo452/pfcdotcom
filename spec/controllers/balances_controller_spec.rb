@@ -11,14 +11,14 @@ describe BalancesController, type: :controller do
 
       context 'セーブが成功した場合' do
         it 'PFCバランスが登録されること' do
-          balance = {balance: FactoryBot.attributes_for(:balance).merge(user_id: user.id)}
+          balance = { balance: FactoryBot.attributes_for(:balance).merge(user_id: user.id) }
           expect {
             post :create, params: balance
           }.to change(Balance, :count).by(1)
         end
 
         it 'マイページにリダイレクトすること' do
-          balance = {balance: FactoryBot.attributes_for(:balance).merge(user_id: user.id)}
+          balance = { balance: FactoryBot.attributes_for(:balance).merge(user_id: user.id) }
           post :create, params: balance
           expect(response).to redirect_to(user_path(user))
         end
@@ -26,14 +26,14 @@ describe BalancesController, type: :controller do
 
       context 'セーブが失敗した場合' do
         it 'PFCバランスが登録されないこと' do
-          balance = {balance: FactoryBot.attributes_for(:balance, gender: "").merge(user_id: user.id)}
+          balance = { balance: FactoryBot.attributes_for(:balance, gender: "").merge(user_id: user.id) }
           expect { 
             post :create, params: balance
           }.not_to change(Balance, :count)
         end
 
         it 'リダイレクト先に遷移するかどうか' do
-          balance = {balance: FactoryBot.attributes_for(:balance, name: "").merge(user_id: user.id)}
+          balance = { balance: FactoryBot.attributes_for(:balance, name: "").merge(user_id: user.id) }
           post :create, params: balance
           expect(response).to redirect_to(user_path(user))
         end

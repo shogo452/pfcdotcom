@@ -2,7 +2,7 @@ lock '3.12.0'
 
 set :application, 'pfcdotcom'
 
-set :repo_url,  'git@github.com:tiphp452/pfcdotcom.git'
+set :repo_url, 'git@github.com:tiphp452/pfcdotcom.git'
 
 set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', 'public/system', 'public/uploads')
 

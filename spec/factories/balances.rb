@@ -6,6 +6,6 @@ FactoryBot.define do
     weight { 65 }
     age { 28 }
     fitness_type { :diet }
-    activity  { :low }
+    activity { :low }
   end
 end

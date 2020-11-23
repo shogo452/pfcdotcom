@@ -2,7 +2,20 @@
 <div class="container-fluid px-5 py-3">
   <h3>タグ「<%= @tag_name %>」の一覧</h3>
   <div class="d-flex flex-wrap justify-content-around">
-    <%= render @products %>
+    <%= render partial: 'product', collection: @products, as: 'product' %>
   </div>
+  <%= paginate @products %>
 </div>
-<%= render "layouts/footer" %>
+
+<script>
+  $('.review-rating').raty({
+    readOnly: true,
+    readOnly: true,
+    starOn: "<%= asset_path('star-on.png') %>",
+    starOff: "<%= asset_path('star-off.png') %>",
+    starHalf: "<%= asset_path('star-half.png') %>",
+    score: function() {
+      return $(this).attr('data-score');
+    },
+  });
+</script>

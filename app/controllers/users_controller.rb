@@ -15,7 +15,7 @@ class UsersController < ApplicationController
     @records = @user.records.order("date DESC").page(params[:page]).per(4)
     @record_datas = @user.records.order("date ASC")
     gon.weights = @record_datas.pluck(:weight)
-    gon.dates = @record_datas.map { |record_data| record_data.date.strftime('%Y/%m/%d') }
+    gon.dates = @record_datas.map {|record_data| record_data.date.strftime('%Y/%m/%d') }
     gon.body_fat_percentages = @record_datas.pluck(:body_fat_percentage)
     @prefecture = Prefecture.find(@user.balance.prefecture_id.to_i)
     @products = Product.all.includes(:users).includes(:reviews)

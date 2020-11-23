@@ -25,7 +25,7 @@ class ApplicationController < ActionController::Base
 
   def twitter_image_url
     url = image_url('twitter_card.png')
-    url = "https:#{url}" if url =~ /\A\/\/s3/
+    url = "https:#{url}" if url =~ %r{/\A\W/s3/}
     url
   end
   

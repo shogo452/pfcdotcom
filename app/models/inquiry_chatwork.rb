@@ -16,7 +16,7 @@ class InquiryChatwork
     @message_text = "[info][title]" << @message_title << "[/title]"
     @message_text = @message_text << @inquiry.name << "\n" << @inquiry.email << "\n" << @inquiry.message << "[/info]"
 
-    @res = @client.post( "/v2/rooms/#{@message_room_id}/messages", "body=#{@message_text}", {"X-ChatWorkToken" => "#{@chatwork_api_token}"} )
+    @res = @client.post( "/v2/rooms/#{@message_room_id}/messages", "body=#{@message_text}", { "X-ChatWorkToken" => "#{@chatwork_api_token}" } )
     puts JSON.parse(@res.body)
 
   end

@@ -11,14 +11,14 @@ describe RecordsController, type: :controller do
 
       context 'セーブが成功した場合' do
         it '記録が登録されること' do
-          record = {record: FactoryBot.attributes_for(:record).merge(user_id: user.id)}
+          record = { record: FactoryBot.attributes_for(:record).merge(user_id: user.id) }
           expect {
             post :create, params: record
           }.to change(Record, :count).by(1)
         end
 
         it 'マイページにリダイレクトすること' do
-          record = {record: FactoryBot.attributes_for(:record).merge(user_id: user.id)}
+          record = { record: FactoryBot.attributes_for(:record).merge(user_id: user.id) }
           post :create, params: record
           expect(response).to redirect_to(user_path(user))
         end
@@ -26,14 +26,14 @@ describe RecordsController, type: :controller do
 
       context 'セーブが失敗した場合' do
         it '記録が登録されないこと' do
-          record = {record: FactoryBot.attributes_for(:record, weight: "").merge(user_id: user.id)}
+          record = { record: FactoryBot.attributes_for(:record, weight: "").merge(user_id: user.id) }
           expect { 
             post :create, params: record
           }.not_to change(Record, :count)
         end
 
         it 'マイページにリダイレクトすること' do
-          record = {record: FactoryBot.attributes_for(:record, weight: "").merge(user_id: user.id)}
+          record = { record: FactoryBot.attributes_for(:record, weight: "").merge(user_id: user.id) }
           post :create, params: record
           expect(response).to redirect_to(user_path(user))
         end
@@ -50,13 +50,13 @@ describe RecordsController, type: :controller do
         record = create(:record, user_id: user.id)
         expect {
           delete :destroy, 
-          params: {id: record.id}
+          params: { id: record.id }
         }.to change(Record, :count).by(-1)
       end
 
       it "マイページにリダイレクトすること" do
         record = create(:record, user_id: user.id)
-        delete :destroy, params: {id: record.id}
+        delete :destroy, params: { id: record.id }
         expect(response).to redirect_to(user_path(user))
       end
     end

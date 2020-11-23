@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
-class Users::RegistrationsController < Devise::RegistrationsController
+module Users
+  class RegistrationsController < Devise::RegistrationsController
   # before_action :configure_sign_up_params, only: [:create]
   # before_action :configure_account_update_params, only: [:update]
 
@@ -22,9 +23,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # PUT /resource
   def update
     super
-    if account_update_params[:avatar].present?
-      resource.avatar.attach(account_update_params[:avatar])
-    end
+    resource.avatar.attach(account_update_params[:avatar]) if account_update_params[:avatar].present?
   end
 
   # DELETE /resource
@@ -62,10 +61,15 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # def after_inactive_sign_up_path_for(resource)
   #   super(resource)
   # end
-  before_action :forbid_test_user, {only: [:edit, :update, :destroy]}
+  before_action :set_flag_no_footer
+  before_action :forbid_test_user, { only: [:edit, :update, :destroy] }
   prepend_before_action :check_captcha, only: [:create]
 
-  private
+  def set_flag_no_footer
+    @flag = true
+  end
+
+    private
   def forbid_test_user
     if @user.email == "test@example.com"
       flash[:notice] = "テストユーザーのため変更できません"
@@ -80,5 +84,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
       set_minimum_password_length
       respond_with_navigational(resource) { render :new }
     end
+  end
   end
 end
