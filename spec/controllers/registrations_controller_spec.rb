@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 describe Users::RegistrationsController do
@@ -9,7 +11,7 @@ describe Users::RegistrationsController do
     end
 
     describe 'GET #new' do
-      it "トップページにリダイレクトされるか" do
+      it 'トップページにリダイレクトされるか' do
         get :new
         expect(response).to redirect_to root_path
       end
@@ -18,8 +20,8 @@ describe Users::RegistrationsController do
 
   context 'log out' do
     describe 'GET #new' do
-      it "ユーザー登録ページに遷移するか" do
-        request.env["devise.mapping"] = Devise.mappings[:user]
+      it 'ユーザー登録ページに遷移するか' do
+        request.env['devise.mapping'] = Devise.mappings[:user]
         get :new
         expect(response).to render_template :new
       end

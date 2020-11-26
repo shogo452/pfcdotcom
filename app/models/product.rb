@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Product < ApplicationRecord
   belongs_to :user
   acts_as_taggable_on :tags
@@ -17,7 +19,7 @@ class Product < ApplicationRecord
   validates :sugar, allow_blank: true, numericality: { greater_than_or_equal_to: 0, less_than_or_equal_to: 999 }
   validates :calory, allow_blank: true, numericality: { greater_than_or_equal_to: 0, less_than_or_equal_to: 9999 }
   validates :price, allow_blank: true, numericality: { greater_than_or_equal_to: 0, less_than_or_equal_to: 999 }
-  validates :purchase_url, format: { with: URI.regexp(%w[http https]) }, allow_blank: true
+  validates :purchase_url, format: { with: URI::DEFAULT_PARSER.make_regexp(%w[http https]) }, allow_blank: true
 
   def new_arrival?
     created_at + 1.week > Date.today
@@ -27,7 +29,7 @@ class Product < ApplicationRecord
     notification = current_user.active_notifications.new(
       product_id: id,
       visited_id: user_id,
-      action: "like",
+      action: 'like'
     )
     notification.save if notification.valid?
   end
@@ -36,7 +38,7 @@ class Product < ApplicationRecord
     notification = current_user.active_notifications.new(
       product_id: id,
       visited_id: user_id,
-      action: "favorite",
+      action: 'favorite'
     )
     notification.save if notification.valid?
   end
@@ -44,7 +46,7 @@ class Product < ApplicationRecord
   def create_notification_review!(current_user, review_id)
     temp_ids = Review.select(:user_id).where(product_id: id).where.not(user_id: current_user.id).distinct
     temp_ids.each do |temp_id|
-      save_notification_review!(current_user, review_id, temp_id["user_id"])
+      save_notification_review!(current_user, review_id, temp_id['user_id'])
     end
     save_notification_review!(current_user, review_id, user_id) if temp_ids.blank?
   end
@@ -54,7 +56,7 @@ class Product < ApplicationRecord
       product_id: id,
       review_id: review_id,
       visited_id: visited_id,
-      action: "review",
+      action: 'review'
     )
     notification.checked == true if notification.visiter_id == notification.visited_id
     notification.save if notification.valid?
@@ -62,7 +64,8 @@ class Product < ApplicationRecord
 
   scope :search_product, lambda {|search_params|
     return if search_params.blank?
+
     name_like(search_params[:name])
   }
-  scope :name_like, -> (name) { where('name LIKE ?', "%#{name}%") if name.present? }
+  scope :name_like, ->(name) { where('name LIKE ?', "%#{name}%") if name.present? }
 end

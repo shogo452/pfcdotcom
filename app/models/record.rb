@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Record < ApplicationRecord
   belongs_to :user
   @datas = Record.all

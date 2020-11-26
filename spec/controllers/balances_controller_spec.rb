@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 describe BalancesController, type: :controller do
@@ -26,14 +28,14 @@ describe BalancesController, type: :controller do
 
       context 'セーブが失敗した場合' do
         it 'PFCバランスが登録されないこと' do
-          balance = { balance: FactoryBot.attributes_for(:balance, gender: "").merge(user_id: user.id) }
-          expect { 
+          balance = { balance: FactoryBot.attributes_for(:balance, gender: '').merge(user_id: user.id) }
+          expect {
             post :create, params: balance
           }.not_to change(Balance, :count)
         end
 
         it 'リダイレクト先に遷移するかどうか' do
-          balance = { balance: FactoryBot.attributes_for(:balance, name: "").merge(user_id: user.id) }
+          balance = { balance: FactoryBot.attributes_for(:balance, name: '').merge(user_id: user.id) }
           post :create, params: balance
           expect(response).to redirect_to(user_path(user))
         end
@@ -48,7 +50,7 @@ describe BalancesController, type: :controller do
       end
 
       context '更新に成功した場合' do
-        it "PFCバランスが更新されること" do
+        it 'PFCバランスが更新されること' do
           balance = create(:balance)
           expect {
             patch :update, params: {
@@ -57,7 +59,7 @@ describe BalancesController, type: :controller do
           }.to change(Balance, :count).by(0)
         end
 
-        it "トップページにリダイレクトすること" do
+        it 'トップページにリダイレクトすること' do
           balance = create(:balance)
           patch :update, params: {
             id: balance.id, balance: attributes_for(:balance)
@@ -67,19 +69,19 @@ describe BalancesController, type: :controller do
       end
 
       context '更新に失敗した場合' do
-        it "PFCバランスが更新されないこと" do
+        it 'PFCバランスが更新されないこと' do
           balance = create(:balance)
           expect {
             patch :update, params: {
-              id: balance.id, balance: attributes_for(:balance, gender: "")
+              id: balance.id, balance: attributes_for(:balance, gender: '')
             }
           }.not_to change(Balance, :count)
         end
 
-        it "マイページにリダイレクトするかどうか" do
+        it 'マイページにリダイレクトするかどうか' do
           balance = create(:balance)
           patch :update, params: {
-            id: balance.id, balance: attributes_for(:balance, gender: "")
+            id: balance.id, balance: attributes_for(:balance, gender: '')
           }
           expect(response).to redirect_to(user_path(user))
         end
@@ -87,4 +89,3 @@ describe BalancesController, type: :controller do
     end
   end
 end
-

@@ -31,6 +31,5 @@ module Users
     def set_flag_no_footer
       @flag = true
     end
-
   end
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class LikesController < ApplicationController
   before_action :set_product
 
@@ -12,7 +14,8 @@ class LikesController < ApplicationController
   end
 
   private
-  def set_product
-    @product = Product.find(params[:product_id])
-  end
+
+    def set_product
+      @product = Product.find(params[:product_id])
+    end
 end

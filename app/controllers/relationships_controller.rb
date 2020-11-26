@@ -1,5 +1,6 @@
-class RelationshipsController < ApplicationController
+# frozen_string_literal: true
 
+class RelationshipsController < ApplicationController
   def create
     @user = User.find(params[:relationship][:follow_id])
     if current_user.follow(@user)
@@ -22,5 +23,4 @@ class RelationshipsController < ApplicationController
       redirect_back(fallback_location: root_path)
     end
   end
-
 end

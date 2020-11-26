@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class FavoritesController < ApplicationController
   before_action :set_product
   def create
@@ -9,9 +11,10 @@ class FavoritesController < ApplicationController
     @favorite = Favorite.find_by(user_id: current_user.id, product_id: @product.id)
     @favorite.destroy
   end
-  
+
   private
-  def set_product
-    @product = Product.find(params[:product_id])
-  end
+
+    def set_product
+      @product = Product.find(params[:product_id])
+    end
 end
