@@ -6,18 +6,18 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :validatable
   has_many :products, dependent: :destroy
   has_one :balance, dependent: :destroy
-  has_one_attached :avatar
+  has_one_attached :avatar, dependent: :destroy
   has_many :records, dependent: :destroy
   has_many :reviews, dependent: :destroy
-  has_one :area
+  has_one :area, dependent: :destroy
   has_many :likes, dependent: :destroy
   has_many :liked_products, through: :likes, source: :product
   has_many :favorites, dependent: :destroy
   has_many :favproducts, through: :favorites, source: :product
-  has_many :relationships
-  has_many :followings, through: :relationships, source: :follow
-  has_many :reverse_of_relationships, class_name: 'Relationship', foreign_key: 'follow_id'
-  has_many :followers, through: :reverse_of_relationships, source: :user
+  has_many :relationships, dependent: :destroy
+  has_many :followings, through: :relationships, source: :follow, dependent: :destroy
+  has_many :reverse_of_relationships, class_name: 'Relationship', foreign_key: 'follow_id', dependent: :destroy
+  has_many :followers, through: :reverse_of_relationships, source: :user, dependent: :destroy
   has_many :active_notifications, class_name: 'Notification', foreign_key: 'visiter_id', dependent: :destroy
   has_many :passive_notifications, class_name: 'Notification', foreign_key: 'visited_id', dependent: :destroy
   has_many :messages, dependent: :destroy
@@ -65,12 +65,12 @@ class User < ApplicationRecord
 
   def create_notification_follow!(current_user)
     temp = Notification.where(['visited_id = ? and visited_id = ? and action = ?', current_user.id, id, 'follow'])
-    if temp.blank?
-      notification = current_user.active_notifications.new(
-        visited_id: id,
-        action: 'follow'
-      )
-      notification.save if notification.valid?
-    end
+    return if temp.present?
+
+    notification = current_user.active_notifications.new(
+      visited_id: id,
+      action: 'follow'
+    )
+    notification.save if notification.valid?
   end
 end

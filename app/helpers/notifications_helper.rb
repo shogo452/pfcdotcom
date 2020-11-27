@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module NotificationsHelper
-  def notification_form(notification)
+  def notice_form(notification)
     @visiter = notification.visiter
     @review = nil
     @room = nil

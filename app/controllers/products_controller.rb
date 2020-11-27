@@ -70,7 +70,7 @@ class ProductsController < ApplicationController
     @tag_name = params[:tag_name]
   end
 
-  def get_tag_search
+  def tag_search
     @tags = Product.tag_counts_on(:tags).where('name LIKE(?)', "%#{params[:key]}%")
   end
 

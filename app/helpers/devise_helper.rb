@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module DeviseHelper
-  def bootstrap_class_for(flash_type)
+  def bs_class_for(flash_type)
     case flash_type
     when 'success'
       'success'

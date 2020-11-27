@@ -3,7 +3,7 @@
 class Product < ApplicationRecord
   belongs_to :user
   acts_as_taggable_on :tags
-  has_many :reviews
+  has_many :reviews, dependent: :destroy
   has_many :likes, dependent: :destroy
   has_many :liked_users, through: :likes, source: :user
   has_many :favorites, dependent: :destroy
@@ -22,7 +22,7 @@ class Product < ApplicationRecord
   validates :purchase_url, format: { with: URI::DEFAULT_PARSER.make_regexp(%w[http https]) }, allow_blank: true
 
   def new_arrival?
-    created_at + 1.week > Date.today
+    created_at + 1.week > Time.zone.today
   end
 
   def created_like_notification_by(current_user)

@@ -7,16 +7,19 @@ class BalancesController < ApplicationController
     @balance = Balance.new(balance_params)
     if @balance.save
       flash[:success] = 'データの更新が完了しました。'
-      redirect_back(fallback_location: user_path(current_user))
     else
-      redirect_back(fallback_location: user_path(current_user))
+      flash[:alert] = 'データの更新に失敗しました。'
     end
+    redirect_to user_path(current_user)
   end
 
   def update
-    @balance.update(balance_params)
-    flash[:success] = 'データの更新が完了しました。'
-    redirect_back(fallback_location: user_path(current_user))
+    if @balance.update(balance_params)
+      flash[:success] = 'データの更新が完了しました。'
+    else
+      flash[:alert] = 'データの更新に失敗しました。'
+    end
+    redirect_to user_path(current_user)
   end
 
   private

@@ -14,8 +14,8 @@ Rails.application.routes.draw do
     collection do
       get 'tag_index'
     end
-    get 'get_tag_search', on: :collection, defaults: { format: 'json' }
-    get 'get_tag_search', on: :member, defaults: { format: 'json' }
+    get 'tag_search', on: :collection, defaults: { format: 'json' }
+    get 'tag_search', on: :member, defaults: { format: 'json' }
   end
   resources :relationships, only: %i[create destroy]
   resources :users do

@@ -16,7 +16,6 @@ class MessagesController < ApplicationController
           action: 'dm'
         )
         notification.save if notification.valid?
-
         redirect_to "/rooms/#{@message.room_id}"
       end
     else

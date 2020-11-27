@@ -21,6 +21,17 @@ AllCops:
 Rails/FilePath:
   Enabled: false
 
+Rails/InverseOf:
+  Enabled: false
+
+Rails/LexicallyScopedActionFilter:
+  Exclude:
+    - "app/controllers/users/registrations_controller.rb"
+
+Rails/HelperInstanceVariable:
+  Exclude:
+    - "app/helpers/notifications_helper.rb"
+
 HashSyntax:
   EnforcedStyle: ruby19
 
@@ -66,6 +77,10 @@ Metrics/LineLength:
 
 Metrics/BlockLength:
   Enabled: false
+
+Metrics/MethodLength:
+  CountComments: false
+  Max: 20
 
 #################### Style #################################
 

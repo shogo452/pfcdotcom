@@ -31,21 +31,21 @@ class UsersController < ApplicationController
     @user_followers = @user.followers.page(params[:page]).per(6)
     @current_user_entry = Entry.where(user_id: current_user.id)
     @user_entry = Entry.where(user_id: @user.id)
-    unless @user.id == current_user.id
-      @current_user_entry.each do |cu|
-        @user_entry.each do |u|
-          next unless cu.room_id == u.room_id
+    return if @user.id == current_user.id
 
-          @is_room = true
-          @room_id = cu.room_id
-          @room = Room.find(@room_id)
-        end
-      end
-      unless @is_room
-        @room = Room.new
-        @entry = Entry.new
+    @current_user_entry.each do |cu|
+      @user_entry.each do |u|
+        next unless cu.room_id == u.room_id
+
+        @is_room = true
+        @room_id = cu.room_id
+        @room = Room.find(@room_id)
       end
     end
+    return if @is_room
+
+    @room = Room.new
+    @entry = Entry.new
   end
 
   def index

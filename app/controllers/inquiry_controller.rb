@@ -20,7 +20,7 @@ class InquiryController < ApplicationController
     @inquiry = Inquiry.new(params[:inquiry].permit(:name, :email, :message))
     InquiryMailer.received_email(@inquiry).deliver
     @chatwork = InquiryChatwork.new
-    @chatwork.push_chatwork_message(@inquiry)
+    @chatwork.chatwork_message(@inquiry)
     render action: 'thanks'
   end
 

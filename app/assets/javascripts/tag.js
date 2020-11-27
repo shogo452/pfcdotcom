@@ -30,7 +30,7 @@ $(document).on("keyup", '.tagit', function() {
   console.log(input);
   $.ajax({
     type: 'GET',
-    url: 'get_tag_search',    // ルーティングで設定したurl
+    url: 'tag_search',    // ルーティングで設定したurl
     data: { key: input },     // 入力値を:keyとして、コントローラーに渡す
     dataType: 'json'
   })
