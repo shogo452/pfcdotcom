@@ -5,12 +5,12 @@ class ProductsController < ApplicationController
   before_action :set_product, only: %i[edit update destroy]
 
   def index
-    @products = Product.all.includes(:reviews).page(params[:page]).per(4)
+    @products = Product.all.page(params[:page]).per(4)
     @tags = ActsAsTaggableOn::Tag.most_used(10)
     @likes_ranking = @products.order(likes_count: 'DESC').limit(3)
     @favorites_ranking = @products.order(favorites_count: 'DESC').limit(3)
     @search_params = product_search_params
-    @products_searched = @products.search_product(@search_params)
+    @products_searched = @products.includes(:user).search_product(@search_params)
   end
 
   def new
@@ -34,9 +34,9 @@ class ProductsController < ApplicationController
   end
 
   def show
-    @product = Product.includes(:reviews).includes(:users).find(params[:id])
+    @product = Product.includes(:reviews).find(params[:id])
     gon.nutrition = [@product.protein, @product.fat, @product.carbo]
-    @reviews = @product.reviews.page(params[:page]).per(4).order(created_at: :desc)
+    @reviews = @product.reviews.includes(user: { avatar_attachment: :blob }).page(params[:page]).per(4).order(created_at: :desc)
     @review = Review.new
     @average_review = if @product.reviews.blank?
                         0
@@ -45,9 +45,9 @@ class ProductsController < ApplicationController
                       end
     @like = Like.new
     tag_list = @product.tag_list
-    @products = Product.all
+    @products = Product.all.includes(:users)
     @same_taged_products = @products.tagged_with(tag_list, any: true).page(params[:page]).per(2)
-    @same_user_products = @products.where(user_id: @product.user.id).page(params[:page]).per(2).where.not(id: @product.id)
+    @same_user_products = @products.includes(:user).where(user_id: @product.user.id).where.not(id: @product.id).page(params[:page]).per(2)
   end
 
   def update

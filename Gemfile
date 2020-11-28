@@ -107,6 +107,7 @@ gem 'newrelic_rpm'
 gem 'pry-rails'
 gem 'rails-i18n', '~> 5.1'
 gem 'recaptcha', require: 'recaptcha/rails'
+gem 'stackprof'
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]

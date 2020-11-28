@@ -9,7 +9,7 @@ class RelationshipsController < ApplicationController
     else
       flash[:alert] = 'ユーザーのフォローに失敗しました。'
     end
-    redirect_to :back
+    redirect_back(fallback_location: root_path)
   end
 
   def destroy
@@ -19,6 +19,6 @@ class RelationshipsController < ApplicationController
     else
       flash[:alert] = 'ユーザーのフォロー解除に失敗しました。'
     end
-    redirect_to :back
+    redirect_back(fallback_location: root_path)
   end
 end

@@ -18,7 +18,7 @@
         <%= form_for User.new, url: "users/sign_in", html: {class: "test-user-login"} do |f| %>
         <%= f.hidden_field :email, value: "test@example.com" %>
         <%= f.hidden_field :password, value: "testtest" %>
-        <%= f.submit "ゲストユーザーでログイン", class: "btn btn-orange btn-sm text-white mr-2" %>
+        <%= f.submit "ゲストユーザーでログイン", class: "btn btn-orange text-white mr-2" %>
         <% end %>
       </div>
       <small class="reference-link">Designed by <a href="https://jp.freepik.com/free-photos-vectors/background">Freepik</a></small>
@@ -86,7 +86,7 @@
 <div class="container py-3">
   <div class="row">
     <div class="col-sm-6">
-      <form action="">
+      <form>
         <div class="input-group mb-4">
           <%= form_with(scope: :search, url: products_path, method: :get, local: true) do |f| %>
           <%= f.text_field :name, { value: @search_params[:name], "aria-describedby": "button-addon5", class: "form-control", placeholder: "検索する名前を入力…" } %>

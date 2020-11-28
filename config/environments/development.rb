@@ -77,5 +77,5 @@ Rails.application.configure do
     Bullet.console = true
     Bullet.rails_logger = true
   end
-  config.middleware.use Rack::Lineprof
+  config.middleware.use Rack::Lineprof, profile: 'app/views'
 end

@@ -10,10 +10,9 @@
 # For full documentation of agent configuration options, please refer to
 # https://docs.newrelic.com/docs/agents/ruby-agent/installation-configuration/ruby-agent-configuration
 
-common: &default_settings
-  # Required license key associated with your New Relic account.
-  license_key: 44239f04be0b671c6e7b4ac68bd4c1ee1602NRAL
-<%= ENV['NEWRELIC_LICENSE_KEY] %>
+common:
+  &default_settings # Required license key associated with your New Relic account.
+  license_key: <%= ENV['NEWRELIC_LICENSE_KEY'] %>
   # Your application name. Renaming here affects where data displays in New
   # Relic.  For more details, see https://docs.newrelic.com/docs/apm/new-relic-apm/maintenance/renaming-applications
   app_name: pfcdotcom
@@ -26,7 +25,6 @@ common: &default_settings
 
   # Logging level for log/newrelic_agent.log
   log_level: info
-
 
 # Environment-specific settings are in this section.
 # RAILS_ENV or RACK_ENV (as appropriate) is used to determine the environment.

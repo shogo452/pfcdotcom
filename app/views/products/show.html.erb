@@ -232,9 +232,6 @@
       return $(this).attr('data-score')
     }
   });
-</script>
-
-<script>
   $('#rating-form').raty({
     size: 36,
     starOff: "<%= asset_path('star-off.png') %>",
@@ -243,11 +240,6 @@
     scoreName: 'review[rate]',
     half: true,
   });
-</script>
-
-
-
-<script>
   $('.review-rating').raty({
     readOnly: true,
     starOff: "<%= asset_path('star-off.png') %>",
