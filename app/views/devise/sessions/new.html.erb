@@ -28,8 +28,14 @@
               <div class="actions">
                 <%= f.submit "ログイン" , class: 'btn btn-orange btn-login btn-block text-white my-2'%>
               </div>
+
               <% end %>
 
+              <%= form_for User.new, url: "sign_in" do |f| %>
+              <%= f.hidden_field :email, value: "test@example.com" %>
+              <%= f.hidden_field :password, value: "testtest" %>
+              <%= f.submit "ゲストユーザーでログイン", class: "btn btn-orange btn-login btn-block text-white my-2" %>
+              <% end %>
 
               <%= render "devise/shared/links" %>
               <%= link_to '戻る', root_path %>

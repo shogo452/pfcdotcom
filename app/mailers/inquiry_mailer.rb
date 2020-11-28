@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class InquiryMailer < ApplicationMailer
-  default from: "example@example.com"
+  default from: 'example@example.com'
 
   def received_email(inquiry)
     @inquiry = inquiry

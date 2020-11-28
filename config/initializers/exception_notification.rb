@@ -1,6 +1,6 @@
+# frozen_string_literal: true
+
 require 'exception_notification/rails'
-
-
 
 ExceptionNotification.configure do |config|
   # Ignore additional exception types.
@@ -20,11 +20,11 @@ ExceptionNotification.configure do |config|
 
   # Email notifier sends notifications by email.
   config.add_notifier :slack, {
-    webhook_url: ENV["SLACK_WEBHOOK_URL"],
+    webhook_url: ENV['SLACK_WEBHOOK_URL'],
     channel: '#general'
   }
 
-  config.ignore_if do |exception, options|
+  config.ignore_if do |_exception, _options|
     !Rails.env.production?
   end
 

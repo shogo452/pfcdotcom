@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ReviewsController < ApplicationController
   def create
     @product = Product.find(params[:product_id])
@@ -11,13 +13,13 @@ class ReviewsController < ApplicationController
       redirect_back(fallback_location: root_path)
     else
       flash[:danger] = @review.errors.full_messages
-      redirect_to controller: "products", action: "show", id: @product.id
+      redirect_to controller: 'products', action: 'show', id: @product.id
     end
   end
 
   private
 
-  def review_params
-    params.require(:review).permit(:text, :rate).merge(product_id: params[:product_id], user_id: current_user.id)
-  end
+    def review_params
+      params.require(:review).permit(:text, :rate).merge(product_id: params[:product_id], user_id: current_user.id)
+    end
 end
