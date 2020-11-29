@@ -10,7 +10,7 @@ class ProductsController < ApplicationController
     @likes_ranking = @products.order(likes_count: 'DESC').limit(3)
     @favorites_ranking = @products.order(favorites_count: 'DESC').limit(3)
     @search_params = product_search_params
-    @products_searched = @products.includes(:user).search_product(@search_params)
+    @products_searched = @products.search_product(@search_params).includes([:user])
   end
 
   def new
