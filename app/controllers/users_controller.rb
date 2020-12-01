@@ -5,7 +5,6 @@ class UsersController < ApplicationController
   before_action :authenticate_user!
   def show
     @user = User.includes(:balance).with_attached_avatar.find(params[:id])
-    puts @user
     if @user.balance
       @balance = @user.balance
     else
