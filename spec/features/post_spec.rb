@@ -73,7 +73,7 @@ describe 'post', type: :feature do
     expect(page).to have_content('編集テスト2')
   end
 
-    it '削除' do
+  it '削除' do
     visit root_path
 
     click_link 'ログイン'
@@ -98,5 +98,4 @@ describe 'post', type: :feature do
     expect(page).to have_current_path root_path, ignore_query: true
     expect(page).to have_no_content('編集テスト2')
   end
-
 end
