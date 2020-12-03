@@ -39,7 +39,7 @@
           </tr>
         </thead>
         <tbody>
-          <% @likes_ranking.find_each.with_index(1) do |product, i| %>
+          <% @likes_ranking.each.with_index(1) do |product, i| %>
           <tr>
             <th scope="row"><%= "#{i}" %></th>
             <td>
@@ -47,7 +47,7 @@
               <%= product.name %>
               <% end %>
             </td>
-            <td><%= "#{product.likes.size}"%></td>
+            <td><%= product.likes_count %></td>
           </tr>
           <% end %>
         </tbody>
@@ -73,7 +73,7 @@
               <%= product.name %>
               <% end %>
             </td>
-            <td><%= "#{product.favorites.size}"%></td>
+            <td><%= product.favorites_count %></td>
           </tr>
           <% end %>
         </tbody>

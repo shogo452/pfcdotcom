@@ -35,10 +35,10 @@
           <% end %>
           <% end %>
           <% if user_signed_in? && product.user.id == current_user.id %>
-          <%= link_to "/products/#{product.id}/edit", class: "btn btn-secondary", method: :get do %>
+          <%= link_to "/products/#{product.id}/edit", class: "btn btn-secondary", id: "edit-btn", method: :get do %>
           <%= fa_icon "pencil-alt" %>
           <% end %>
-          <%= link_to "/products/#{product.id}", class: "btn btn-secondary", method: :delete, data: { confirm: "商品を削除します。よろしいですか?"} do %>
+          <%= link_to "/products/#{product.id}", class: "btn btn-secondary", id: "delete-btn", method: :delete, data: { confirm: "商品を削除します。よろしいですか?"} do %>
           <%= fa_icon "trash"%>
           <% end %>
           <% end %>
@@ -47,7 +47,7 @@
     </div>
     <div class="col-sm-6">
       <div class="card-body">
-        <h5 class="card-title text-truncate">
+        <h5 class="card-title text-truncate" id="product-name">
           <%= link_to product_path(product), method: :get do %>
           <%= product.name %>
           <% end %>

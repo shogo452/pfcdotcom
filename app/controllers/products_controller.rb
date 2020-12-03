@@ -5,10 +5,11 @@ class ProductsController < ApplicationController
   before_action :set_product, only: %i[edit update destroy]
 
   def index
-    @products = Product.all.page(params[:page]).per(4)
+    @products_all = Product.all
+    @products = @products_all.order(created_at: 'DESC').page(params[:page]).per(4)
     @tags = ActsAsTaggableOn::Tag.most_used(10)
-    @likes_ranking = @products.order(likes_count: 'DESC').limit(3)
-    @favorites_ranking = @products.order(favorites_count: 'DESC').limit(3)
+    @likes_ranking = @products_all.limit(3).order(likes_count: 'DESC')
+    @favorites_ranking = @products_all.limit(3).order(favorites_count: 'DESC')
     @search_params = product_search_params
     @products_searched = @products.search_product(@search_params).includes([:user])
   end

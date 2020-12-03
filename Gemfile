@@ -55,6 +55,7 @@ group :development, :test do
   gem 'capistrano-bundler'
   gem 'capistrano-rails'
   gem 'capistrano-rbenv'
+  gem 'capybara'
   gem 'factory_bot_rails'
   gem 'faker'
   gem 'rails-controller-testing'
@@ -74,10 +75,7 @@ group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'bullet'
-  gem 'flamegraph'
-  gem 'rack-lineprof'
   gem 'rack-mini-profiler'
-  gem 'rufo'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
 end
@@ -106,7 +104,6 @@ gem 'momentjs-rails'
 gem 'pry-rails'
 gem 'rails-i18n', '~> 5.1'
 gem 'recaptcha', require: 'recaptcha/rails'
-gem 'stackprof'
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]

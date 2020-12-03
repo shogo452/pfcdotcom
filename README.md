@@ -90,7 +90,7 @@ PFC.comは筋トレやダイエットに取り組むユーザーに向けた
 + Git / Github(Projects / Issue / プルリクエストの活用)
 + ChatWork API(問い合わせの通知)
 + 本番環境での例外発生のSlack通知
-+ RSpecによるテスト(103 examples)
++ RSpecによるテスト(106 examples)
 + Rubocopによる静的コード解析
 
 # インフラ構成図
