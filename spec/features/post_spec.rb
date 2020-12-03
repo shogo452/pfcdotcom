@@ -72,4 +72,31 @@ describe 'post', type: :feature do
     expect(page).to have_current_path root_path, ignore_query: true
     expect(page).to have_content('編集テスト2')
   end
+
+    it '削除' do
+    visit root_path
+
+    click_link 'ログイン'
+
+    fill_in 'user[email]', with: 'test@example.com'
+    fill_in 'user[password]', with: 'abc12345'
+
+    click_button 'ログイン'
+
+    click_link '新規投稿'
+    fill_in 'product[name]', with: '編集テスト'
+    fill_in 'product[protein]', with: '12.3'
+    fill_in 'product[fat]', with: '23.4'
+    fill_in 'product[carbo]', with: '43.5'
+    click_button '投稿する'
+    expect(page).to have_current_path root_path, ignore_query: true
+    link = find('#product-name', text: '編集テスト')
+    link.click
+    expect {
+      find('#delete-btn').click
+    }.to change(Product, :count).by(-1)
+    expect(page).to have_current_path root_path, ignore_query: true
+    expect(page).to have_no_content('編集テスト2')
+  end
+
 end
