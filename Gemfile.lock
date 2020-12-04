@@ -246,8 +246,6 @@ GEM
       kaminari-core (= 1.2.0)
     kaminari-core (1.2.0)
     kgio (2.11.3)
-    launchy (2.5.0)
-      addressable (~> 2.7)
     listen (3.1.5)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
@@ -494,7 +492,6 @@ DEPENDENCIES
   jquery-rails
   jquery-ui-rails
   kaminari
-  launchy
   listen (>= 3.0.5, < 3.2)
   mini_magick
   momentjs-rails
