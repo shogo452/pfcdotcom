@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ProductsController < ApplicationController
-  before_action :authenticate_user!, except: %i[index tag_index]
+  before_action :authenticate_user!, except: %i[index tag_index show]
   before_action :set_product, only: %i[edit update destroy]
 
   def index

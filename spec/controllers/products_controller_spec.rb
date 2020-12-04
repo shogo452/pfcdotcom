@@ -91,12 +91,6 @@ describe ProductsController, type: :controller do
         expect(response).to have_http_status '200'
       end
     end
-
-    it '未ログイン時にログインページに遷移するか' do
-      product = create(:product)
-      get :show, params: { id: product }
-      expect(response).to redirect_to new_user_session_path
-    end
   end
 
   describe 'GET #index' do
