@@ -1,54 +1,54 @@
 <%= render "layouts/header" %>
-<div class="container mt-5">
-  <%= form_for(@product) do |f| %>
-  <div class="row">
-    <div class="col-md-6">
-      <%= f.label "名前" %>
-      <%= f.text_field :name, class: "form-control", placeholder: "商品名を入力(必須)" %><br />
-
-      <div class="form-row">
-        <div class="form-group col-sm-6">
-          <%= f.label "タンパク質[g]" %>
-          <%= f.text_field :protein, class: "form-control", placeholder: "半角入力(必須)" %><br />
-        </div>
-        <div class="form-group col-sm-6">
-          <%= f.label "脂質[g]" %>
-          <%= f.text_field :fat, class: "form-control", placeholder: "半角入力(必須)" %><br />
-        </div>
+<div class="container mt-3">
+  <h2>ダイレクトメッセージ</h2>
+  <h4>参加者</h4>
+  <% @entries.each do |e| %>
+  <h5><strong><a href="/users/<%= e.user.id %>"><%= e.user.nickname%>さん</a></strong></h5>
+  <% end %>
+  <div class="msg_history px-5 mt-1">
+    <% if @messages.present? %>
+    <% @messages.each do |m| %>
+    <% if m.user.id == current_user.id %>
+    <div class="incoming_msg row">
+      <div class="incoming_msg_img col-3 text-right">
+        <% if m.user.avatar.attached? %>
+        <%= image_tag m.user.avatar, class: "incoming_msg_img" %>
+        <% else %>
+        <%= image_tag "user_image.png", class: "incoming_msg_img" %>
+        <% end %>
       </div>
-
-      <div class="form-row">
-        <div class="form-group col-sm-6">
-          <%= f.label "炭水化物[g]" %>
-          <%= f.text_field :carbo, class: "form-control", placeholder: "半角入力(必須)" %><br />
-        </div>
-        <div class="form-group col-sm-6">
-          <%= f.label "糖質[g]" %>
-          <%= f.text_field :sugar, class: "form-control", placeholder: "半角入力(任意)" %><br />
-        </div>
+      <div class="received_msg col-19">
+        <p><%= m.message %></p>
+        <span class="time_date__left"><%= m.created_at.strftime("%Y-%m-%d %H:%M") %></span>
       </div>
-
-      <div class="form-row">
-        <div class="form-group col-sm-6">
-          <%= f.label "カロリー[kcal]" %>
-          <%= f.text_field :calory, class: "form-control", placeholder: "半角入力(任意)" %><br />
-        </div>
-        <div class="form-group col-sm-6">
-          <%= f.label "価格[円]" %>
-          <%= f.text_field :price, class: "form-control", placeholder: "半角入力(任意)" %><br />
-        </div>
-      </div>
-      <%= f.label "リンク" %>
-      <%= f.text_field :purchase_url, class: "form-control url-input", placeholder: "https://....(任意)"  %><br />
-      <%= render 'layouts/error_messages', model: f.object %>
-      <%= f.submit "投稿する", class: "btn btn-orange text-white my-3" %><br />
-      <%= link_to "キャンセル", root_path %>
     </div>
-    <div class="col-md-6">
-      <%= fa_icon "tags" %>
-      <%= f.label "タグ付け" %>
-      <small id="tagHelpBlock" class="form-text text-muted">
-        入力候補から選ぶかカンマ(,)で区切って入力してください
-      </small>
-      <div class="input_form">
-        <%= f.text_field :tag_list, value: @product.tag_list.join(','), class: "tag_form tagit-hidden-field", name: "product[tag_list]", id: "product_tag_list", "aria-describedby": "tagHelpBlock" %>
+    <% else %>
+    <div class="outgoing_msg row">
+      <div class="sent_msg col-9 text-right">
+        <p><%= m.message %></p>
+        <span class="time_date__right"><%= m.created_at.strftime("%Y-%m-%d %H:%M") %></span>
+      </div>
+      <div class="outgoing_msg_img col-3 text-left">
+        <% if m.user.avatar.attached? %>
+        <%= image_tag m.user.avatar, class: "outgoing_msg_img" %>
+        <% else %>
+        <%= image_tag "user_image.png", class: "outgoing_msg_img" %>
+        <% end %>
+      </div>
+    </div>
+    <% end %>
+    <% end %>
+    <% else %>
+    <h3 class="text-center">メッセージはまだありません</h3>
+    <% end %>
+  </div>
+  <div class="row justify-content-center">
+    <div class="col-8 my-2">
+      <%= form_for @message, html: {class: ""} do |f| %>
+      <%= f.text_field :message, placeholder: "メッセージを入力してください", class:"form-control" %>
+      <%=f.hidden_field :room_id, value: @room.id %>
+      <%= f.submit "送信", class: "btn btn-orange text-white my-2" %>
+      <% end %>
+    </div>
+  </div>
+</div>

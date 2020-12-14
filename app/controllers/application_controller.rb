@@ -8,21 +8,13 @@ class ApplicationController < ActionController::Base
     redirect_to root_path, warning: '管理者用のページです。権限があるアカウントでログインしてください。'
   end
 
-  unless Rails.env.development?
-    rescue_from ActiveRecord::RecordNotFound, with: :error404
-    rescue_from Exception, with: :error500
-  end
-
-  def error404
-    render file: "#{Rails.root}/public/404.html",
-           layout: false, status: :not_found
-  end
+  # unless Rails.env.development?
+  rescue_from Exception, with: :error500
+  # end
 
   def error500(error)
-    logger.error error
-    logger.error error.backtrace.join("\n\n")
-    render file: "#{Rails.root}/public/500.html",
-           layout: false, status: :internal_server_error
+    ExceptionNotifier.notify_exception(error, :env => request.env, :data => {:message => "error"}) 
+    render file: "#{Rails.root}/public/500.html", layout: false, status: :internal_server_error
   end
 
   def twitter_image_url
